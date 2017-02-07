@@ -1,38 +1,1820 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Spec proposal</title>
-    <script src="https://www.w3.org/Tools/respec/respec-w3c-common" class="remove"></script>
-    <script class='remove'>
-      // See https://github.com/w3c/respec/wiki/ for how to configure ReSpec
-      var respecConfig = {
-        specStatus: "CG-DRAFT",
-        shortName: "microdata",
-        editors: [{
-          name: "Yves Lafon"
-        }]
-      };
-    </script>
-  </head>
-  <body>
-    <section id="abstract">
-      <p>
-        This specification does neat stuff.
-      </p>
-    </section>
-    <section id="sotd">
-      <p>
-        This is an unofficial proposal.
-      </p>
-    </section>
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <title>HTML Microdata</title>
 
-    <section id="introduction">
-      <h2>Introduction</h2>
-      <p>
-        See <a href="https://github.com/w3c/respec/wiki/User's-Guide">ReSpec's user guide</a>
-        for how toget started!
-      </p>
-    </section>
-  </body>
-</html>
+  <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" rel="stylesheet" type="text/css">
+
+
+
+     </head>
+ <body>
+  <div class="head" id="head">
+<header>
+
+   <!--p><a href="http://www.w3.org/"><img alt="W3C" height="48" src="http://www.w3.org/Icons/w3c_home" width="72"></a></p-->
+
+   <h1>HTML Microdata</h1>
+   <h2 class="no-num no-toc" id="editors-draft-october-2016">Editors' draft 7 February 2017</h2>
+   </header>
+<dl>
+    <dt>This Version:</dt>
+    <dd><a href="https://chaals.github.io/microdata/">https://chaals.github.io/microdata/</a></dd>
+    <dt>Latest Published Version:</dt>
+    <dd><a href="http://www.w3.org/TR/microdata/">http://www.w3.org/TR/microdata/</a></dd>
+    <dt>Previous Versions:</dt>
+    <dd><a href="http://www.w3.org/TR/2013/NOTE-microdata-20131029/">http://www.w3.org/TR/2013/NOTE-microdata-20131029/</a></dd>
+    <dt>Editors:</dt>
+    <dd><a href="mailto:chaals@yandex-team.ru" style="color:#000">Chaals McCathie Nevile</a>,
+      <a href="http://yandex.com" style="color:#000"><span style="color:#f00">Y</span>andex</a> /
+      <a href="http://yandex.ru" style="color:#000"><span style="color:#f00">Я</span>ндекс</a>,</dd>
+    <dd><a href="danbri@google.com">Dan Brickley</a>, Google, Inc.</dd>
+    <dt>Former Editor:</dt>
+    <dd><a href="mailto:ian@hixie.ch">Ian Hickson</a>, Google, Inc.</dd>
+   </dl>
+     <p class="copyright"><a href="http://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a>
+   © 2013-6 <a href="http://www.w3.org/"><abbr title="World Wide
+   Web Consortium">W3C</abbr></a><sup>®</sup> (<a href="http://www.csail.mit.edu/"><abbr title="Massachusetts
+   Institute of Technology">MIT</abbr></a>, <a href="http://www.ercim.eu/"><abbr title="European Research
+   Consortium for Informatics and Mathematics">ERCIM</abbr></a>, <a href="http://www.keio.ac.jp/">Keio</a>, <a href="http://ev.buaa.edu.cn/">Beihang</a>), All Rights Reserved. W3C
+   <a href="http://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>,
+   <a href="http://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and 
+   <a href="http://www.w3.org/Consortium/Legal/2015/copyright-software-and-document" rel="license">permissive document license</a>
+   rules apply.</p>
+
+</div>
+
+
+  <hr class="top">
+
+
+  <h2 class="no-num no-toc" id="abstract">Abstract</h2>
+
+  <p>This specification defines the HTML microdata mechanism. This mechanism allows
+  machine-readable data to be embedded in HTML documents with an unambiguous parsing
+  model. It is compatible with JSON, and can be written in a style which is convertible to RDF.</p>
+
+  <h2 class="no-num no-toc" id="status-of-this-document">Status of This document</h2>
+      <!-- intro boilerplate (required) -->
+
+    <p><em>This section describes the status of this document at the time of its publication.
+      Other documents may supersede this document. A list of current W3C publications and the
+      latest revision of this technical report can be found in the <a href="http://www.w3.org/TR/">W3C
+      technical reports index</a> at http://www.w3.org/TR/.</em></p>
+
+    <p>This document is an editor's draft for the <a href="">Web Platform Working Group</a>, proposed to replace
+      the <a href="http://www.w3.org/TR/2013/NOTE-microdata-20131029/">29 October 2013 W3C Working Group Note</a>.
+      It updates the document by removing the Microdata API, which has been removed from browsers which
+      previously implemented it.</p>
+
+  <p>This specification is an extension to HTML. All
+  normative content in the HTML specification, unless specifically
+  overridden by this specification, is intended to be the basis for
+  this specification.</p>
+
+    <!-- where to send feedback (required) -->
+
+    <p>If you wish to make comments regarding this document please
+      <a href="https://github.com/w3c/microdata">submit them as github issues</a>. All feedback is welcome, but 
+      please note the <a href="https://github.com/w3c/microdata/blob/master/CONTRIBUTING.md">contribution guidelines</a></p>
+
+  <p>Publication as an Editors' draft does not imply endorsement by the Working Group nor W3C Membership.
+  This is a draft document and may be updated, replaced, or obsoleted by other documents, or abandoned, at
+  any time. It is inappropriate to cite this document as other than work in progress.</p>
+
+
+  <!-- required patent boilerplate -->
+  <p>This document was produced by a group operating under the
+  <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/">5 February 2004 W3C Patent Policy</a>.
+  W3C maintains a
+  <a href="http://www.w3.org/2004/01/pp-impl/40318/status" rel="disclosure">public list of any patent disclosures</a>
+  made in connection with the deliverables of the group; that page also includes instructions for disclosing a
+  patent. An individual who has actual knowledge of a patent which the individual believes contains
+  <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#def-essential">Essential Claim(s)</a>
+  must disclose the information in accordance with
+  <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#sec-Disclosure">section 6 of the W3C Patent Policy</a>.</p>
+
+
+
+  <h2 class="no-num no-toc" id="contents">Table of Contents</h2>
+
+<!--begin-toc-->
+<ol class="toc">
+ <li><a href="#dependencies"><span class="secno">1 </span>Dependencies</a></li>
+ <li><a href="#terminology"><span class="secno">2 </span>Terminology</a></li>
+ <li><a href="#conformance-requirements"><span class="secno">3 </span>Conformance requirements</a>
+  </li>
+ <li><a href="#introduction"><span class="secno">4 </span>Introduction</a>
+  <ol class="toc">
+   <li><a href="#overview"><span class="secno">4.1 </span>Overview</a></li>
+   <li><a href="#the-basic-syntax"><span class="secno">4.2 </span>The basic syntax</a></li>
+   <li><a href="#typed-items"><span class="secno">4.3 </span>Typed items</a></li>
+   <li><a href="#global-identifiers-for-items"><span class="secno">4.4 </span>Global identifiers for items</a></li>
+   <li><a href="#selecting-names-when-defining-vocabularies"><span class="secno">4.5 </span>Selecting names when defining vocabularies</a></li></ol></li>
+ <li><a href="#encoding-microdata"><span class="secno">5 </span>Encoding microdata</a>
+  <ol class="toc">
+   <li><a href="#the-microdata-model"><span class="secno">5.1 </span>The microdata model</a></li>
+   <li><a href="#items"><span class="secno">5.2 </span>Items</a></li>
+   <li><a href="#names:-the-itemprop-attribute"><span class="secno">5.3 </span>Names: the <code>itemprop</code> attribute</a></li>
+   <li><a href="#values"><span class="secno">5.4 </span>Values</a></li>
+   <li><a href="#associating-names-with-items"><span class="secno">5.5 </span>Associating names with items</a></li>
+   <li><a href="#microdata-and-other-namespaces"><span class="secno">5.6 </span>Microdata and other namespaces</a></li></ol></li>
+ <li><a href="#converting-html-to-other-formats"><span class="secno">6 </span>Converting HTML to other formats</a>
+  <ol class="toc">
+   <li><a href="#json"><span class="secno">6.1 </span>JSON</a></li></ol></li>
+ <li><a href="#other-changes-to-html5"><span class="secno">7 </span>Other changes to HTML5</a>
+  <ol class="toc">
+   <li><a href="#content-models"><span class="secno">7.1 </span>Content models</a></li>
+   <li><a href="#drag-and-drop"><span class="secno">7.2 </span>Drag-and-drop</a></li></ol></li>
+ <li><a href="#iana"><span class="secno">8 </span>IANA considerations</a></li>
+ <li><a class="no-num" href="#references">References</a></li></ol>
+<!--end-toc-->
+  <hr>
+
+
+
+<!--YYY-->
+  <h2 id="dependencies"><span class="secno">1 </span>Dependencies and relationships</h2>
+
+  <p>This specification depends on the HTML <a href="#refsHTML">[HTML]</a> and URL <a href="#refsURL">[URL]</a> specifications.</p>
+
+  <p>Information expressed as microdata can be converted to JSON <a href="refsJOSN">[JSON]</a>, as described in
+  <a href="#json">Section 6.1</a>. Microdata can <em>generally</em> be converted to RDF, as described in
+  <a href="https://www.w3.org/TR/microdata-rdf">Microdata to RDF</a> <a href="#refsToRDF">[ToRDF]</a>,
+  but only when an additional set of constraints are applied to the microdata content.</a>
+
+  <h2 id="terminology"><span class="secno">2 </span>Terminology</h2>
+
+  <p>This specification relies on the URL specification to define the terms <dfn id="url">URL</dfn>,
+  <dfn id="valid-url">valid URL</dfn>, <dfn id="absolute-url">absolute URL</dfn>, and
+  <dfn id="resolve-a-url">resolve a URL</dfn>.</p>
+
+  <p>This specification relies on the HTML specification to define the following terms:</p>
+
+  <p>HTML defines the concept of DOM <dfn id="collections">collections</dfn> and the
+  <dfn id="htmlcollection"><code>HTMLCollection</code></dfn> interface, as well as the
+  concept of IDL attributes <dfn id="reflect" title="reflect">reflecting</dfn>
+  content attributes. It also defines <dfn id="tree-order">tree order</dfn> and the
+  concept of a node's <dfn id="home-subtree">home subtree</dfn>.</p>
+
+  <p>HTML5 defines the terms <dfn id="alphanumeric-ascii-characters">alphanumeric ASCII characters</dfn>,
+  <dfn id="space-characters">space characters</dfn> <dfn id="split-a-string-on-spaces">split a string on spaces</dfn>,
+  <dfn id="converted-to-ascii-uppercase">converted to ASCII uppercase</dfn>, and <dfn id="prefix-match">prefix
+  match</dfn>.</p>
+
+  <p>HTML5 defines the meaning of the term <dfn id="html-elements">HTML elements</dfn>, as
+  well as all the elements referenced in this specification. It also
+  defines the <dfn id="htmlelement"><code>HTMLElement</code></dfn> and
+  <dfn id="htmldocument"><code>HTMLDocument</code></dfn> interfaces. It defines the
+  specific concept of <dfn id="the-title-element">the <code>title</code> element</dfn> in the
+  context of an <code><a href="#htmldocument">HTMLDocument</a></code>. In the context of content
+  models it defines the terms <dfn id="flow-content">flow content</dfn> and
+  <dfn id="phrasing-content">phrasing content</dfn>. It also defines what an element's <dfn id="concept-id" title="concept-ID">ID</dfn> or <dfn id="language">language</dfn> is in HTML.</p>
+
+  <p>HTML5 defines the set of <dfn id="global-attributes">global attributes</dfn>, as well as
+  terms used in describing attributes and their processing, such as
+  the concept of a <dfn id="boolean-attribute">boolean attribute</dfn>, of an
+  <dfn id="unordered-set-of-unique-space-separated-tokens">unordered set of unique space-separated tokens</dfn>,
+  of a <dfn id="valid-non-negative-integer">valid non-negative integer</dfn>, of a
+  <dfn id="concept-date" title="concept-date">date</dfn>, a <dfn id="concept-time" title="concept-time">time</dfn>,
+  a <dfn id="concept-datetime" title="concept-datetime">global date and time</dfn>, a
+  <dfn id="valid-date-string">valid date string</dfn>, and a
+  <dfn id="valid-global-date-and-time-string">valid global date and time
+  string</dfn>.</p>
+
+  <p>HTML5 defines what <dfn id="the-document's-current-address">the document's current address</dfn>
+  is.</p>
+
+  <p>Finally, HTML5 also defines the concepts of
+  <dfn id="drag-and-drop-initialization-steps">drag-and-drop initialization steps</dfn> and of the
+  <dfn id="list-of-dragged-nodes">list of dragged nodes</dfn>, which come up in the context of drag-and-drop
+  interfaces.</p>
+
+
+  <h2 id="conformance-requirements"><span class="secno">3 </span>Conformance requirements</h2>
+
+  <p>All diagrams, examples, and notes in this specification are non-normative, as are all sections
+  explicitly marked non-normative. Everything else in this specification is normative.</p>
+
+  <p>The key words "MUST", "MUST NOT", "REQUIRED", <!--"SHALL", "SHALL NOT",--> "SHOULD", "SHOULD
+  NOT", <!--"RECOMMENDED", "NOT RECOMMENDED",--> "MAY", and "OPTIONAL" in the normative parts of
+  this document are to be interpreted as described in RFC2119. The key word "OPTIONALLY" in the
+  normative parts of this document is to be interpreted with the same normative meaning as "MAY" and
+  "OPTIONAL". <a href="#refsRFC2119">[RFC2119]</a></p>
+
+  <div class="impl">
+
+  <p>Requirements phrased in the imperative as part of algorithms (such as "strip any leading space
+  characters" or "return false and abort these steps") are to be interpreted with the meaning of the
+  key word ("must", "should", "may", etc) used in introducing the algorithm.</p>
+
+  <div class="example">
+
+   <p>For example, were the spec to say:</p>
+
+   <pre>To eat an orange, the user must:
+1. Peel the orange.
+2. Separate each slice of the orange.
+3. Eat the orange slices.</pre>
+
+   <p>...it would be equivalent to the following:</p>
+
+   <pre>To eat an orange:
+1. The user must peel the orange.
+2. The user must separate each slice of the orange.
+3. The user must eat the orange slices.</pre>
+
+   <p>Here the key word is "must".</p>
+
+   <p>The former (imperative) style is generally preferred in this specification for stylistic
+   reasons.</p>
+
+  </div>
+
+  <p>Conformance requirements phrased as algorithms or specific steps may be implemented in any
+  manner, so long as the end result is equivalent. (In particular, the algorithms defined in this
+  specification are intended to be easy to follow, and not intended to be performant.)</p>
+
+  </div>
+
+
+
+  <h2 id="introduction"><span class="secno">4 </span>Introduction</h2>
+
+  <h3 id="overview"><span class="secno">4.1 </span>Overview</h3>
+
+  <p><i>This section is non-normative.</i></p>
+  <p>Sometimes, it is desirable to annotate content with specific machine-readable labels, e.g. to
+  allow generic scripts to provide services that are customised to the page, or to enable content
+  from a variety of cooperating authors to be processed by a single script in a consistent
+  manner.</p>
+
+  <p>For this purpose, authors can use the microdata features described in this section. Microdata
+  allows nested groups of name-value pairs to be added to documents, in parallel with the existing
+  content.</p>
+
+
+  <h3 id="the-basic-syntax"><span class="secno">4.2 </span>The basic syntax</h3>
+
+  <p><i>This section is non-normative.</i></p>
+  <p>At a high level, microdata consists of a group of name-value pairs. The groups are called <a href="#concept-item" title="concept-item">items</a>, and each name-value pair is a property. Items and properties
+  are represented by regular elements.</p>
+
+  <p>To create an item, the <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code> attribute is used.</p>
+
+  <p>To add a property to an item, the <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> attribute is used
+  on one of the <a href="#concept-item" title="concept-item">item's</a> descendants.</p>
+
+  <div class="example">
+
+   <p>Here there are two items, each of which has the property "name":</p>
+
+   <pre>&lt;div itemscope&gt;
+ &lt;p&gt;My name is &lt;span itemprop="name"&gt;Elizabeth&lt;/span&gt;.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div itemscope&gt;
+ &lt;p&gt;My name is &lt;span itemprop="name"&gt;Daniel&lt;/span&gt;.&lt;/p&gt;
+&lt;/div&gt;</pre>
+
+  </div>
+
+  <p>Markup without microdata attributes has no effect on microdata.</p>
+
+  <div class="example">
+
+   <p>These two examples are exactly equivalent, at a microdata level, as the previous two examples
+   respectively:</p>
+
+   <pre>&lt;div itemscope&gt;
+ &lt;p&gt;My &lt;em&gt;name&lt;/em&gt; is &lt;span itemprop="name"&gt;E&lt;strong&gt;liz&lt;/strong&gt;abeth&lt;/span&gt;.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;section&gt;
+ &lt;div itemscope&gt;
+  &lt;aside&gt;
+   &lt;p&gt;My name is &lt;span itemprop="name"&gt;&lt;a href="/?user=daniel"&gt;Daniel&lt;/a&gt;&lt;/span&gt;.&lt;/p&gt;
+  &lt;/aside&gt;
+ &lt;/div&gt;
+&lt;/section&gt;</pre>
+
+  </div>
+
+  <p>Properties generally have values that are strings.</p>
+
+  <div class="example">
+
+   <p>Here the item has three properties:</p>
+
+   <pre>&lt;div itemscope&gt;
+ &lt;p&gt;My name is &lt;span itemprop="name"&gt;Neil&lt;/span&gt;.&lt;/p&gt;
+ &lt;p&gt;My band is called &lt;span itemprop="band"&gt;Four Parts Water&lt;/span&gt;.&lt;/p&gt;
+ &lt;p&gt;I am &lt;span itemprop="nationality"&gt;British&lt;/span&gt;.&lt;/p&gt;
+&lt;/div&gt;</pre>
+
+  </div>
+
+  <p>When a string value is a <a href="#url">URL</a>, it is expressed using the <code>a</code> element and
+  its <code title="attr-hyperlink-href">href</code> attribute, the <code>img</code> element and its
+  <code title="attr-img-src">src</code> attribute, or other elements that link to or embed external
+  resources.</p>
+
+  <div class="example">
+
+   <p>In this example, the item has one property, "image", whose value is a URL:</p>
+
+   <pre>&lt;div itemscope&gt;
+ &lt;img itemprop="image" src="google-logo.png" alt="Google"&gt;
+&lt;/div&gt;</pre>
+
+  </div>
+
+  <p>When a string value is in some machine-readable format unsuitable
+  for human consumption, it is expressed using the <code title="attr-data-value">value</code> attribute of the
+  <code>data</code> element, with the human-readable version given in
+  the element's contents.</p>
+
+  <div class="example">
+
+   <p>Here, there is an item with a property whose value is a product ID. The ID is not
+   human-friendly, so the product's name is used the human-visible text instead of the ID.</p>
+
+   <pre>&lt;h1 itemscope&gt;
+ &lt;data itemprop="product-id" value="9678AOU879"&gt;The Instigator 2000&lt;/data&gt;
+&lt;/h1&gt;</pre>
+
+  </div>
+
+  <p>For numeric data, the <code>meter</code> element and its <code title="attr-meter-value">value</code> attribute can be used instead.</p>
+
+  <div class="example">
+
+   <p>Here a rating is given using a <code>meter</code> element.</p>
+
+   <pre>&lt;div itemscope itemtype="http://schema.org/Product"&gt;
+ &lt;span itemprop="name"&gt;Panasonic White 60L Refrigerator&lt;/span&gt;
+ &lt;img src="panasonic-fridge-60l-white.jpg" alt=""&gt;
+  &lt;div itemprop="aggregateRating"
+       itemscope itemtype="http://schema.org/AggregateRating"&gt;
+   &lt;meter itemprop="ratingValue" min=0 value=3.5 max=5&gt;Rated 3.5/5&lt;/meter&gt;
+   (based on &lt;span itemprop="reviewCount"&gt;11&lt;/span&gt; customer reviews)
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+
+  </div>
+
+  <p>Similarly, for date- and time-related data, the <code>time</code> element and its <code title="attr-time-datetime">datetime</code> attribute can be used instead.</p>
+
+  <div class="example">
+
+   <p>In this example, the item has one property, "birthday", whose value is a date:</p>
+
+   <pre>&lt;div itemscope&gt;
+ I was born on &lt;time itemprop="birthday" datetime="2009-05-10"&gt;May 10th 2009&lt;/time&gt;.
+&lt;/div&gt;</pre>
+
+  </div>
+
+  <p>Properties can also themselves be groups of name-value pairs, by putting the <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code> attribute on the element that declares the property.</p>
+
+  <p>Items that are not part of others are called <a href="#top-level-microdata-items">top-level microdata items</a>.</p>
+
+  <div class="example">
+
+   <p>In this example, the outer item represents a person, and the inner one represents a band:</p>
+
+   <pre>&lt;div itemscope&gt;
+ &lt;p&gt;Name: &lt;span itemprop="name"&gt;Amanda&lt;/span&gt;&lt;/p&gt;
+ &lt;p&gt;Band: &lt;span itemprop="band" itemscope&gt; &lt;span itemprop="name"&gt;Jazz Band&lt;/span&gt; (&lt;span itemprop="size"&gt;12&lt;/span&gt; players)&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;</pre>
+
+   <p>The outer item here has two properties, "name" and "band". The "name" is "Amanda", and the
+   "band" is an item in its own right, with two properties, "name" and "size". The "name" of the
+   band is "Jazz Band", and the "size" is "12".</p>
+
+   <p>The outer item in this example is a top-level microdata item.</p>
+
+  </div>
+
+  <p>Properties that are not descendants of the element with the <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code> attribute can be associated with the <a href="#concept-item" title="concept-item">item</a> using the <code title="attr-itemref"><a href="#attr-itemref">itemref</a></code> attribute.
+  This attribute takes a list of IDs of elements to crawl in addition to crawling the children of
+  the element with the <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code> attribute.</p>
+
+  <div class="example">
+
+   <p>This example is the same as the previous one, but all the properties are separated from their
+   <a href="#concept-item" title="concept-item">items</a>:</p>
+
+   <pre>&lt;div itemscope id="amanda" itemref="a b"&gt;&lt;/div&gt;
+&lt;p id="a"&gt;Name: &lt;span itemprop="name"&gt;Amanda&lt;/span&gt;&lt;/p&gt;
+&lt;div id="b" itemprop="band" itemscope itemref="c"&gt;&lt;/div&gt;
+&lt;div id="c"&gt;
+ &lt;p&gt;Band: &lt;span itemprop="name"&gt;Jazz Band&lt;/span&gt;&lt;/p&gt;
+ &lt;p&gt;Size: &lt;span itemprop="size"&gt;12&lt;/span&gt; players&lt;/p&gt;
+&lt;/div&gt;</pre>
+
+   <p>This gives the same result as the previous example. The first item has two properties, "name",
+   set to "Amanda", and "band", set to another item. That second item has two further properties,
+   "name", set to "Jazz Band", and "size", set to "12".</p>
+
+  </div>
+
+  <p>An <a href="#concept-item" title="concept-item">item</a> can have multiple properties with the same name and
+  different values.</p>
+
+  <div class="example">
+
+   <p>This example describes an ice cream, with two flavors:</p>
+
+   <pre>&lt;div itemscope&gt;
+ &lt;p&gt;Flavors in my favorite ice cream:&lt;/p&gt;
+ &lt;ul&gt;
+  &lt;li itemprop="flavor"&gt;Lemon sorbet&lt;/li&gt;
+  &lt;li itemprop="flavor"&gt;Apricot sorbet&lt;/li&gt;
+ &lt;/ul&gt;
+&lt;/div&gt;</pre>
+
+   <p>This thus results in an item with two properties, both "flavor", having the values "Lemon
+   sorbet" and "Apricot sorbet".</p>
+
+  </div>
+
+  <p>An element introducing a property can also introduce multiple properties at once, to avoid
+  duplication when some of the properties have the same value.</p>
+
+  <div class="example">
+
+   <p>Here we see an item with two properties, "favorite-color" and "favorite-fruit", both set to
+   the value "orange":</p>
+
+   <pre>&lt;div itemscope&gt;
+ &lt;span itemprop="favorite-color favorite-fruit"&gt;orange&lt;/span&gt;
+&lt;/div&gt;</pre>
+
+  </div>
+
+  <p>It's important to note that there is no relationship between the microdata and the content of
+  the document where the microdata is marked up.</p>
+
+  <div class="example">
+
+   <p>There is no semantic difference, for instance, between the following two examples:</p>
+
+   <pre>&lt;figure&gt;
+ &lt;img src="castle.jpeg"&gt;
+ &lt;figcaption&gt;&lt;span itemscope&gt;&lt;span itemprop="name"&gt;The Castle&lt;/span&gt;&lt;/span&gt; (1986)&lt;/figcaption&gt;
+&lt;/figure&gt;</pre>
+
+   <pre>&lt;span itemscope&gt;&lt;meta itemprop="name" content="The Castle"&gt;&lt;/span&gt;
+&lt;figure&gt;
+ &lt;img src="castle.jpeg"&gt;
+ &lt;figcaption&gt;The Castle (1986)&lt;/figcaption&gt;
+&lt;/figure&gt;</pre>
+
+   <p>Both have a figure with a caption, and both, completely unrelated to the figure, have an item
+   with a name-value pair with the name "name" and the value "The Castle". The only difference is
+   that if the user drags the caption out of the document, in the former case, the item will be
+   included in the drag-and-drop data. In neither case is the image in any way associated with the
+   item.</p>
+
+  </div>
+
+
+  <h3 id="typed-items"><span class="secno">4.3 </span>Typed items</h3>
+
+  <p><i>This section is non-normative.</i></p>
+  <p>The examples in the previous section show how information could be marked up on a page that
+  doesn't expect its microdata to be re-used. Microdata is most useful, though, when it is used in
+  contexts where other authors and readers are able to cooperate to make new uses of the markup.</p>
+
+  <p>For this purpose, it is necessary to give each <a href="#concept-item" title="concept-item">item</a> a type,
+  such as "http://example.com/person", or "http://example.org/cat", or "http://band.example.net/".
+  Types are identified as <a href="#url" title="URL">URLs</a>.</p>
+
+  <p>The type for an <a href="#concept-item" title="concept-item">item</a> is given as the value of an <code title="attr-itemtype"><a href="#attr-itemtype">itemtype</a></code> attribute on the same element as the <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code> attribute.</p>
+
+  <div class="example">
+
+   <p>Here, the item's type is "http://example.org/animals#cat":</p>
+
+<pre>&lt;section itemscope itemtype="http://example.org/animals#cat"&gt;
+ &lt;h1 itemprop="name"&gt;Hedral&lt;/h1&gt;
+ &lt;p itemprop="desc"&gt;Hedral is a male american domestic
+ shorthair, with a fluffy black fur with white paws and belly.&lt;/p&gt;
+ &lt;img itemprop="img" src="hedral.jpeg" alt="" title="Hedral, age 18 months"&gt;
+&lt;/section&gt;</pre>
+
+   <p>In this example the "http://example.org/animals#cat" item has three properties, a "name"
+   ("Hedral"), a "desc" ("Hedral is..."), and an "img" ("hedral.jpeg").</p>
+
+  </div>
+
+  <p>The type gives the context for the properties, thus selecting a vocabulary: a property named
+  "class" given for an item with the type "http://census.example/person" might refer to the economic
+  class of an individual, while a property named "class" given for an item with the type
+  "http://example.com/school/teacher" might refer to the classroom a teacher has been assigned.
+  Several types can share a vocabulary. For example, the types "<code title="">http://example.org/people/teacher</code>" and "<code title="">http://example.org/people/engineer</code>" could be defined to use the same vocabulary
+  (though maybe some properties would not be especially useful in both cases, e.g. maybe the "<code title="">http://example.org/people/engineer</code>" type might not typically be used with the
+  "<code title="">classroom</code>" property). Multiple types defined to use the same vocabulary can
+  be given for a single item by listing the URLs as a space-separated list in the attribute' value.
+  An item cannot be given two types if they do not use the same vocabulary, however.</p>
+
+
+  <h3 id="global-identifiers-for-items"><span class="secno">4.4 </span>Global identifiers for items</h3>
+
+  <p><i>This section is non-normative.</i></p>
+  <p>Sometimes, an <a href="#concept-item" title="concept-item">item</a> gives information about a topic that has a
+  global identifier. For example, books can be identified by their ISBN number.</p>
+
+  <p>Vocabularies (as identified by the <code title="attr-itemtype"><a href="#attr-itemtype">itemtype</a></code> attribute) can
+  be designed such that <a href="#concept-item" title="concept-item">items</a> get associated with their global
+  identifier in an unambiguous way by expressing the global identifiers as <a href="#url" title="URL">URLs</a> given in an <code title="attr-itemid"><a href="#attr-itemid">itemid</a></code> attribute.</p>
+
+  <p>The exact meaning of the <a href="#url" title="URL">URLs</a> given in <code title="attr-itemid"><a href="#attr-itemid">itemid</a></code> attributes depends on the vocabulary used.</p>
+
+  <div class="example">
+
+   <p>Here, an item is talking about a particular book:</p>
+
+<pre>&lt;dl itemscope
+    itemtype="http://vocab.example.net/book"
+    <strong>itemid="urn:isbn:0-330-34032-8"</strong>&gt;
+ &lt;dt&gt;Title
+ &lt;dd itemprop="title"&gt;The Reality Dysfunction
+ &lt;dt&gt;Author
+ &lt;dd itemprop="author"&gt;Peter F. Hamilton
+ &lt;dt&gt;Publication date
+ &lt;dd&gt;&lt;time itemprop="pubdate" datetime="1996-01-26"&gt;26 January 1996&lt;/time&gt;
+&lt;/dl&gt;</pre>
+
+   <p>The "<code title="">http://vocab.example.net/book</code>" vocabulary in this example would
+   define that the <code title="attr-itemid"><a href="#attr-itemid">itemid</a></code> attribute takes a <code title="">urn:</code> <a href="#url">URL</a> pointing to the ISBN of the book.</p>
+
+  </div>
+
+  <!-- (commented out since itemtype="" defines the meaning of the
+        identifier for now)
+  <p>Although it is common practice, authors are encouraged not to use the same URL to identify
+  multiple topics; in particular, an HTTP URL usually identifies a specific resource (such as an
+  image or document), and authors are encouraged to not use them to identify people, non-Web
+  resources like companies, movies, and products, or other abstract concepts. Using an HTTP URL as a
+  global identifier for something other than the resource actually designated by the URL leads to a
+  situation where it is ambiguous whether the identifier, and thus the set of properties specified
+  in the microdata, references the page or something else.</p>
+  -->
+
+
+
+  <h3 id="selecting-names-when-defining-vocabularies"><span class="secno">4.5 </span>Selecting names when defining vocabularies</h3>
+
+  <p><i>This section is non-normative.</i></p>
+  <p>Using microdata means using a vocabulary. For some purposes, an ad-hoc vocabulary is adequate.
+  For others, a vocabulary will need to be designed. Where possible, authors are encouraged to
+  re-use existing vocabularies, as this makes content re-use easier.</p>
+
+  <p>When designing new vocabularies, identifiers can be created either using <a href="#url" title="URL">URLs</a>, or, for properties, as plain words (with no dots or colons). For URLs,
+  conflicts with other vocabularies can be avoided by only using identifiers that correspond to
+  pages that the author has control over.</p>
+
+  <div class="example">
+
+   <p>For instance, if Jon and Adam both write content at <code title="">example.com</code>, at <code title="">http://example.com/~jon/...</code> and <code title="">http://example.com/~adam/...</code> respectively, then
+   they could select identifiers of the form
+   "http://example.com/~jon/name" and "http://example.com/~adam/name"
+   respectively.</p>
+
+  </div>
+
+  <p>Properties whose names are just plain words can only be used within the context of the types
+  for which they are intended; properties named using URLs can be reused in items of any type. If an
+  item has no type, and is not part of another item, then if its properties have names that are just
+  plain words, they are not intended to be globally unique, and are instead only intended for
+  limited use. Generally speaking, authors are encouraged to use either properties with globally
+  unique names (URLs) or ensure that their items are typed.</p>
+
+  <div class="example">
+
+   <p>Here, an item is an "http://example.org/animals#cat", and most of the properties have names
+   that are words defined in the context of that type. There are also a few additional properties
+   whose names come from other vocabularies.</p>
+
+<pre>&lt;section itemscope itemtype="http://example.org/animals#cat"&gt;
+ &lt;h1 itemprop="name http://example.com/fn"&gt;Hedral&lt;/h1&gt;
+ &lt;p itemprop="desc"&gt;Hedral is a male american domestic
+ shorthair, with a fluffy &lt;span
+ itemprop="http://example.com/color"&gt;black&lt;/span&gt; fur with &lt;span
+ itemprop="http://example.com/color"&gt;white&lt;/span&gt; paws and belly.&lt;/p&gt;
+ &lt;img itemprop="img" src="hedral.jpeg" alt="" title="Hedral, age 18 months"&gt;
+&lt;/section&gt;</pre>
+
+   <p>This example has one item with the type "http://example.org/animals#cat" and the following
+   properties:</p>
+
+   <table>
+    <thead>
+     <tr>
+      <td>Property
+      </td><td>Value
+    </td></tr></thead><tbody>
+     <tr>
+      <td>name
+      </td><td>Hedral
+     </td></tr><tr>
+      <td>http://example.com/fn
+      </td><td>Hedral
+     </td></tr><tr>
+      <td>desc
+      </td><td>Hedral is a male american domestic shorthair, with a fluffy black fur with white paws and belly.
+     </td></tr><tr>
+      <td>http://example.com/color
+      </td><td>black
+     </td></tr><tr>
+      <td>http://example.com/color
+      </td><td>white
+     </td></tr><tr>
+      <td>img
+      </td><td>.../hedral.jpeg
+   </td></tr></tbody></table>
+
+  </div>
+
+
+
+
+  <h2 id="encoding-microdata"><span class="secno">5 </span>Encoding microdata</h2>
+
+
+  <h3 id="the-microdata-model"><span class="secno">5.1 </span>The microdata model</h3>
+
+  <p>The microdata model consists of groups of name-value pairs known as <a href="#concept-item" title="concept-item">items</a>.</p>
+
+  <p>Each group is known as an <a href="#concept-item" title="concept-item">item</a>. Each <a href="#concept-item" title="concept-item">item</a> can have <a href="#item-types">item types</a>, a <a href="#global-identifier">global
+  identifier</a> (if the vocabulary specified by the <a href="#item-types">item types</a> <a href="#support-global-identifiers-for-items">support global
+  identifiers for items</a>), and a list of name-value pairs. Each name in the name-value pair is
+  known as a <a href="#the-properties-of-an-item" title="the properties of an item">property</a>, and each <a href="#the-properties-of-an-item" title="the
+  properties of an item">property</a> has one or more <a href="#concept-property-value" title="concept-property-value">values</a>. Each <a href="#concept-property-value" title="concept-property-value">value</a> is either a string or itself a group of name-value
+  pairs (an <a href="#concept-item" title="concept-item">item</a>). The names are unordered relative to each other,
+  but if a particular name has multiple values, they do have a relative order.</p>
+
+
+
+  <h3 id="items"><span class="secno">5.2 </span>Items</h3>
+
+  <p>Every <a href="#html-elements" title="HTML elements">HTML element</a> may have an <dfn id="attr-itemscope" title="attr-itemscope"><code>itemscope</code></dfn> attribute specified. The <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code> attribute is a <a href="#boolean-attribute">boolean attribute</a>.</p>
+
+  <p>An element with the <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code> attribute specified creates a
+  new <dfn id="concept-item" title="concept-item">item</dfn>, a group of name-value pairs.</p>
+
+  <hr>
+
+  <p>Elements with an <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code> attribute may have an <dfn id="attr-itemtype" title="attr-itemtype"><code>itemtype</code></dfn> attribute specified, to give the <a href="#item-types">item
+  types</a> of the <a href="#concept-item" title="concept-item">item</a>.</p>
+
+  <p>The <code title="attr-itemtype"><a href="#attr-itemtype">itemtype</a></code> attribute, if specified, must have a value that
+  is an <a href="#unordered-set-of-unique-space-separated-tokens">unordered set of unique space-separated tokens</a> that are
+  <span>case-sensitive</span>, each of which is a <a href="#valid-url">valid URL</a> that is an <a href="#absolute-url">absolute
+  URL</a>, and all of which are defined to use the same vocabulary. The attribute's value must
+  have at least one token.</p>
+
+  <p>The <dfn id="item-types">item types</dfn> of an <a href="#concept-item" title="concept-item">item</a> are the tokens obtained
+  by <a href="#split-a-string-on-spaces" title="split a string on spaces">splitting the element's <code title="attr-itemtype">itemtype</code> attribute's value on spaces</a>. If the <code title="attr-itemtype"><a href="#attr-itemtype">itemtype</a></code> attribute is missing or parsing it in this way finds no
+  tokens, the <a href="#concept-item" title="concept-item">item</a> is said to have no <a href="#item-types">item types</a>.</p>
+
+  <p>The <a href="#item-types">item types</a> must all be types defined in <span title="other applicable
+  specifications">applicable specifications</span> and must all be defined to use the same
+  vocabulary.</p>
+
+  <div class="impl">
+
+   <p>Except if otherwise specified by that specification, the <a href="#url" title="URL">URLs</a> given
+   as the <a href="#item-types">item types</a> should not be automatically dereferenced.</p>
+
+   <p class="note">A specification could define that its <a href="#item-types" title="item types">item type</a>
+   can be derefenced to provide the user with help information, for example. In fact, vocabulary
+   authors are encouraged to provide useful information at the given <a href="#url">URL</a>.</p>
+
+   <p><a href="#item-types">Item types</a> are opaque identifiers, and user agents must not dereference unknown
+   <a href="#item-types">item types</a>, or otherwise deconstruct them, in order to determine how to process
+   <a href="#concept-item" title="concept-item">items</a> that use them.</p>
+
+  </div>
+
+  <p>The <code title="attr-itemtype"><a href="#attr-itemtype">itemtype</a></code> attribute must not be specified on elements
+  that do not have an <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code> attribute specified.</p>
+
+  <hr>
+
+  <p>An <a href="#concept-item" title="concept-item">item</a> is said to be a <dfn id="typed-item">typed item</dfn> when either it
+  has an <a href="#item-types" title="item types">item type</a>, or it is the <a href="#concept-property-value" title="concept-property-value">value</a> of a <a href="#the-properties-of-an-item" title="the properties of an
+  item">property</a> of a <a href="#typed-item">typed item</a>. The <dfn id="relevant-types">relevant types</dfn> for a
+  <a href="#typed-item">typed item</a> is the <a href="#concept-item" title="concept-item">item</a>'s <a href="#item-types">item types</a>,
+  if it has any, or else is the <a href="#relevant-types">relevant types</a> of the <a href="#concept-item" title="concept-item">item</a> for which it is a <a href="#the-properties-of-an-item" title="the properties of an
+  item">property</a>'s <a href="#concept-property-value" title="concept-property-value">value</a>.</p>
+
+  <hr>
+
+  <p>Elements with an <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code> attribute and an <code title="attr-itemtype"><a href="#attr-itemtype">itemtype</a></code> attribute that references a vocabulary that is defined to
+  <dfn id="support-global-identifiers-for-items">support global identifiers for items</dfn> may also have an <dfn id="attr-itemid" title="attr-itemid"><code>itemid</code></dfn> attribute specified, to give a global identifier for
+  the <a href="#concept-item" title="concept-item">item</a>, so that it can be related to other <a href="#concept-item" title="concept-item">items</a> on pages elsewhere on the Web.</p>
+
+  <p>The <code title="attr-itemid"><a href="#attr-itemid">itemid</a></code> attribute, if specified, must have a value that is
+  a <span>valid URL potentially surrounded by spaces</span>.</p>
+
+  <p>The <dfn id="global-identifier">global identifier</dfn> of an <a href="#concept-item" title="concept-item">item</a> is the value of
+  its element's <code title="attr-itemid"><a href="#attr-itemid">itemid</a></code> attribute, if it has one, <a href="#resolve-a-url" title="resolve a url">resolved</a> relative to the element on which the attribute is specified.
+  If the <code title="attr-itemid"><a href="#attr-itemid">itemid</a></code> attribute is missing or if resolving it fails, it
+  is said to have no <a href="#global-identifier">global identifier</a>.</p>
+
+  <p>The <code title="attr-itemid"><a href="#attr-itemid">itemid</a></code> attribute must not be specified on elements that do
+  not have both an <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code> attribute and an <code title="attr-itemtype"><a href="#attr-itemtype">itemtype</a></code> attribute specified, and must not be specified on elements
+  with an <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code> attribute whose <code title="attr-itemtype"><a href="#attr-itemtype">itemtype</a></code> attribute specifies a vocabulary that does not <a href="#support-global-identifiers-for-items">support
+  global identifiers for items</a>, as defined by that vocabulary's specification.</p>
+
+  <p>The exact meaning of a <a href="#global-identifier">global identifier</a> is determined by the vocabulary's
+  specification. It is up to such specifications to define whether multiple items with the same
+  global identifier (whether on the same page or on different pages) are allowed to exist, and what
+  the processing rules for that vocabulary are with respect to handling the case of multiple items
+  with the same ID.</p>
+
+  <hr>
+
+  <p>Elements with an <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code> attribute may have an <dfn id="attr-itemref" title="attr-itemref"><code>itemref</code></dfn> attribute specified, to give a list of additional
+  elements to crawl to find the name-value pairs of the <a href="#concept-item" title="concept-item">item</a>.</p>
+
+  <p>The <code title="attr-itemref"><a href="#attr-itemref">itemref</a></code> attribute, if specified, must have a value that
+  is an <a href="#unordered-set-of-unique-space-separated-tokens">unordered set of unique space-separated tokens</a> that are
+  <span>case-sensitive</span>, consisting of <a href="#concept-id" title="concept-ID">IDs</a> of elements in the
+  same <a href="#home-subtree">home subtree</a>.</p>
+
+  <p>The <code title="attr-itemref"><a href="#attr-itemref">itemref</a></code> attribute must not be specified on elements that
+  do not have an <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code> attribute specified.</p>
+
+  <p class="note">The <code title="attr-itemref"><a href="#attr-itemref">itemref</a></code> attribute is not part of the
+  microdata data model. It is merely a syntactic construct to aid authors in adding annotations to
+  pages where the data to be annotated does not follow a convenient tree structure. For example, it
+  allows authors to mark up data in a table so that each column defines a separate <a href="#concept-item" title="concept-item">item</a>, while keeping the properties in the cells.</p>
+
+  <div class="example">
+
+   <p>This example shows a simple vocabulary used to describe the products of a model railway
+   manufacturer. The vocabulary has just five property names:</p>
+
+   <dl>
+    <dt>product-code</dt>
+    <dd>An integer that names the product in the manufacturer's catalog.</dd>
+    <dt>name</dt>
+    <dd>A brief description of the product.</dd>
+    <dt>scale</dt>
+    <dd>One of "HO", "1", or "Z" (potentially with leading or trailing
+    whitespace), indicating the scale of the product.</dd>
+    <dt>digital</dt>
+    <dd>If present, one of "Digital", "Delta", or "Systems"
+    (potentially with leading or trailing whitespace) indicating that
+    the product has a digital decoder of the given type.</dd>
+    <dt>track-type</dt>
+    <dd>For track-specific products, one of "K", "M", "C" (potentially
+    with leading or trailing whitespace) indicating the type of track
+    for which the product is intended.</dd>
+   </dl>
+
+   <p>This vocabulary has four defined <a href="#item-types">item types</a>:</p>
+
+   <dl>
+    <dt>http://md.example.com/loco</dt>
+    <dd>Rolling stock with an engine</dd>
+    <dt>http://md.example.com/passengers</dt>
+    <dd>Passenger rolling stock</dd>
+    <dt>http://md.example.com/track</dt>
+    <dd>Track pieces</dd>
+    <dt>http://md.example.com/lighting</dt>
+    <dd>Equipment with lighting</dd>
+   </dl>
+
+   <p>Each <a href="#concept-item" title="concept-item">item</a> that uses this vocabulary can be given one or more
+   of these types, depending on what the product is.</p>
+
+   <p>Thus, a locomotive might be marked up as:</p>
+
+<pre>&lt;dl itemscope itemtype="http://md.example.com/loco
+                        http://md.example.com/lighting"&gt;
+ &lt;dt&gt;Name:
+ &lt;dd itemprop="name"&gt;Tank Locomotive (DB 80)
+ &lt;dt&gt;Product code:
+ &lt;dd itemprop="product-code"&gt;33041
+ &lt;dt&gt;Scale:
+ &lt;dd itemprop="scale"&gt;HO
+ &lt;dt&gt;Digital:
+ &lt;dd itemprop="digital"&gt;Delta
+&lt;/dl&gt;</pre>
+
+   <p>A turnout lantern retrofit kit might be marked up as:</p>
+
+   <pre>&lt;dl itemscope itemtype="http://md.example.com/track
+                       http://md.example.com/lighting"&gt;
+ &lt;dt&gt;Name:
+ &lt;dd itemprop="name"&gt;Turnout Lantern Kit
+ &lt;dt&gt;Product code:
+ &lt;dd itemprop="product-code"&gt;74470
+ &lt;dt&gt;Purpose:
+ &lt;dd&gt;For retrofitting 2 &lt;span itemprop="track-type"&gt;C&lt;/span&gt; Track
+ turnouts. &lt;meta itemprop="scale" content="HO"&gt;
+&lt;/dl&gt;</pre>
+
+   <p>A passenger car with no lighting might be marked up as:</p>
+
+   <pre>&lt;dl itemscope itemtype="http://md.example.com/passengers"&gt;
+ &lt;dt&gt;Name:
+ &lt;dd itemprop="name"&gt;Express Train Passenger Car (DB Am 203)
+ &lt;dt&gt;Product code:
+ &lt;dd itemprop="product-code"&gt;8710
+ &lt;dt&gt;Scale:
+ &lt;dd itemprop="scale"&gt;Z
+&lt;/dl&gt;</pre>
+
+   <p>Great care is necessary when creating new vocabularies. Often, a hierarchical approach to
+   types can be taken that results in a vocabulary where each item only ever has a single type,
+   which is generally much simpler to manage.</p>
+
+  </div>
+
+
+  <h3 id="names:-the-itemprop-attribute"><span class="secno">5.3 </span>Names: the <dfn title="attr-itemprop"><code>itemprop</code></dfn> attribute</h3>
+
+  <p>Every <a href="#html-elements" title="HTML elements">HTML element</a> may have an <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> attribute specified, if doing so <a href="#the-properties-of-an-item" title="the properties
+  of an item">adds one or more properties</a> to one or more <a href="#concept-item" title="concept-item">items</a> (as defined below).</p>
+
+  <p>The <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> attribute, if specified, must have a value that
+  is an <a href="#unordered-set-of-unique-space-separated-tokens">unordered set of unique space-separated tokens</a> that are
+  <span>case-sensitive</span>, representing the names of the name-value pairs that it adds. The
+  attribute's value must have at least one token.</p>
+
+  <p>Each token must be either:</p>
+
+  <ul>
+
+   <li>If the item is a <a href="#typed-item">typed item</a>: a <dfn id="defined-property-name">defined property name</dfn> allowed in this
+   situation according to the specification that defines the <a href="#relevant-types">relevant types</a> for the
+   item, or</li>
+
+   <li>A <a href="#valid-url">valid URL</a> that is an <a href="#absolute-url">absolute URL</a> defined as an item property
+   name allowed in this situation by a vocabulary specification, or</li>
+
+   <li>A <a href="#valid-url">valid URL</a> that is an <a href="#absolute-url">absolute URL</a>, used as a proprietary item
+   property name (i.e. one used by the author for private purposes, not defined in a public
+   specification), or</li>
+
+   <li>If the item is not a <a href="#typed-item">typed item</a>: a string that contains no "." (U+002E) characters and no ":" (U+003A) characters, used as a proprietary item property name (i.e.
+   one used by the author for private purposes, not defined in a public specification).</li>
+
+  </ul>
+
+  <p>Specifications that introduce <a href="#defined-property-name" title="defined property name">defined property names</a>
+  must ensure all such property names contain no "." (U+002E) characters, no ":" (U+003A) characters, and no <span title="space character">space characters</span>.</p>
+
+  <p>When an element with an <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> attribute <a href="#the-properties-of-an-item" title="the
+  properties of an item">adds a property</a> to multiple <a href="#concept-item" title="concept-item">items</a>,
+  the requirement above regarding the tokens applies for each <a href="#concept-item" title="concept-item">item</a>
+  individually.</p>
+
+  <!--
+
+   e.g.:
+
+     <div itemscope itemtype="http://example.com/a"> <ref refid="x"> </div>
+     <div itemscope itemtype="http://example.com/b"> <ref refid="x"> </div>
+     <meta id="x" itemprop="z" content="">
+
+     "z" had better be valid for both http://example.com/a and http://example.com/b
+
+  -->
+
+  <p>The <dfn id="property-names">property names</dfn> of an element are the tokens that the element's <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> attribute is found to contain when its value is <a href="#split-a-string-on-spaces" title="split a string on spaces">split on spaces</a>, with the order preserved but with
+  duplicates removed (leaving only the first occurrence of each name).</p>
+
+  <p>Within an <a href="#concept-item" title="concept-item">item</a>, the properties are unordered with respect to
+  each other, except for properties with the same name, which are ordered in the order they are
+  given by the algorithm that defines <a href="#the-properties-of-an-item">the properties of an item</a>.</p>
+
+  <div class="example">
+
+   <p>In the following example, the "a" property has the values "1" and "2", <em>in that order</em>,
+   but whether the "a" property comes before the "b" property or not is not important:</p>
+
+   <pre>&lt;div itemscope&gt;
+ &lt;p itemprop="a"&gt;1&lt;/p&gt;
+ &lt;p itemprop="a"&gt;2&lt;/p&gt;
+ &lt;p itemprop="b"&gt;test&lt;/p&gt;
+&lt;/div&gt;</pre>
+
+   <p>Thus, the following is equivalent:</p>
+
+   <pre>&lt;div itemscope&gt;
+ &lt;p itemprop="b"&gt;test&lt;/p&gt;
+ &lt;p itemprop="a"&gt;1&lt;/p&gt;
+ &lt;p itemprop="a"&gt;2&lt;/p&gt;
+&lt;/div&gt;</pre>
+
+   <p>As is the following:</p>
+
+   <pre>&lt;div itemscope&gt;
+ &lt;p itemprop="a"&gt;1&lt;/p&gt;
+ &lt;p itemprop="b"&gt;test&lt;/p&gt;
+ &lt;p itemprop="a"&gt;2&lt;/p&gt;
+&lt;/div&gt;</pre>
+
+   <p>And the following:</p>
+
+   <pre>&lt;div id="x"&gt;
+ &lt;p itemprop="a"&gt;1&lt;/p&gt;
+&lt;/div&gt;
+&lt;div itemscope itemref="x"&gt;
+ &lt;p itemprop="b"&gt;test&lt;/p&gt;
+ &lt;p itemprop="a"&gt;2&lt;/p&gt;
+&lt;/div&gt;
+</pre>
+
+  </div>
+
+
+
+  <h3 id="values"><span class="secno">5.4 </span>Values</h3>
+
+  <p>The <dfn id="concept-property-value" title="concept-property-value">property value</dfn> of a name-value pair added by an
+  element with an <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> attribute is as given for the first
+  matching case in the following list:</p>
+
+  <dl class="switch">
+
+   <dt>If the element also has an <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code> attribute</dt>
+
+   <dd>
+
+    <p>The value is the <a href="#concept-item" title="concept-item">item</a> created by the element.</p>
+
+   </dd>
+
+
+   <dt>If the element is a <code>meta</code> element</dt>
+
+   <dd>
+
+    <p>The value is the value of the element's <code title="attr-content">content</code> attribute,
+    if any, or the empty string if there is no such attribute.</p>
+
+   </dd>
+
+
+   <dt>If the element is an <code>audio</code>, <code>embed</code>, <code>iframe</code>,
+   <code>img</code>, <code>source</code>, <code>track</code>, or <code>video</code> element</dt>
+
+   <dd>
+
+    <p>The value is the <a href="#absolute-url">absolute URL</a> that results from <a href="#resolve-a-url" title="resolve a
+    url">resolving</a> the value of the element's <code title="">src</code> attribute relative to
+    the element at the time the attribute is set, or the empty string if there is no such attribute
+    or if <a href="#resolve-a-url" title="resolve a url">resolving</a> it results in an error.</p>
+
+   </dd>
+
+
+   <dt>If the element is an <code>a</code>, <code>area</code>, or <code>link</code> element</dt>
+
+   <dd>
+
+    <p>The value is the <a href="#absolute-url">absolute URL</a> that results from <a href="#resolve-a-url" title="resolve a
+    url">resolving</a> the value of the element's <code title="">href</code> attribute relative
+    to the element at the time the attribute is set, or the empty string if there is no such
+    attribute or if <a href="#resolve-a-url" title="resolve a url">resolving</a> it results in an error.</p>
+
+   </dd>
+
+
+   <dt>If the element is an <code>object</code> element</dt>
+
+   <dd>
+
+    <p>The value is the <a href="#absolute-url">absolute URL</a> that results from <a href="#resolve-a-url" title="resolve a
+    url">resolving</a> the value of the element's <code title="">data</code> attribute relative
+    to the element at the time the attribute is set, or the empty string if there is no such
+    attribute or if <a href="#resolve-a-url" title="resolve a url">resolving</a> it results in an error.</p>
+
+   </dd>
+
+
+   <dt>If the element is a <code>data</code> element</dt>
+
+   <dd>
+
+    <p>The value is the value of the element's <code title="attr-data-value">value</code> attribute,
+    if it has one, or the empty string otherwise.</p>
+
+   </dd>
+
+
+   <dt>If the element is a <code>meter</code> element</dt>
+
+   <dd>
+
+    <p>The value is the value of the element's <code title="attr-meter-value">value</code> attribute,
+    if it has one, or the empty string otherwise.</p>
+
+   </dd>
+
+
+   <dt>If the element is a <code>time</code> element</dt>
+
+   <dd>
+
+    <p>The value is the element's <span>datetime value</span>.</p>
+
+   </dd>
+
+
+   <dt>Otherwise</dt>
+
+   <dd>
+
+    <p>The value is the element's <code>textContent</code>.</p>
+
+   </dd>
+
+  </dl>
+
+  <p>The <dfn id="url-property-elements">URL property elements</dfn> are the <code>a</code>, <code>area</code>,
+  <code>audio</code>, <code>embed</code>, <code>iframe</code>, <code>img</code>, <code>link</code>,
+  <code>object</code>, <code>source</code>, <code>track</code>, and <code>video</code> elements.</p>
+
+  <p>If a property's <a href="#concept-property-value" title="concept-property-value">value</a>, as defined by the property's
+  definition, is an <a href="#absolute-url">absolute URL</a>, the property must be specified using a <a href="#url-property-elements" title="URL property elements">URL property element</a>.</p>
+
+  <p class="note">These requirements do not apply just because a property value happens to match the
+  syntax for a URL. They only apply if the property is explicitly defined as taking such a
+  value.</p>
+
+  <p class="example">For example, a book about the first moon landing <!-- 1969-07-20 --> could be
+  called "mission:moon". A "title" property from a vocabulary that defines a title as being a string
+  would not expect the title to be given in an <code>a</code> element, even though it looks like a
+  <a href="#url">URL</a>. On the other hand, if there was a (rather narrowly scoped!) vocabulary for
+  "books whose titles look like URLs" which had a "title" property defined to take a URL, then the
+  property <em>would</em> expect the title to be given in an <code>a</code> element (or one of the
+  other <a href="#url-property-elements">URL property elements</a>), because of the requirement above.</p>
+
+
+  <div class="impl"> <!-- this is unfortunate, as it is hiding authoring conformance criteria (so we leave it in for the w3c copy) -->
+
+
+  <h3 id="associating-names-with-items"><span class="secno">5.5 </span>Associating names with items</h3>
+
+  <p>To find <dfn id="the-properties-of-an-item">the properties of an item</dfn> defined by the element <var title="">root</var>,
+  the user agent must run the following steps. These steps are also used to flag <a href="#microdata-error" title="microdata error">microdata errors</a>.</p>
+
+  <ol>
+
+   <li><p>Let <var title="">results</var>, <var title="">memory</var>, and <var title="">pending</var> be empty lists of elements.</p></li>
+
+   <li><p>Add the element <var title="">root</var> to <var title="">memory</var>.</p></li>
+
+   <li><p>Add the child elements of <var title="">root</var>, if any, to <var title="">pending</var>.</p></li>
+
+   <li><p>If <var title="">root</var> has an <code title="attr-itemref"><a href="#attr-itemref">itemref</a></code> attribute,
+   <a href="#split-a-string-on-spaces" title="split a string on spaces">split the value of that <code title="attr-itemref">itemref</code> attribute on spaces</a>. For each resulting token <var title="">ID</var>, if there is an element in the <a href="#home-subtree">home subtree</a> of <var title="">root</var> with the <a href="#concept-id" title="concept-ID">ID</a> <var title="">ID</var>, then add
+   the first such element to <var title="">pending</var>.</p></li>
+
+   <li><p><i>Loop</i>: If <var title="">pending</var> is empty, jump to the step labeled <i>end of
+   loop</i>.</p></li>
+
+   <li><p>Remove an element from <var title="">pending</var> and let <var title="">current</var> be
+   that element.</p></li>
+
+   <li><p>If <var title="">current</var> is already in <var title="">memory</var>, there is a
+   <a href="#microdata-error">microdata error</a>; return to the step labeled <i>loop</i>.</p></li>
+
+   <li><p>Add <var title="">current</var> to <var title="">memory</var>.</p></li>
+
+   <li><p>If <var title="">current</var> does not have an <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code> attribute, then: add all the child elements of <var title="">current</var> to <var title="">pending</var>.</p></li>
+
+   <li><p>If <var title="">current</var> has an <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code>
+   attribute specified and has one or more <a href="#property-names">property names</a>, then add <var title="">current</var> to <var title="">results</var>.</p></li>
+
+   <li><p>Return to the step labeled <i>loop</i>.</p></li>
+
+   <li><p><i>End of loop</i>: Sort <var title="">results</var> in <a href="#tree-order">tree order</a>.</p></li>
+
+   <li><p>Return <var title="">results</var>.</p></li>
+
+  </ol>
+
+  <p>A document must not contain any <a href="#concept-item" title="concept-item">items</a> for which the algorithm
+  to find <a href="#the-properties-of-an-item">the properties of an item</a> finds any <dfn id="microdata-error" title="microdata error">microdata
+  errors</dfn>.</p>
+
+  <p>An <a href="#concept-item" title="concept-item">item</a> is a <dfn id="top-level-microdata-items" title="top-level microdata items">top-level
+  microdata item</dfn> if its element does not have an <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code>
+  attribute.</p>
+
+<!--(this is currently redundant with "requirement itemprop" below)
+  <p>An <span title="concept-item">item</span> is a <dfn title="used microdata items">used microdata
+  item</dfn> if it is a <span title="top-level microdata items">top-level microdata item</span>, or
+  if it has an <code title="attr-itemprop">itemprop</code> attribute and would be <span title="the
+  properties of an item">found to be the property</span> of an <span
+  title="concept-item">item</span> that is itself a <span title="used microdata items">used
+  microdata item</span>.</p>
+
+  <p>All <span title="concept-item">items</span> in a document must be <span>used microdata
+  items</span>.</p>
+-->
+
+  <p>All <code title="attr-itemref"><a href="#attr-itemref">itemref</a></code> attributes in a <code>Document</code> must be
+  such that there are no cycles in the graph formed from representing each <a href="#concept-item" title="concept-item">item</a> in the <code>Document</code> as a node in the graph and each
+  <a href="#the-properties-of-an-item" title="the properties of an item">property</a> of an item whose <a href="#concept-property-value" title="concept-property-value">value</a> is another item as an edge in the graph connecting
+  those two items.</p>
+
+  <!-- "requirement itemprop" (see above) -->
+  <p>A document must not contain any elements that have an <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> attribute that would not be found to be a property of any of
+  the <a href="#concept-item" title="concept-item">items</a> in that document were their <a href="#the-properties-of-an-item" title="the
+  properties of an item">properties</a> all to be determined.</p>
+
+  <div class="example">
+
+   <p>In this example, a single license statement is applied to two works, using <code title="attr-itemref"><a href="#attr-itemref">itemref</a></code> from the items representing the works:</p>
+
+   <pre>&lt;!DOCTYPE HTML&gt;
+&lt;html&gt;
+ &lt;head&gt;
+  &lt;title&gt;Photo gallery&lt;/title&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+  &lt;h1&gt;My photos&lt;/h1&gt;
+  &lt;figure itemscope itemtype="http://n.whatwg.org/work" itemref="licenses"&gt;
+   &lt;img itemprop="work" src="images/house.jpeg" alt="A white house, boarded up, sits in a forest."&gt;
+   &lt;figcaption itemprop="title"&gt;The house I found.&lt;/figcaption&gt;
+  &lt;/figure&gt;
+  &lt;figure itemscope itemtype="http://n.whatwg.org/work" itemref="licenses"&gt;
+   &lt;img itemprop="work" src="images/mailbox.jpeg" alt="Outside the house is a mailbox. It has a leaflet inside."&gt;
+   &lt;figcaption itemprop="title"&gt;The mailbox.&lt;/figcaption&gt;
+  &lt;/figure&gt;
+  &lt;footer&gt;
+   &lt;p id="licenses"&gt;All images licensed under the &lt;a itemprop="license"
+   href="http://www.opensource.org/licenses/mit-license.php"&gt;MIT
+   license&lt;/a&gt;.&lt;/p&gt;
+  &lt;/footer&gt;
+ &lt;/body&gt;
+&lt;/html&gt;</pre>
+
+   <p>The above results in two items with the type "<code title="">http://n.whatwg.org/work</code>",
+   one with:</p>
+
+   <dl class="brief">
+    <dt>work
+    </dt><dd><code title="">images/house.jpeg</code>
+    </dd><dt>title
+    </dt><dd>The house I found.
+    </dd><dt>license
+    </dt><dd><code title="">http://www.opensource.org/licenses/mit-license.php</code>
+   </dd></dl>
+
+   <p>...and one with:</p>
+
+   <dl class="brief">
+    <dt>work
+    </dt><dd><code title="">images/mailbox.jpeg</code>
+    </dd><dt>title
+    </dt><dd>The mailbox.
+    </dd><dt>license
+    </dt><dd><code title="">http://www.opensource.org/licenses/mit-license.php</code>
+   </dd></dl>
+
+  </div>
+
+  </div> <!-- see comment above -->
+
+
+  <h3 id="microdata-and-other-namespaces"><span class="secno">5.6 </span>Microdata and other namespaces</h3>
+
+  <p>Currently, the <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code>, <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code>, and other microdata attributes are only defined for
+  <a href="#html-elements">HTML elements</a>. This means that attributes with the literal names "<code title="">itemscope</code>", "<code title="">itemprop</code>", etc, do not cause microdata
+  processing to occur on elements in other namespaces, such as SVG.</p>
+
+  <div class="example">
+
+   <p>Thus, in the following example there is only one item, not
+   two.</p>
+
+   <pre class="bad">&lt;p itemscope&gt;&lt;/p&gt; &lt;!-- this is an item (with no properties and no type) --&gt;
+&lt;svg itemscope&gt;&lt;/svg&gt; &lt;!-- this is not, it's just an <code>svg</code> element with an invalid unknown attribute --&gt;</pre>
+
+  </div>
+
+
+  <h2 id="microdata-dom-api"><span class="secno">6 </span>Microdata DOM API</h2>
+
+  <dl class="domintro">
+
+   <dt><var title="">document</var> . <code title="dom-document-getItems"><a href="#dom-document-getitems">getItems</a></code>( [ <var title="">types</var> ] )</dt>
+
+   <dd>
+
+    <p>Returns a <code>NodeList</code> of the elements in the <code>Document</code> that create
+    <a href="#concept-item" title="concept-item">items</a>, that are not part of other <a href="#concept-item" title="concept-item">items</a>, and that are of the types given in the argument, if any are
+    listed.</p>
+
+    <p>The <var title="">types</var> argument is interpreted as a space-separated list of types.</p>
+
+   </dd>
+
+   <dt><var title="">element</var> . <code title="dom-properties"><a href="#dom-properties">properties</a></code></dt>
+
+   <dd>
+
+    <p>If the element has an <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code> attribute, returns an
+    <code><a href="#htmlpropertiescollection-0">HTMLPropertiesCollection</a></code> object with all the element's properties. Otherwise, an
+    empty <code><a href="#htmlpropertiescollection-0">HTMLPropertiesCollection</a></code> object.</p>
+
+   </dd>
+
+   <dt><var title="">element</var> . <code title="dom-itemValue"><a href="#dom-itemvalue">itemValue</a></code> [ = <var title="">value</var> ]</dt>
+
+   <dd>
+
+    <p>Returns the element's <a href="#concept-property-value" title="concept-property-value">value</a>.</p>
+
+    <p>Can be set, to change the element's <a href="#concept-property-value" title="concept-property-value">value</a>.
+    Setting the <a href="#concept-property-value" title="concept-property-value">value</a> when the element has no <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> attribute or when the element's value is an <a href="#concept-item" title="concept-item">item</a> throws an <code>InvalidAccessError</code> exception.</p>
+
+   </dd>
+
+  </dl>
+
+  <div class="impl">
+
+  <p>The <dfn id="dom-document-getitems" title="dom-document-getItems"><code>document.getItems(<var title="">typeNames</var>)</code></dfn> method takes a string that contains an
+  <a href="#unordered-set-of-unique-space-separated-tokens">unordered set of unique space-separated tokens</a> that are <span>case-sensitive</span>,
+  representing types. When called, the method must return a <span>live</span> <code>NodeList</code>
+  object containing all the elements in the document, in <a href="#tree-order">tree order</a>, that are each
+  <a href="#top-level-microdata-items">top-level microdata items</a> whose <a href="#item-types" title="item types">types</a> include all the
+  types specified in the method's argument, having obtained the types by <a href="#split-a-string-on-spaces" title="split a string
+  on spaces">splitting the string on spaces</a>. If there are no tokens specified in the
+  argument, then the method must return a <code>NodeList</code>
+  containing all the <a href="#top-level-microdata-items">top-level microdata items</a> in the document. When the method is
+  invoked on a <code>Document</code> object again with the same argument, the user agent may return
+  the same object as the object returned by the earlier call. In other cases, a new
+  <code>NodeList</code> object must be returned.</p>
+
+  <p>The <dfn id="dom-itemscope" title="dom-itemScope"><code>itemScope</code></dfn> IDL attribute on <a href="#html-elements">HTML
+  elements</a> must <a href="#reflect">reflect</a> the <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code>
+  content attribute. The <dfn id="dom-itemtype" title="dom-itemType"><code>itemType</code></dfn> IDL attribute on
+  <a href="#html-elements">HTML elements</a> must <a href="#reflect">reflect</a> the <code title="attr-itemtype"><a href="#attr-itemtype">itemtype</a></code> content attribute. The <dfn id="dom-itemid" title="dom-itemId"><code>itemId</code></dfn> IDL attribute on <a href="#html-elements">HTML elements</a> must
+  <a href="#reflect">reflect</a> the <code title="attr-itemid"><a href="#attr-itemid">itemid</a></code> content attribute. The <dfn id="dom-itemprop" title="dom-itemProp"><code>itemProp</code></dfn> IDL attribute on <a href="#html-elements">HTML elements</a> must
+  <a href="#reflect">reflect</a> the <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> content attribute. The <dfn id="dom-itemref" title="dom-itemRef"><code>itemRef</code></dfn> IDL attribute on <a href="#html-elements">HTML elements</a> must
+  <a href="#reflect">reflect</a> the <code title="attr-itemref"><a href="#attr-itemref">itemref</a></code> content attribute.</p>
+
+  <p>The <dfn id="dom-properties" title="dom-properties"><code>properties</code></dfn> IDL attribute on <a href="#html-elements">HTML
+  elements</a> must return an <code><a href="#htmlpropertiescollection-0">HTMLPropertiesCollection</a></code> rooted at the element's
+  <span>root element</span> (which element this is might change during the collection's lifetime, as
+  the element moves between different subtrees), whose filter matches only elements that are <a href="#the-properties-of-an-item" title="the properties of an item">the properties of the item</a> created by the element on
+  which the attribute was invoked, while that element is an <a href="#concept-item" title="concept-item">item</a>,
+  and matches nothing the rest of the time.</p>
+
+  <p>The <dfn id="dom-itemvalue" title="dom-itemValue"><code>itemValue</code></dfn> IDL attribute's behavior depends on
+  the element, as follows:</p>
+
+  <dl>
+
+   <dt>If the element has no <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> attribute</dt>
+
+   <dd><p>The attribute must return null on getting and must throw an
+   <code>InvalidAccessError</code> exception on setting.</p>
+
+
+   </dd><dt>If the element has an <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code> attribute</dt>
+
+   <dd><p>The attribute must return the element itself on getting and must throw an
+   <code>InvalidAccessError</code> exception on setting.</p>
+
+
+   </dd><dt>If the element is a <code>meta</code> element</dt>
+
+   <dd><p>The attribute must act as it would if it was <a href="#reflect" title="reflect">reflecting</a> the
+   element's <code title="attr-meta-content">content</code> content attribute.</p></dd>
+
+
+   <dt>If the element is an <code>audio</code>, <code>embed</code>, <code>iframe</code>,
+   <code>img</code>, <code>source</code>, <code>track</code>, or <code>video</code> element</dt>
+
+   <dd><p>The attribute must act as it would if it was <a href="#reflect" title="reflect">reflecting</a> the
+   element's <code title="">src</code> content attribute.</p></dd>
+
+
+   <dt>If the element is an <code>a</code>, <code>area</code>, or <code>link</code> element</dt>
+
+   <dd><p>The attribute must act as it would if it was <a href="#reflect" title="reflect">reflecting</a> the
+   element's <code title="">href</code> content attribute.</p></dd>
+
+
+   <dt>If the element is an <code>object</code> element</dt>
+
+   <dd><p>The attribute must act as it would if it was <a href="#reflect" title="reflect">reflecting</a> the
+   element's <code title="">data</code> content attribute.</p></dd>
+
+
+   <dt>If the element is a <code>data</code> element</dt>
+
+   <dd><p>The attribute must act as it would if it was <a href="#reflect" title="reflect">reflecting</a> the
+   element's <code title="attr-data-value">value</code> content attribute.</p></dd>
+
+
+   <dt>If the element is a <code>meter</code> element</dt>
+
+   <dd><p>The attribute must act as it would if it was <a href="#reflect" title="reflect">reflecting</a> the
+   element's <code title="attr-meter-value">value</code> content attribute.</p></dd>
+
+
+   <dt>If the element is a <code>time</code> element</dt>
+
+   <dd><p>On getting, if the element has a <code title="attr-time-datetime">datetime</code> content
+   attribute, the IDL attribute must return that content attribute's value; otherwise, it must
+   return the element's <code>textContent</code>. On setting, the IDL attribute must act as it would
+   if it was <a href="#reflect" title="reflect">reflecting</a> the element's <code title="attr-time-datetime">datetime</code> content attribute.</p></dd>
+
+
+   <dt>Otherwise</dt>
+
+   <dd><p>The attribute must act the same as the element's <code>textContent</code>
+   attribute.</p></dd>
+
+  </dl>
+
+  <p>When the <code title="dom-itemValue"><a href="#dom-itemvalue">itemValue</a></code> IDL attribute is <a href="#reflect" title="reflect">reflecting</a> a content attribute or acting like the element's
+  <code>textContent</code> attribute, the user agent must, on setting, convert the new value to the
+  IDL <code title="">DOMString</code> value before using it according to the mappings described
+  above.</p>
+
+  </div>
+
+  <div class="example">
+
+   <p>In this example, a script checks to see if a particular element <var title="">element</var> is
+   declaring a particular property, and if it is, it increments a counter:</p>
+
+   <pre>if (element.itemProp.contains('color'))
+  count += 1;</pre>
+
+  </div>
+
+  <div class="example">
+
+   <p>This script iterates over each of the values of an element's <code title="attr-itemref"><a href="#attr-itemref">itemref</a></code> attribute, calling a function for each referenced
+   element:</p>
+
+   <pre>for (var index = 0; index &lt; element.itemRef.length; index += 1)
+  process(document.getElementById(element.itemRef[index]));</pre>
+
+  </div>
+
+
+
+  <h3 id="htmlpropertiescollection"><span class="secno">6.1 </span>HTMLPropertiesCollection</h3>
+<p>The <code><a href="#htmlpropertiescollection-0">HTMLPropertiesCollection</a></code> interface is used for <a href="#collections">collections</a> of
+  elements that add <a href="#the-properties-of-an-item" title="the properties of an item">name-value pairs</a> to a particular
+  <a href="#concept-item" title="concept-item">item</a> in the <span>microdata</span> model.</p>
+
+  <pre class="idl">interface <dfn id="htmlpropertiescollection-0">HTMLPropertiesCollection</dfn> : <a href="#htmlcollection">HTMLCollection</a> {
+  // inherits <span title="dom-HTMLCollection-length">length</span> and <span title="dom-HTMLCollection-item">item</span>()
+  getter <a href="#propertynodelist">PropertyNodeList</a>? <a href="#dom-htmlpropertiescollection-nameditem" title="dom-HTMLPropertiesCollection-namedItem">namedItem</a>(DOMString name); // shadows inherited namedItem()
+  readonly attribute DOMString[] <a href="#dom-htmlpropertiescollection-names" title="dom-HTMLPropertiesCollection-names">names</a>;
+};
+
+typedef sequence&lt;any&gt; <dfn id="propertyvaluearray">PropertyValueArray</dfn>;
+
+interface <dfn id="propertynodelist">PropertyNodeList</dfn> : <span>NodeList</span> {
+  <a href="#propertyvaluearray">PropertyValueArray</a> <a href="#dom-propertynodelist-getvalues" title="dom-PropertyNodeList-getValues">getValues</a>();
+};</pre>
+
+  <dl class="domintro">
+
+   <dt><var title="">collection</var> . <code title="dom-HTMLCollection-length">length</code></dt>
+   <dd>
+    <p>Returns the number of elements in the collection.</p>
+   </dd>
+
+   <dt><var title="">element</var> = <var title="">collection</var> . <code title="dom-HTMLCollection-item">item</code>(<var title="">index</var>)</dt>
+   <dt><var title="">collection</var>[<var title="">index</var>]</dt>
+   <dd>
+    <p>Returns the element with index <var title="">index</var> from the collection. The items are sorted in <a href="#tree-order">tree order</a>.</p>
+   </dd>
+
+   <dt><var title="">propertyNodeList</var> = <var title="">collection</var> . <code title="dom-HTMLPropertiesCollection-namedItem"><a href="#dom-htmlpropertiescollection-nameditem">namedItem</a></code>(<var title="">name</var>)</dt>
+   <dd>
+    <p>Returns a <code><a href="#propertynodelist">PropertyNodeList</a></code> object containing any elements that add a property named <var title="">name</var>.</p>
+   </dd>
+
+   <dt><var title="">collection</var>[<var title="">name</var>]</dt>
+   <dd>
+    <p>Returns a <code><a href="#propertynodelist">PropertyNodeList</a></code> object containing any elements that add a property named <var title="">name</var>. The <var title="">name</var> index has to be one of the values listed in the <code title="dom-HTMLPropertiesCollection-names"><a href="#dom-htmlpropertiescollection-names">names</a></code> list.</p>
+   </dd>
+
+   <dt><var title="">collection</var> . <code title="dom-HTMLPropertiesCollection-names"><a href="#dom-htmlpropertiescollection-names">names</a></code></dt>
+   <dd>
+    <p>Returns an array with the <a href="#property-names">property names</a> of the elements in the collection.</p>
+   </dd>
+
+   <dt><var title="">propertyNodeList</var> . <code title="dom-PropertyNodeList-getVlues">getValues</code>()</dt>
+   <dd>
+    <p>Returns an array of the various values that the relevant elements have.</p>
+   </dd>
+
+  </dl>
+
+  <div class="impl">
+
+  <p>The object's <span>supported property indices</span> are as defined for
+  <code><a href="#htmlcollection">HTMLCollection</a></code> objects.</p>
+
+  <p>The <span>supported property names</span> consist of the <a href="#property-names">property names</a> of all the
+  elements <span>represented by the collection</span>, in <a href="#tree-order">tree order</a>, ignoring later
+  duplicates.</p>
+
+  <p>The <dfn id="dom-htmlpropertiescollection-names" title="dom-HTMLPropertiesCollection-names"><code>names</code></dfn> attribute must
+  return a <span>live</span> <span title="dfn-read-only-array">read only</span> array object giving
+  the <a href="#property-names">property names</a> of all the elements <span>represented by the collection</span>,
+  listed in <a href="#tree-order">tree order</a>, but with duplicates removed, leaving only the first occurrence
+  of each name. The same object must be returned each time.</p>
+
+  <p>The <dfn id="dom-htmlpropertiescollection-nameditem" title="dom-HTMLPropertiesCollection-namedItem"><code>namedItem(<var title="">name</var>)</code></dfn> method must return a <code><a href="#propertynodelist">PropertyNodeList</a></code> object
+  representing a <span>live</span> view of the <code><a href="#htmlpropertiescollection-0">HTMLPropertiesCollection</a></code> object, further
+  filtered so that the only nodes in the <code><a href="#propertynodelist">PropertyNodeList</a></code> object are those that have a
+  <a href="#property-names" title="property names">property name</a> equal to <var title="">name</var>. The nodes in
+  the <code><a href="#propertynodelist">PropertyNodeList</a></code> object must be sorted in <a href="#tree-order">tree order</a>, and the same
+  object must be returned each time a particular <var title="">name</var> is queried.</p>
+
+  <hr>
+
+  <p>Members of the <code><a href="#propertynodelist">PropertyNodeList</a></code> interface inherited from the <code>NodeList</code>
+  interface must behave as they would on a <code>NodeList</code> object.</p>
+
+  <p>The <dfn id="dom-propertynodelist-getvalues" title="dom-PropertyNodeList-getValues"><code>getValues</code></dfn> method the
+  <code><a href="#propertynodelist">PropertyNodeList</a></code> object must return a newly constructed array whose values are the
+  values obtained from the <code title="dom-itemValue"><a href="#dom-itemvalue">itemValue</a></code> IDL attribute of each of the
+  elements represented by the object, in <a href="#tree-order">tree order</a>.</p>
+
+  </div>
+
+
+  <div class="impl">
+
+  <h2 id="converting-html-to-other-formats"><span class="secno">7 </span>Converting HTML to other formats</h2>
+
+  <h3 id="json"><span class="secno">7.1 </span>JSON</h3>
+
+  <p>Given a list of nodes <var title="">nodes</var> in a <code>Document</code>, a user agent must
+  run the following algorithm to <dfn id="extracting-json" title="extracting JSON">extract the microdata from those nodes
+  into a JSON form</dfn>:</p>
+
+  <ol>
+
+   <li><p>Let <var title="">result</var> be an empty object.</p></li>
+
+   <li><p>Let <var title="">items</var> be an empty array.</p></li>
+
+   <li><p>For each <var title="">node</var> in <var title="">nodes</var>, check if the element is a
+   <a href="#top-level-microdata-items" title="top-level microdata items">top-level microdata item</a>, and if it is then
+   <a href="#get-the-object">get the object</a> for that element and add it to <var title="">items</var>.</p></li>
+
+   <li><p>Add an entry to <var title="">result</var> called "<code title="">items</code>" whose
+   value is the array <var title="">items</var>.</p></li>
+
+   <li><p>Return the result of serializing <var title="">result</var> to JSON in the shortest
+   possible way (meaning no whitespace between tokens, no unnecessary zero digits in numbers, and
+   only using Unicode escapes in strings for characters that do not have a dedicated escape
+   sequence), and with a lowercase "<code title="">e</code>" used, when appropriate, in the
+   representation of any numbers. <a href="#refsJSON">[JSON]</a></p></li>
+
+  </ol>
+
+  <p class="note">This algorithm returns an object with a single property that is an array, instead
+  of just returning an array, so that it is possible to extend the algorithm in the future if
+  necessary.</p>
+
+  <p>When the user agent is to <dfn id="get-the-object">get the object</dfn> for an item <var title="">item</var>,
+  optionally with a list of elements <var title="">memory</var>, it must run the following
+  substeps:</p>
+
+  <ol>
+
+   <li><p>Let <var title="">result</var> be an empty object.</p></li>
+
+   <li><p>If no <var title="">memory</var> was passed to the algorithm, let <var title="">memory</var> be an empty list.</p></li>
+
+   <li><p>Add <var title="">item</var> to <var title="">memory</var>.</p></li>
+
+   <li><p>If the <var title="">item</var> has any <a href="#item-types">item types</a>, add an entry to <var title="">result</var> called "<code title="">type</code>" whose value is an array listing the
+   <a href="#item-types">item types</a> of <var title="">item</var>, in the order they were specified on the
+   <code title="attr-itemtype"><a href="#attr-itemtype">itemtype</a></code> attribute.</p>
+
+   </li><li><p>If the <var title="">item</var> has a <a href="#global-identifier">global identifier</a>, add an entry to <var title="">result</var> called "<code title="">id</code>" whose value is the <a href="#global-identifier">global
+   identifier</a> of <var title="">item</var>.</p></li>
+
+   <li><p>Let <var title="">properties</var> be an empty object.</p></li>
+
+   <li>
+
+    <p>For each element <var title="">element</var> that has one or more <a href="#property-names">property names</a>
+    and is one of <a href="#the-properties-of-an-item" title="the properties of an item">the properties of the item</a> <var title="">item</var>, in the order those elements are given by the algorithm that returns
+    <a href="#the-properties-of-an-item">the properties of an item</a>, run the following substeps:</p>
+
+    <ol>
+
+     <li><p>Let <var title="">value</var> be the <a href="#concept-property-value" title="concept-property-value">property
+     value</a> of <var title="">element</var>.</p></li>
+
+     <li><p>If <var title="">value</var> is an <a href="#concept-item" title="concept-item">item</a>, then: If <var title="">value</var> is in <var title="">memory</var>, then let <var title="">value</var> be
+     the string "<code title="">ERROR</code>". Otherwise, <a href="#get-the-object">get the object</a> for <var title="">value</var>, passing a copy of <var title="">memory</var>, and then replace <var title="">value</var> with the object returned from those steps.</p></li>
+
+     <li>
+
+      <p>For each name <var title="">name</var> in <var title="">element</var>'s <a href="#property-names">property
+      names</a>, run the following substeps:</p>
+
+      <ol>
+
+       <li><p>If there is no entry named <var title="">name</var> in <var title="">properties</var>,
+       then add an entry named <var title="">name</var> to <var title="">properties</var> whose
+       value is an empty array.</p></li>
+
+       <li><p>Append <var title="">value</var> to the entry named <var title="">name</var> in <var title="">properties</var>.</p></li>
+
+      </ol>
+
+     </li>
+
+    </ol>
+
+   </li>
+
+   <li><p>Add an entry to <var title="">result</var> called "<code title="">properties</code>" whose
+   value is the object <var title="">properties</var>.</p></li>
+
+   <li><p>Return <var title="">result</var>.</p></li>
+
+  </ol>
+
+  <div class="example">
+
+   <p>For example, take this markup:</p>
+
+   <pre>&lt;!DOCTYPE HTML&gt;
+&lt;title&gt;My Blog&lt;/title&gt;
+&lt;article itemscope itemtype="http://schema.org/BlogPosting"&gt;
+ &lt;header&gt;
+  &lt;h1 itemprop="headline"&gt;Progress report&lt;/h1&gt;
+  &lt;p&gt;&lt;time itemprop="datePublished" datetime="2013-08-29"&gt;today&lt;/time&gt;&lt;/p&gt;
+  &lt;link itemprop="url" href="?comments=0"&gt;
+ &lt;/header&gt;
+ &lt;p&gt;All in all, he's doing well with his swim lessons. The biggest thing was he had trouble
+ putting his head in, but we got it down.&lt;/p&gt;
+ &lt;section&gt;
+  &lt;h1&gt;Comments&lt;/h1&gt;
+  &lt;article itemprop="comment" itemscope itemtype="http://schema.org/UserComments" id="c1"&gt;
+   &lt;link itemprop="url" href="#c1"&gt;
+   &lt;footer&gt;
+    &lt;p&gt;Posted by: &lt;span itemprop="creator" itemscope itemtype="http://schema.org/Person"&gt;
+     &lt;span itemprop="name"&gt;Greg&lt;/span&gt;
+    &lt;/span&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;time itemprop="commentTime" datetime="2013-08-29"&gt;15 minutes ago&lt;/time&gt;&lt;/p&gt;
+   &lt;/footer&gt;
+   &lt;p&gt;Ha!&lt;/p&gt;
+  &lt;/article&gt;
+  &lt;article itemprop="comment" itemscope itemtype="http://schema.org/UserComments" id="c2"&gt;
+   &lt;link itemprop="url" href="#c2"&gt;
+   &lt;footer&gt;
+    &lt;p&gt;Posted by: &lt;span itemprop="creator" itemscope itemtype="http://schema.org/Person"&gt;
+     &lt;span itemprop="name"&gt;Charlotte&lt;/span&gt;
+    &lt;/span&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;time itemprop="commentTime" datetime="2013-08-29"&gt;5 minutes ago&lt;/time&gt;&lt;/p&gt;
+   &lt;/footer&gt;
+   &lt;p&gt;When you say "we got it down"...&lt;/p&gt;
+  &lt;/article&gt;
+ &lt;/section&gt;
+&lt;/article&gt;</pre>
+
+   <p>It would be turned into the following JSON by the algorithm above (supposing that the page's
+   URL was <code>http://blog.example.com/progress-report</code>):</p>
+
+   <pre>{
+  "items": [
+    {
+      "type": [ "http://schema.org/BlogPosting" ],
+      "properties": {
+        "headline": [ "Progress report" ],
+        "datePublished": [ "2013-08-29" ],
+        "url": [ "http://blog.example.com/progress-report?comments=0" ],
+        "comment": [
+          {
+            "type": [ "http://schema.org/UserComments" ],
+            "properties": {
+              "url": [ "http://blog.example.com/progress-report#c1" ],
+              "creator": [
+                {
+                  "type": [ "http://schema.org/Person" ],
+                  "properties": {
+                    "name": [ "Greg" ]
+                  }
+                }
+              ],
+              "commentTime": [ "2013-08-29" ]
+            }
+          },
+          {
+            "type": [ "http://schema.org/UserComments" ],
+            "properties": {
+              "url": [ "http://blog.example.com/progress-report#c2" ],
+              "creator": [
+                {
+                  "type": [ "http://schema.org/Person" ],
+                  "properties": {
+                    "name": [ "Charlotte" ]
+                  }
+                }
+              ],
+              "commentTime": [ "2013-08-29" ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}</pre>
+
+  </div>
+
+  </div>
+
+
+
+    <h2 id="other-changes-to-html5"><span class="secno">8 </span>Other changes to HTML5</h2>
+
+  <h3 id="content-models"><span class="secno">8.1 </span>Content models</h3>
+
+  <p>If the <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> attribute is
+  present on <code>link</code> or <code>meta</code>, they are
+  <a href="#flow-content">flow content</a> and <a href="#phrasing-content">phrasing content</a>. The
+  <code>link</code> and <code>meta</code> elements may be used where
+  <a href="#phrasing-content">phrasing content</a> is expected if the <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> attribute is present.</p>
+
+  <p>If a <code>link</code> element has an <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> attribute, the <code title="attr-link-rel">rel</code> attribute may be omitted.</p>
+
+  <p>If a <code>meta</code> element has an <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> attribute, the <code title="attr-meta-name">name</code>, <code title="attr-meta-http-equiv">http-equiv</code>, and <code title="attr-meta-charset">charset</code> attributes must be omitted,
+  and the <code title="attr-meta-content">content</code> attribute
+  must be present.</p>
+
+  <p>If the <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> is specified
+  on an <code>a</code> or <code>area</code> element, then the <code title="attr-hyperlink-href">href</code> attribute must also be
+  specified.</p>
+
+  <p>If the <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> is specified
+  on an <code>iframe</code> element, then the <code title="attr-iframe-src">data</code> attribute must also be
+  specified.</p>
+
+  <p>If the <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> is specified
+  on an <code>embed</code> element, then the <code title="attr-embed-src">data</code> attribute must also be
+  specified.</p>
+
+  <p>If the <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> is specified
+  on an <code>object</code> element, then the <code title="attr-object-data">data</code> attribute must also be
+  specified.</p>
+
+  <p>If the <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> is specified
+  on a <span>media element</span>, then the <code title="attr-media-src">src</code> attribute must also be
+  specified.</p>
+<!--/YYY-->
+
+  <div class="impl">
+
+  <h3 id="drag-and-drop"><span class="secno">8.2 </span>Drag-and-drop</h3>
+
+  <p>The <a href="#drag-and-drop-initialization-steps">drag-and-drop initialization steps</a> are:
+
+  </p><ol>
+   <li>
+    <p>The user agent must take the <a href="#list-of-dragged-nodes">list of dragged nodes</a>
+    and <a href="#extracting-json" title="extracting JSON">extract the microdata from those
+    nodes into a JSON form</a>, and then must add the resulting
+    string to the <code title="dom-DragEvent-dataTransfer">dataTransfer</code> member,
+    associated with the <code title="">application/microdata+json</code> format.</p>
+   </li>
+  </ol>
+
+  </div>
+<h2 id="iana"><span class="secno">9 </span>IANA considerations</h2>
+
+  <!-- http://www.w3.org/2002/06/registering-mediatype.html -->
+
+  <h1 id="application/microdata+json"><dfn><code>application/microdata+json</code></dfn></h1>
+
+
+  <p>This registration is for community review and will be submitted
+  to the IESG for review, approval, and registration with IANA.</p>
+
+  <!--
+   To: ietf-types@iana.org
+   Subject: Registration of media type application/microdata+json
+  -->
+
+  <dl>
+   <dt>Type name:</dt>
+   <dd>application</dd>
+   <dt>Subtype name:</dt>
+   <dd>microdata+json</dd>
+   <dt>Required parameters:</dt>
+   <dd>Same as for <code>application/json</code> <a href="#refsJSON">[JSON]</a></dd>
+   <dt>Optional parameters:</dt>
+   <dd>Same as for <code>application/json</code> <a href="#refsJSON">[JSON]</a></dd>
+   <dt>Encoding considerations:</dt>
+   <dd>8bit (always UTF-8)</dd>
+<!--ADD-TOPIC:Security-->
+   <dt>Security considerations:</dt>
+   <dd>Same as for <code>application/json</code> <a href="#refsJSON">[JSON]</a></dd>
+<!--REMOVE-TOPIC:Security-->
+   <dt>Interoperability considerations:</dt>
+   <dd>Same as for <code>application/json</code> <a href="#refsJSON">[JSON]</a></dd>
+   <dt>Published specification:</dt>
+   <dd>
+    Labeling a resource with the
+    <code><a href="#application/microdata+json">application/microdata+json</a></code> type asserts that the
+    resource is a JSON text that consists of an object with a single
+    entry called "<code title="">items</code>" consisting of an array
+    of entries, each of which consists of an object with an entry
+    called "<code title="">id</code>" whose value is a string, an
+    entry called "<code title="">type</code>" whose value is another
+    string, and an entry called "<code title="">properties</code>"
+    whose value is an object whose entries each have a value
+    consisting of an array of either objects or strings, the objects
+    being of the same form as the objects in the aforementioned "<code title="">items</code>" entry.
+    Thus, the relevant specifications
+    are the JSON specification and this specification. <a href="#refsJSON">[JSON]</a>
+   </dd>
+   <dt>Applications that use this media type:</dt>
+   <dd>
+    <p>Applications that transfer data intended for use with HTML's microdata feature, especially in
+    the context of drag-and-drop, are the primary application class for this type.</p>
+   </dd>
+   <dt>Additional information:</dt>
+   <dd>
+    <dl>
+     <dt>Magic number(s):</dt>
+     <dd>Same as for <code>application/json</code> <a href="#refsJSON">[JSON]</a></dd>
+     <dt>File extension(s):</dt>
+     <dd>Same as for <code>application/json</code> <a href="#refsJSON">[JSON]</a></dd>
+     <dt>Macintosh file type code(s):</dt>
+     <dd>Same as for <code>application/json</code> <a href="#refsJSON">[JSON]</a></dd>
+    </dl>
+   </dd>
+   <dt>Person &amp; email address to contact for further information:</dt>
+   <dd>Ian Hickson &lt;ian@hixie.ch&gt;</dd>
+   <dt>Intended usage:</dt>
+   <dd>Common</dd>
+   <dt>Restrictions on usage:</dt>
+   <dd>No restrictions apply.</dd>
+   <dt>Author:</dt>
+   <dd>Ian Hickson &lt;ian@hixie.ch&gt;</dd>
+   <dt>Change controller:</dt>
+   <dd>W3C</dd>
+  </dl>
+
+  <p>Fragment identifiers used with
+  <code><a href="#application/microdata+json">application/microdata+json</a></code> resources have the same
+  semantics as when used with <code>application/json</code> (namely,
+  at the time of writing, no semantics at all). <a href="#refsJSON">[JSON]</a></p>
+
+  <h2>Changes</h2>
+
+  <p>Changes made between this version and the <a href="http://www.w3.org/TR/2013/NOTE-microdata-20131029/">23 October 2013 W3C Note</a>
+
+  <ul>
+   <li>Remove DOM API. This API has been removed from browsers that did implement it.</li>
+   <li>Remove unused references</li>
+  </ul>
+
+  <h2 class="no-num" id="references">References</h2><!--REFS-->
+
+  <p>All references are normative unless marked "Non-normative".</p>
+
+
+  <dl>
+
+   <dt id="refsHTML5">[HTML]</dt>
+   <dd>
+   <cite><a href="http://www.w3.org/TR/html/">HTML</a></cite>,
+   W3C. Various editions and editors, current W3C Recommendation is <a href="http://www.w3.org/TR/html51/">HTML 5.1</a>, Ed. A. Danilo, A. Eicholz, S. Faulkner, T. Leithead.</dd>
+
+   <dt id="refsJSON">[JSON]</dt>
+   <dd><cite><a href="http://tools.ietf.org/html/rfc4627">The application/json Media Type for JavaScript Object Notation (JSON)</a></cite>, D. Crockford. IETF.</dd>
+
+   <dt id="refsRFC2119">[RFC2119]</dt>
+   <dd><cite><a href="http://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a></cite>, S. Bradner. IETF.</dd>
+
+   <dt id="refsURL">[URL]</dt>
+   <dd>Various specifications define aspects of URLs. The non-normative <cite><a href="http://url.spec.whatwg.org/">URL</a></cite>, A. van Kesteren, WHATWG, is generally the most up-to-date. Various IETF RFCs provide fixed stable references.</dd>
+
+
+</body></html>
