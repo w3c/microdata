@@ -1206,56 +1206,6 @@
   </div>
 
 
-  <h2 id="microdata-dom-api"><span class="secno">6 </span>Microdata DOM API</h2>
-
-  <dl class="domintro">
-
-   <dt><var title="">document</var> . <code title="dom-document-getItems"><a href="#dom-document-getitems">getItems</a></code>( [ <var title="">types</var> ] )</dt>
-
-   <dd>
-
-    <p>Returns a <code>NodeList</code> of the elements in the <code>Document</code> that create
-    <a href="#concept-item" title="concept-item">items</a>, that are not part of other <a href="#concept-item" title="concept-item">items</a>, and that are of the types given in the argument, if any are
-    listed.</p>
-
-    <p>The <var title="">types</var> argument is interpreted as a space-separated list of types.</p>
-
-   </dd>
-
-   <dt><var title="">element</var> . <code title="dom-properties"><a href="#dom-properties">properties</a></code></dt>
-
-   <dd>
-
-    <p>If the element has an <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code> attribute, returns an
-    <code><a href="#htmlpropertiescollection-0">HTMLPropertiesCollection</a></code> object with all the element's properties. Otherwise, an
-    empty <code><a href="#htmlpropertiescollection-0">HTMLPropertiesCollection</a></code> object.</p>
-
-   </dd>
-
-   <dt><var title="">element</var> . <code title="dom-itemValue"><a href="#dom-itemvalue">itemValue</a></code> [ = <var title="">value</var> ]</dt>
-
-   <dd>
-
-    <p>Returns the element's <a href="#concept-property-value" title="concept-property-value">value</a>.</p>
-
-    <p>Can be set, to change the element's <a href="#concept-property-value" title="concept-property-value">value</a>.
-    Setting the <a href="#concept-property-value" title="concept-property-value">value</a> when the element has no <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> attribute or when the element's value is an <a href="#concept-item" title="concept-item">item</a> throws an <code>InvalidAccessError</code> exception.</p>
-
-   </dd>
-
-  </dl>
-
-  <div class="impl">
-
-  <p>The <dfn id="dom-document-getitems" title="dom-document-getItems"><code>document.getItems(<var title="">typeNames</var>)</code></dfn> method takes a string that contains an
-  <a href="#unordered-set-of-unique-space-separated-tokens">unordered set of unique space-separated tokens</a> that are <span>case-sensitive</span>,
-  representing types. When called, the method must return a <span>live</span> <code>NodeList</code>
-  object containing all the elements in the document, in <a href="#tree-order">tree order</a>, that are each
-  <a href="#top-level-microdata-items">top-level microdata items</a> whose <a href="#item-types" title="item types">types</a> include all the
-  types specified in the method's argument, having obtained the types by <a href="#split-a-string-on-spaces" title="split a string
-  on spaces">splitting the string on spaces</a>. If there are no tokens specified in the
-  argument, then the method must return a <code>NodeList</code>
-  containing all the <a href="#top-level-microdata-items">top-level microdata items</a> in the document. When the method is
   invoked on a <code>Document</code> object again with the same argument, the user agent may return
   the same object as the object returned by the earlier call. In other cases, a new
   <code>NodeList</code> object must be returned.</p>
@@ -1342,36 +1292,6 @@
    <dd><p>The attribute must act the same as the element's <code>textContent</code>
    attribute.</p></dd>
 
-  </dl>
-
-  <p>When the <code title="dom-itemValue"><a href="#dom-itemvalue">itemValue</a></code> IDL attribute is <a href="#reflect" title="reflect">reflecting</a> a content attribute or acting like the element's
-  <code>textContent</code> attribute, the user agent must, on setting, convert the new value to the
-  IDL <code title="">DOMString</code> value before using it according to the mappings described
-  above.</p>
-
-  </div>
-
-  <div class="example">
-
-   <p>In this example, a script checks to see if a particular element <var title="">element</var> is
-   declaring a particular property, and if it is, it increments a counter:</p>
-
-   <pre>if (element.itemProp.contains('color'))
-  count += 1;</pre>
-
-  </div>
-
-  <div class="example">
-
-   <p>This script iterates over each of the values of an element's <code title="attr-itemref"><a href="#attr-itemref">itemref</a></code> attribute, calling a function for each referenced
-   element:</p>
-
-   <pre>for (var index = 0; index &lt; element.itemRef.length; index += 1)
-  process(document.getElementById(element.itemRef[index]));</pre>
-
-  </div>
-
-
 
   <h3 id="htmlpropertiescollection"><span class="secno">6.1 </span>HTMLPropertiesCollection</h3>
 <p>The <code><a href="#htmlpropertiescollection-0">HTMLPropertiesCollection</a></code> interface is used for <a href="#collections">collections</a> of
@@ -1434,30 +1354,6 @@ interface <dfn id="propertynodelist">PropertyNodeList</dfn> : <span>NodeList</sp
   elements <span>represented by the collection</span>, in <a href="#tree-order">tree order</a>, ignoring later
   duplicates.</p>
 
-  <p>The <dfn id="dom-htmlpropertiescollection-names" title="dom-HTMLPropertiesCollection-names"><code>names</code></dfn> attribute must
-  return a <span>live</span> <span title="dfn-read-only-array">read only</span> array object giving
-  the <a href="#property-names">property names</a> of all the elements <span>represented by the collection</span>,
-  listed in <a href="#tree-order">tree order</a>, but with duplicates removed, leaving only the first occurrence
-  of each name. The same object must be returned each time.</p>
-
-  <p>The <dfn id="dom-htmlpropertiescollection-nameditem" title="dom-HTMLPropertiesCollection-namedItem"><code>namedItem(<var title="">name</var>)</code></dfn> method must return a <code><a href="#propertynodelist">PropertyNodeList</a></code> object
-  representing a <span>live</span> view of the <code><a href="#htmlpropertiescollection-0">HTMLPropertiesCollection</a></code> object, further
-  filtered so that the only nodes in the <code><a href="#propertynodelist">PropertyNodeList</a></code> object are those that have a
-  <a href="#property-names" title="property names">property name</a> equal to <var title="">name</var>. The nodes in
-  the <code><a href="#propertynodelist">PropertyNodeList</a></code> object must be sorted in <a href="#tree-order">tree order</a>, and the same
-  object must be returned each time a particular <var title="">name</var> is queried.</p>
-
-  <hr>
-
-  <p>Members of the <code><a href="#propertynodelist">PropertyNodeList</a></code> interface inherited from the <code>NodeList</code>
-  interface must behave as they would on a <code>NodeList</code> object.</p>
-
-  <p>The <dfn id="dom-propertynodelist-getvalues" title="dom-PropertyNodeList-getValues"><code>getValues</code></dfn> method the
-  <code><a href="#propertynodelist">PropertyNodeList</a></code> object must return a newly constructed array whose values are the
-  values obtained from the <code title="dom-itemValue"><a href="#dom-itemvalue">itemValue</a></code> IDL attribute of each of the
-  elements represented by the object, in <a href="#tree-order">tree order</a>.</p>
-
-  </div>
 
 
   <div class="impl">
