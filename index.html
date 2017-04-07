@@ -5,147 +5,85 @@
 
   <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" rel="stylesheet" type="text/css">
 
+  <script src='https://www.w3.org/Tools/respec/respec-w3c-common' async class='remove'></script>
+  <script class='remove'>
+  var respecConfig = {
+    shortName: "microdata",
+    specStatus: "ED",
+    useExperimentalStyles: true,
+    edDraftURI: "https://w3c.github.io/microdata/",
+    editors: [{
+      name: "Chaals McCathie Nevile",
+      mailto: "chaals@yandex-team.ru",
+      company: "Yandex / Яндекс",
+      companyURL: "http://yandex.com/",
+      w3cid: "6222"
+    }, {
+      name: "Dan Brickley",
+      mailto: "danbri@google.com",
+      company: "Google, Inc.",
+      companyURL: "https://google.com/",
+      w3cid: "6350"
+    }],
+    wg: "Web Platform Working Group",
+    wgURI: "https://www.w3.org/WebPlatform/WG/",
+    license: 'w3c-software-doc',
+    wgPublicList: "public-webapps",
+    subjectPrefix: "[microdata]",
+    otherLinks: [{
+      key: 'Repository',
+      data: [{
+        value: 'We are on GitHub.',
+        href: 'https://github.com/w3c/microdata'
+      }, {
+        value: 'File a bug.',
+        href: 'https://github.com/w3c/microdata/issues'
+      }, {
+        value: 'Commit history.',
+        href: 'https://github.com/w3c/microdata/commits/gh-pages/index.html'
+      }]
+    },{
+      key: 'Mailing list',
+      data: [{
+        value: 'public-webapps@w3.org',
+        href: 'https://lists.w3.org/Archives/Public/public-webapps/'
+      }]
+    }],
+    wgPatentURI:  "https://www.w3.org/2004/01/pp-impl/83482/status"
+  };
+  </script>
  </head>
+
  <body>
-  <div class="head" id="head">
-<header>
+ <section id="abstract">
+  <p>This specification defines the HTML microdata mechanism. This mechanism allows machine-readable data to be embedded in HTML documents with an unambiguous parsing model. It is compatible with JSON, and can be written in a style which is convertible to RDF.</p>
+</section>
 
-   <!--p><a href="http://www.w3.org/"><img alt="W3C" height="48" src="http://www.w3.org/Icons/w3c_home" width="72"></a></p-->
+<section id="sotd">
+  <p>This document is an editor's draft for the <a href="https://www.w3.org/WebPlatform/WG/">Web Platform Working Group</a>, proposed to replace the <a href="http://www.w3.org/TR/2013/NOTE-microdata-20131029/">29 October 2013 W3C Working Group Note</a>. It updates the document by removing the Microdata API, which has been removed from browsers which previously implemented it.</p>
 
-   <h1>HTML Microdata</h1>
-   <h2 class="no-num no-toc" id="editors-draft-october-2016">Editors' draft 7 April 2017</h2>
-   </header>
-<dl>
-    <dt>This Version:</dt>
-    <dd><a href="https://chaals.github.io/microdata/">https://chaals.github.io/microdata/</a></dd>
-    <dt>Latest Published Version:</dt>
-    <dd><a href="http://www.w3.org/TR/microdata/">http://www.w3.org/TR/microdata/</a></dd>
-    <dt>Previous Versions:</dt>
-    <dd><a href="http://www.w3.org/TR/2013/NOTE-microdata-20131029/">http://www.w3.org/TR/2013/NOTE-microdata-20131029/</a></dd>
-    <dt>Editors:</dt>
-    <dd><a href="mailto:chaals@yandex-team.ru" style="color:#000">Chaals McCathie Nevile</a>,
-      <a href="http://yandex.com" style="color:#000"><span style="color:#f00">Y</span>andex</a> /
-      <a href="http://yandex.ru" style="color:#000"><span style="color:#f00">Я</span>ндекс</a>,</dd>
-    <dd><a href="danbri@google.com">Dan Brickley</a>, Google, Inc.</dd>
-    <dt>Former Editor:</dt>
-    <dd><a href="mailto:ian@hixie.ch">Ian Hickson</a>, Google, Inc.</dd>
-   </dl>
-     <p class="copyright"><a href="http://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a>
-   © 2013-6 <a href="http://www.w3.org/"><abbr title="World Wide
-   Web Consortium">W3C</abbr></a><sup>®</sup> (<a href="http://www.csail.mit.edu/"><abbr title="Massachusetts
-   Institute of Technology">MIT</abbr></a>, <a href="http://www.ercim.eu/"><abbr title="European Research
-   Consortium for Informatics and Mathematics">ERCIM</abbr></a>, <a href="http://www.keio.ac.jp/">Keio</a>, <a href="http://ev.buaa.edu.cn/">Beihang</a>), All Rights Reserved. W3C
-   <a href="http://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>,
-   <a href="http://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and 
-   <a href="http://www.w3.org/Consortium/Legal/2015/copyright-software-and-document" rel="license">permissive document license</a>
-   rules apply.</p>
+  <p>This specification is an extension to HTML. All normative content in the HTML specification, unless specifically overridden by this specification, is intended to be the basis for this specification.</p>
 
-</div>
-
-
-  <hr class="top">
-
-
-  <h2 class="no-num no-toc" id="abstract">Abstract</h2>
-
-  <p>This specification defines the HTML microdata mechanism. This mechanism allows
-  machine-readable data to be embedded in HTML documents with an unambiguous parsing
-  model. It is compatible with JSON, and can be written in a style which is convertible to RDF.</p>
-
-  <h2 class="no-num no-toc" id="status-of-this-document">Status of This document</h2>
-      <!-- intro boilerplate (required) -->
-
-    <p><em>This section describes the status of this document at the time of its publication.
-      Other documents may supersede this document. A list of current W3C publications and the
-      latest revision of this technical report can be found in the <a href="http://www.w3.org/TR/">W3C
-      technical reports index</a> at http://www.w3.org/TR/.</em></p>
-
-    <p>This document is an editor's draft for the <a href="">Web Platform Working Group</a>, proposed to replace
-      the <a href="http://www.w3.org/TR/2013/NOTE-microdata-20131029/">29 October 2013 W3C Working Group Note</a>.
-      It updates the document by removing the Microdata API, which has been removed from browsers which
-      previously implemented it.</p>
-
-  <p>This specification is an extension to HTML. All
-  normative content in the HTML specification, unless specifically
-  overridden by this specification, is intended to be the basis for
-  this specification.</p>
-
-    <!-- where to send feedback (required) -->
-
-    <p>If you wish to make comments regarding this document please
-      <a href="https://github.com/w3c/microdata">submit them as github issues</a>. All feedback is welcome, but 
-      please note the <a href="https://github.com/w3c/microdata/blob/master/CONTRIBUTING.md">contribution guidelines</a></p>
-
-  <p>Publication as an Editors' draft does not imply endorsement by the Working Group nor W3C Membership.
-  This is a draft document and may be updated, replaced, or obsoleted by other documents, or abandoned, at
-  any time. It is inappropriate to cite this document as other than work in progress.</p>
-
-
-  <!-- required patent boilerplate -->
-  <p>This document was produced by a group operating under the
-  <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/">5 February 2004 W3C Patent Policy</a>.
-  W3C maintains a
-  <a href="http://www.w3.org/2004/01/pp-impl/40318/status" rel="disclosure">public list of any patent disclosures</a>
-  made in connection with the deliverables of the group; that page also includes instructions for disclosing a
-  patent. An individual who has actual knowledge of a patent which the individual believes contains
-  <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#def-essential">Essential Claim(s)</a>
-  must disclose the information in accordance with
-  <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#sec-Disclosure">section 6 of the W3C Patent Policy</a>.</p>
-
-
-
-  <h2 class="no-num no-toc" id="contents">Table of Contents</h2>
-
-<!--begin-toc-->
-<ol class="toc">
- <li><a href="#dependencies"><span class="secno">1 </span>Dependencies</a></li>
- <li><a href="#terminology"><span class="secno">2 </span>Terminology</a></li>
- <li><a href="#conformance-requirements"><span class="secno">3 </span>Conformance requirements</a>
-  </li>
- <li><a href="#introduction"><span class="secno">4 </span>Introduction</a>
-  <ol class="toc">
-   <li><a href="#overview"><span class="secno">4.1 </span>Overview</a></li>
-   <li><a href="#the-basic-syntax"><span class="secno">4.2 </span>The basic syntax</a></li>
-   <li><a href="#typed-items"><span class="secno">4.3 </span>Typed items</a></li>
-   <li><a href="#global-identifiers-for-items"><span class="secno">4.4 </span>Global identifiers for items</a></li>
-   <li><a href="#selecting-names-when-defining-vocabularies"><span class="secno">4.5 </span>Selecting names when defining vocabularies</a></li></ol></li>
- <li><a href="#encoding-microdata"><span class="secno">5 </span>Encoding microdata</a>
-  <ol class="toc">
-   <li><a href="#the-microdata-model"><span class="secno">5.1 </span>The microdata model</a></li>
-   <li><a href="#items"><span class="secno">5.2 </span>Items</a></li>
-   <li><a href="#names:-the-itemprop-attribute"><span class="secno">5.3 </span>Names: the <code>itemprop</code> attribute</a></li>
-   <li><a href="#values"><span class="secno">5.4 </span>Values</a></li>
-   <li><a href="#associating-names-with-items"><span class="secno">5.5 </span>Associating names with items</a></li>
-   <li><a href="#microdata-and-other-namespaces"><span class="secno">5.6 </span>Microdata and other namespaces</a></li></ol></li>
- <li><a href="#converting-html-to-other-formats"><span class="secno">6 </span>Converting HTML to other formats</a>
-  <ol class="toc">
-   <li><a href="#json"><span class="secno">6.1 </span>JSON</a></li></ol></li>
- <li><a href="#other-changes-to-html5"><span class="secno">7 </span>Other changes to HTML5</a>
-  <ol class="toc">
-   <li><a href="#content-models"><span class="secno">7.1 </span>Content models</a></li>
-   <li><a href="#drag-and-drop"><span class="secno">7.2 </span>Drag-and-drop</a></li></ol></li>
- <li><a href="#iana"><span class="secno">8 </span>IANA considerations</a></li>
- <li><a class="no-num" href="#references">References</a></li></ol>
-<!--end-toc-->
-  <hr>
-
-
+  <!-- where to send feedback (required) -->
+  <p>If you wish to make comments regarding this document please
+    <a href="https://github.com/w3c/microdata">submit them as github issues</a>. All feedback is welcome, but please note the <a href="https://github.com/w3c/microdata/blob/master/CONTRIBUTING.md">contribution guidelines</a></p>
+</section>
 
 <!--YYY-->
-  <h2 id="dependencies"><span class="secno">1 </span>Dependencies and relationships</h2>
+<section id="dependencies">
+<h2>Dependencies</h2>
+<p>This specification depends on the HTML and URL specifications. [[!HTML5]][[!URL]]</p>
 
-  <p>This specification depends on the HTML <a href="#refsHTML">[HTML]</a> and URL <a href="#refsURL">[URL]</a> specifications.</p>
+<p>Information expressed as microdata can be converted to JSON, as described in <a href="#json">Section 6.1</a>. Microdata can <em>generally</em> be converted to RDF, as described in <a href="https://www.w3.org/TR/microdata-rdf">Microdata to RDF</a>, but only when an additional set of constraints are applied to the microdata content. [[!JSON]][[microdata-rdf]]</p>
 
-  <p>Information expressed as microdata can be converted to JSON <a href="refsJOSN">[JSON]</a>, as described in
-  <a href="#json">Section 6.1</a>. Microdata can <em>generally</em> be converted to RDF, as described in
-  <a href="https://www.w3.org/TR/microdata-rdf">Microdata to RDF</a> <a href="#refsToRDF">[ToRDF]</a>,
-  but only when an additional set of constraints are applied to the microdata content.</p>
+</section>
 
-  <h2 id="terminology"><span class="secno">2 </span>Terminology</h2>
+  <section id="terminology">
+  <h2>Terminology</h2>
 
   <p>This specification relies on the URL specification to define the terms <dfn id="url">URL</dfn>,
   <dfn id="valid-url">valid URL</dfn>, <dfn id="absolute-url">absolute URL</dfn>, and
-  <dfn id="resolve-a-url">resolve a URL</dfn>.</p>
+  <dfn id="resolve-a-url">resolve a URL</dfn>. [[!URL]]</p>
 
   <p>This specification relies on the HTML specification to define the following terms:</p>
 
@@ -186,10 +124,12 @@
   <p>Finally, HTML5 also defines the concepts of
   <dfn id="drag-and-drop-initialization-steps">drag-and-drop initialization steps</dfn> and of the
   <dfn id="list-of-dragged-nodes">list of dragged nodes</dfn>, which come up in the context of drag-and-drop
-  interfaces.</p>
+  interfaces. [[!HTML5]]</p>
+
+  </section>
 
 
-  <h2 id="conformance-requirements"><span class="secno">3 </span>Conformance requirements</h2>
+  <section id="conformance">
 
   <p>All diagrams, examples, and notes in this specification are non-normative, as are all sections
   explicitly marked non-normative. Everything else in this specification is normative.</p>
@@ -198,7 +138,7 @@
   NOT", <!--"RECOMMENDED", "NOT RECOMMENDED",--> "MAY", and "OPTIONAL" in the normative parts of
   this document are to be interpreted as described in RFC2119. The key word "OPTIONALLY" in the
   normative parts of this document is to be interpreted with the same normative meaning as "MAY" and
-  "OPTIONAL". <a href="#refsRFC2119">[RFC2119]</a></p>
+  "OPTIONAL". [[RFC2119]]</p>
 
   <div class="impl">
 
@@ -235,11 +175,13 @@
 
   </div>
 
+</section>
 
+<section id="sec-navigation-timing">
+<h2>Introduction</h2>
 
-  <h2 id="introduction"><span class="secno">4 </span>Introduction</h2>
-
-  <h3 id="overview"><span class="secno">4.1 </span>Overview</h3>
+<section id="overview">
+<h3>Overview</h3>
 
   <p><i>This section is non-normative.</i></p>
   <p>Sometimes, it is desirable to annotate content with specific machine-readable labels, e.g. to
@@ -250,9 +192,10 @@
   <p>For this purpose, authors can use the microdata features described in this section. Microdata
   allows nested groups of name-value pairs to be added to documents, in parallel with the existing
   content.</p>
+</section>
 
-
-  <h3 id="the-basic-syntax"><span class="secno">4.2 </span>The basic syntax</h3>
+<section id="the-basic-syntax">
+<h3>The basic syntax</h3>
 
   <p><i>This section is non-normative.</i></p>
   <p>At a high level, microdata consists of a group of name-value pairs. The groups are called <a href="#concept-item" title="concept-item">items</a>, and each name-value pair is a property. Items and properties
@@ -477,8 +420,10 @@
 
   </div>
 
+</section>
 
-  <h3 id="typed-items"><span class="secno">4.3 </span>Typed items</h3>
+<section id="typed-items">
+<h3>Typed items</h3>
 
   <p><i>This section is non-normative.</i></p>
   <p>The examples in the previous section show how information could be marked up on a page that
@@ -517,8 +462,10 @@
   be given for a single item by listing the URLs as a space-separated list in the attribute' value.
   An item cannot be given two types if they do not use the same vocabulary, however.</p>
 
+</section>
 
-  <h3 id="global-identifiers-for-items"><span class="secno">4.4 </span>Global identifiers for items</h3>
+<section id="global-identifiers-for-items">
+<h3>Global identifiers for items</h3>
 
   <p><i>This section is non-normative.</i></p>
   <p>Sometimes, an <a href="#concept-item" title="concept-item">item</a> gives information about a topic that has a
@@ -561,9 +508,10 @@
   in the microdata, references the page or something else.</p>
   -->
 
+</section>
 
-
-  <h3 id="selecting-names-when-defining-vocabularies"><span class="secno">4.5 </span>Selecting names when defining vocabularies</h3>
+<section id="selecting-names-when-defining-vocabularies">
+<h3>Selecting names when defining vocabularies</h3>
 
   <p><i>This section is non-normative.</i></p>
   <p>Using microdata means using a vocabulary. For some purposes, an ad-hoc vocabulary is adequate.
@@ -635,14 +583,14 @@
    </td></tr></tbody></table>
 
   </div>
+</section>
+</section>
 
+<section id="encoding-microdata">
+<h2>Encoding microdata</h2>
 
-
-
-  <h2 id="encoding-microdata"><span class="secno">5 </span>Encoding microdata</h2>
-
-
-  <h3 id="the-microdata-model"><span class="secno">5.1 </span>The microdata model</h3>
+<section id="the-microdata-model">
+<h3>The microdata model</h3>
 
   <p>The microdata model consists of groups of name-value pairs known as <a href="#concept-item" title="concept-item">items</a>.</p>
 
@@ -653,10 +601,10 @@
   properties of an item">property</a> has one or more <a href="#concept-property-value" title="concept-property-value">values</a>. Each <a href="#concept-property-value" title="concept-property-value">value</a> is either a string or itself a group of name-value
   pairs (an <a href="#concept-item" title="concept-item">item</a>). The names are unordered relative to each other,
   but if a particular name has multiple values, they do have a relative order.</p>
+</section>
 
-
-
-  <h3 id="items"><span class="secno">5.2 </span>Items</h3>
+<section id="items">
+<h3>Items</h3>
 
   <p>Every <a href="#html-elements" title="HTML elements">HTML element</a> may have an <dfn id="attr-itemscope" title="attr-itemscope"><code>itemscope</code></dfn> attribute specified. The <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code> attribute is a <a href="#boolean-attribute">boolean attribute</a>.</p>
 
@@ -833,8 +781,10 @@
 
   </div>
 
+</section>
 
-  <h3 id="names:-the-itemprop-attribute"><span class="secno">5.3 </span>Names: the <dfn title="attr-itemprop"><code>itemprop</code></dfn> attribute</h3>
+<section id="names:-the-itemprop-attribute">
+<h3>Names: the <dfn title="attr-itemprop"><code>itemprop</code></dfn> attribute</h3>
 
   <p>Every <a href="#html-elements" title="HTML elements">HTML element</a> may have an <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> attribute specified, if doing so <a href="#the-properties-of-an-item" title="the properties
   of an item">adds one or more properties</a> to one or more <a href="#concept-item" title="concept-item">items</a> (as defined below).</p>
@@ -931,9 +881,10 @@
 
   </div>
 
+</section>
 
-
-  <h3 id="values"><span class="secno">5.4 </span>Values</h3>
+<section id="values">
+<h3>Values</h3>
 
   <p>The <dfn id="concept-property-value" title="concept-property-value">property value</dfn> of a name-value pair added by an
   element with an <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> attribute is as given for the first
@@ -1054,8 +1005,10 @@
   "books whose titles look like URLs" which had a "title" property defined to take a URL, then the
   property <em>would</em> expect the title to be given in an <code>a</code> element (or one of the
   other <a href="#url-property-elements">URL property elements</a>), because of the requirement above.</p>
+</section>
 
-  <h3 id="associating-names-with-items"><span class="secno">5.5 </span>Associating names with items</h3>
+<section id="associating-names-with-items">
+<h3>Associating names with items</h3>
 
   <p>To find <dfn id="the-properties-of-an-item">the properties of an item</dfn> defined by the element <var title="">root</var>,
   the user agent must run the following steps. These steps are also used to flag <a href="#microdata-error" title="microdata error">microdata errors</a>.</p>
@@ -1178,8 +1131,10 @@
 
   </div>
 
+</section>
 
-  <h3 id="microdata-and-other-namespaces"><span class="secno">5.6 </span>Microdata and other namespaces</h3>
+<section id="microdata-and-other-namespaces">
+<h3>Microdata and other namespaces</h3>
 
   <p>Currently, the <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code>, <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code>, and other microdata attributes are only defined for
   <a href="#html-elements">HTML elements</a>. This means that attributes with the literal names "<code title="">itemscope</code>", "<code title="">itemprop</code>", etc, do not cause microdata
@@ -1194,13 +1149,14 @@
 &lt;svg itemscope&gt;&lt;/svg&gt; &lt;!-- this is not, it's just an <code>svg</code> element with an invalid unknown attribute --&gt;</pre>
 
   </div>
+</section>
+</section>
 
+<section id="converting-html-to-other-formats">
+<h2>Converting HTML to other formats</h2>
 
-
-
-  <h2 id="converting-html-to-other-formats"><span class="secno">6 </span>Converting HTML to other formats</h2>
-
-  <h3 id="json"><span class="secno">6.1 </span>JSON</h3>
+<section id="json">
+<h3>JSON</h3>
 
   <p>Given a list of nodes <var title="">nodes</var> in a <code>Document</code>, a user agent must
   run the following algorithm to <dfn id="extracting-json" title="extracting JSON">extract the microdata from those nodes
@@ -1223,7 +1179,7 @@
    possible way (meaning no whitespace between tokens, no unnecessary zero digits in numbers, and
    only using Unicode escapes in strings for characters that do not have a dedicated escape
    sequence), and with a lowercase "<code title="">e</code>" used, when appropriate, in the
-   representation of any numbers. <a href="#refsJSON">[JSON]</a></p></li>
+   representation of any numbers. [[JSON]]</p></li>
 
   </ol>
 
@@ -1382,14 +1338,14 @@
 }</pre>
 
   </div>
+</section>
+  </section>
 
-  
+  <section id="other-changes-to-html5">
+  <h2>Other changes to HTML5</h2>
 
-
-
-    <h2 id="other-changes-to-html5"><span class="secno">7 </span>Other changes to HTML5</h2>
-
-  <h3 id="content-models"><span class="secno">7.1 </span>Content models</h3>
+  <section id="content-models">
+  <h3>Content models</h3>
 
   <p>If the <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> attribute is
   present on <code>link</code> or <code>meta</code>, they are
@@ -1424,9 +1380,10 @@
   on a <span>media element</span>, then the <code title="attr-media-src">src</code> attribute must also be
   specified.</p>
 <!--/YYY-->
+  </section>
 
-
-  <h3 id="drag-and-drop"><span class="secno">7.2 </span>Drag-and-drop</h3>
+  <section id="drag-and-drop">
+  <h3>Drag-and-drop</h3>
 
   <p>The <a href="#drag-and-drop-initialization-steps">drag-and-drop initialization steps</a> are:</p>
   
@@ -1440,7 +1397,11 @@
    </li>
   </ol>
 
-<h2 id="iana"><span class="secno">8 </span>IANA considerations</h2>
+  </section>
+  </section>
+
+  <section id="iana">
+<h2>IANA considerations</h2>
 
   <!-- http://www.w3.org/2002/06/registering-mediatype.html -->
 
@@ -1461,17 +1422,17 @@
    <dt>Subtype name:</dt>
    <dd>microdata+json</dd>
    <dt>Required parameters:</dt>
-   <dd>Same as for <code>application/json</code> <a href="#refsJSON">[JSON]</a></dd>
+   <dd>Same as for <code>application/json</code> [[JSON]]</dd>
    <dt>Optional parameters:</dt>
-   <dd>Same as for <code>application/json</code> <a href="#refsJSON">[JSON]</a></dd>
+   <dd>Same as for <code>application/json</code> [[JSON]]</dd>
    <dt>Encoding considerations:</dt>
    <dd>8bit (always UTF-8)</dd>
 <!--ADD-TOPIC:Security-->
    <dt>Security considerations:</dt>
-   <dd>Same as for <code>application/json</code> <a href="#refsJSON">[JSON]</a></dd>
+   <dd>Same as for <code>application/json</code> [[JSON]]</dd>
 <!--REMOVE-TOPIC:Security-->
    <dt>Interoperability considerations:</dt>
-   <dd>Same as for <code>application/json</code> <a href="#refsJSON">[JSON]</a></dd>
+   <dd>Same as for <code>application/json</code> [[JSON]]</dd>
    <dt>Published specification:</dt>
    <dd>
     Labeling a resource with the
@@ -1486,7 +1447,7 @@
     consisting of an array of either objects or strings, the objects
     being of the same form as the objects in the aforementioned "<code title="">items</code>" entry.
     Thus, the relevant specifications
-    are the JSON specification and this specification. <a href="#refsJSON">[JSON]</a>
+    are the JSON specification and this specification. [[JSON]]
    </dd>
    <dt>Applications that use this media type:</dt>
    <dd>
@@ -1497,11 +1458,11 @@
    <dd>
     <dl>
      <dt>Magic number(s):</dt>
-     <dd>Same as for <code>application/json</code> <a href="#refsJSON">[JSON]</a></dd>
+     <dd>Same as for <code>application/json</code> [[JSON]]</dd>
      <dt>File extension(s):</dt>
-     <dd>Same as for <code>application/json</code> <a href="#refsJSON">[JSON]</a></dd>
+     <dd>Same as for <code>application/json</code> [[JSON]]</dd>
      <dt>Macintosh file type code(s):</dt>
-     <dd>Same as for <code>application/json</code> <a href="#refsJSON">[JSON]</a></dd>
+     <dd>Same as for <code>application/json</code> [[JSON]]</dd>
     </dl>
    </dd>
    <dt>Person &amp; email address to contact for further information:</dt>
@@ -1519,8 +1480,12 @@
   <p>Fragment identifiers used with
   <code><a href="#application/microdata+json">application/microdata+json</a></code> resources have the same
   semantics as when used with <code>application/json</code> (namely,
-  at the time of writing, no semantics at all). <a href="#refsJSON">[JSON]</a></p>
+  at the time of writing, no semantics at all). [[JSON]]</p>
 
+
+  </section>
+
+  <section id="changes">
   <h2>Changes</h2>
 
   <p>Changes made between this version and the <a href="http://www.w3.org/TR/2013/NOTE-microdata-20131029/">23 October 2013 W3C Note</a>
@@ -1530,32 +1495,6 @@
    <li>Remove unused references</li>
   </ul>
 
-  <h2 class="no-num" id="references">References</h2><!--REFS-->
-
-  <p>All references are normative unless marked "Non-normative".</p>
-
-
-  <dl>
-
-   <dt id="refsHTML5">[HTML]</dt>
-   <dd>
-   <cite><a href="http://www.w3.org/TR/html/">HTML</a></cite>,
-   W3C. Various editions and editors, current W3C Recommendation is 
-   <a href="http://www.w3.org/TR/html51/">HTML 5.1</a>, Ed. A. Danilo, A. Eicholz, S. Faulkner, T. Leithead.</dd>
-
-   <dt id="refsJSON">[JSON]</dt>
-   <dd><cite><a href="http://tools.ietf.org/html/rfc4627">The application/json Media Type for JavaScript Object Notation (JSON)</a></cite>,
-     D. Crockford. IETF.</dd>
-
-   <dt id="refsRFC2119">[RFC2119]</dt>
-   <dd><cite><a href="http://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a></cite>,
-     S. Bradner. IETF.</dd>
-
-   <dt id="refsURL">[URL]</dt>
-   <dd>Various specifications define aspects of URLs.
-     The non-normative <cite><a href="http://url.spec.whatwg.org/">URL</a></cite>,
-     A. van Kesteren, WHATWG, is generally the most up-to-date.
-     Various IETF RFCs provide fixed stable references.</dd>
-  </dl>
+</section>
   
 </body></html>
