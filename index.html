@@ -5,9 +5,7 @@
 
   <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" rel="stylesheet" type="text/css">
 
-
-
-     </head>
+ </head>
  <body>
   <div class="head" id="head">
 <header>
@@ -141,7 +139,7 @@
   <p>Information expressed as microdata can be converted to JSON <a href="refsJOSN">[JSON]</a>, as described in
   <a href="#json">Section 6.1</a>. Microdata can <em>generally</em> be converted to RDF, as described in
   <a href="https://www.w3.org/TR/microdata-rdf">Microdata to RDF</a> <a href="#refsToRDF">[ToRDF]</a>,
-  but only when an additional set of constraints are applied to the microdata content.</a>
+  but only when an additional set of constraints are applied to the microdata content.</p>
 
   <h2 id="terminology"><span class="secno">2 </span>Terminology</h2>
 
@@ -684,7 +682,6 @@
   specifications">applicable specifications</span> and must all be defined to use the same
   vocabulary.</p>
 
-  <div class="impl">
 
    <p>Except if otherwise specified by that specification, the <a href="#url" title="URL">URLs</a> given
    as the <a href="#item-types">item types</a> should not be automatically dereferenced.</p>
@@ -697,7 +694,6 @@
    <a href="#item-types">item types</a>, or otherwise deconstruct them, in order to determine how to process
    <a href="#concept-item" title="concept-item">items</a> that use them.</p>
 
-  </div>
 
   <p>The <code title="attr-itemtype"><a href="#attr-itemtype">itemtype</a></code> attribute must not be specified on elements
   that do not have an <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code> attribute specified.</p>
@@ -1059,10 +1055,6 @@
   property <em>would</em> expect the title to be given in an <code>a</code> element (or one of the
   other <a href="#url-property-elements">URL property elements</a>), because of the requirement above.</p>
 
-
-  <div class="impl"> <!-- this is unfortunate, as it is hiding authoring conformance criteria (so we leave it in for the w3c copy) -->
-
-
   <h3 id="associating-names-with-items"><span class="secno">5.5 </span>Associating names with items</h3>
 
   <p>To find <dfn id="the-properties-of-an-item">the properties of an item</dfn> defined by the element <var title="">root</var>,
@@ -1186,8 +1178,6 @@
 
   </div>
 
-  </div> <!-- see comment above -->
-
 
   <h3 id="microdata-and-other-namespaces"><span class="secno">5.6 </span>Microdata and other namespaces</h3>
 
@@ -1206,161 +1196,11 @@
   </div>
 
 
-  invoked on a <code>Document</code> object again with the same argument, the user agent may return
-  the same object as the object returned by the earlier call. In other cases, a new
-  <code>NodeList</code> object must be returned.</p>
-
-  <p>The <dfn id="dom-itemscope" title="dom-itemScope"><code>itemScope</code></dfn> IDL attribute on <a href="#html-elements">HTML
-  elements</a> must <a href="#reflect">reflect</a> the <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code>
-  content attribute. The <dfn id="dom-itemtype" title="dom-itemType"><code>itemType</code></dfn> IDL attribute on
-  <a href="#html-elements">HTML elements</a> must <a href="#reflect">reflect</a> the <code title="attr-itemtype"><a href="#attr-itemtype">itemtype</a></code> content attribute. The <dfn id="dom-itemid" title="dom-itemId"><code>itemId</code></dfn> IDL attribute on <a href="#html-elements">HTML elements</a> must
-  <a href="#reflect">reflect</a> the <code title="attr-itemid"><a href="#attr-itemid">itemid</a></code> content attribute. The <dfn id="dom-itemprop" title="dom-itemProp"><code>itemProp</code></dfn> IDL attribute on <a href="#html-elements">HTML elements</a> must
-  <a href="#reflect">reflect</a> the <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> content attribute. The <dfn id="dom-itemref" title="dom-itemRef"><code>itemRef</code></dfn> IDL attribute on <a href="#html-elements">HTML elements</a> must
-  <a href="#reflect">reflect</a> the <code title="attr-itemref"><a href="#attr-itemref">itemref</a></code> content attribute.</p>
-
-  <p>The <dfn id="dom-properties" title="dom-properties"><code>properties</code></dfn> IDL attribute on <a href="#html-elements">HTML
-  elements</a> must return an <code><a href="#htmlpropertiescollection-0">HTMLPropertiesCollection</a></code> rooted at the element's
-  <span>root element</span> (which element this is might change during the collection's lifetime, as
-  the element moves between different subtrees), whose filter matches only elements that are <a href="#the-properties-of-an-item" title="the properties of an item">the properties of the item</a> created by the element on
-  which the attribute was invoked, while that element is an <a href="#concept-item" title="concept-item">item</a>,
-  and matches nothing the rest of the time.</p>
-
-  <p>The <dfn id="dom-itemvalue" title="dom-itemValue"><code>itemValue</code></dfn> IDL attribute's behavior depends on
-  the element, as follows:</p>
-
-  <dl>
-
-   <dt>If the element has no <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> attribute</dt>
-
-   <dd><p>The attribute must return null on getting and must throw an
-   <code>InvalidAccessError</code> exception on setting.</p>
 
 
-   </dd><dt>If the element has an <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code> attribute</dt>
+  <h2 id="converting-html-to-other-formats"><span class="secno">6 </span>Converting HTML to other formats</h2>
 
-   <dd><p>The attribute must return the element itself on getting and must throw an
-   <code>InvalidAccessError</code> exception on setting.</p>
-
-
-   </dd><dt>If the element is a <code>meta</code> element</dt>
-
-   <dd><p>The attribute must act as it would if it was <a href="#reflect" title="reflect">reflecting</a> the
-   element's <code title="attr-meta-content">content</code> content attribute.</p></dd>
-
-
-   <dt>If the element is an <code>audio</code>, <code>embed</code>, <code>iframe</code>,
-   <code>img</code>, <code>source</code>, <code>track</code>, or <code>video</code> element</dt>
-
-   <dd><p>The attribute must act as it would if it was <a href="#reflect" title="reflect">reflecting</a> the
-   element's <code title="">src</code> content attribute.</p></dd>
-
-
-   <dt>If the element is an <code>a</code>, <code>area</code>, or <code>link</code> element</dt>
-
-   <dd><p>The attribute must act as it would if it was <a href="#reflect" title="reflect">reflecting</a> the
-   element's <code title="">href</code> content attribute.</p></dd>
-
-
-   <dt>If the element is an <code>object</code> element</dt>
-
-   <dd><p>The attribute must act as it would if it was <a href="#reflect" title="reflect">reflecting</a> the
-   element's <code title="">data</code> content attribute.</p></dd>
-
-
-   <dt>If the element is a <code>data</code> element</dt>
-
-   <dd><p>The attribute must act as it would if it was <a href="#reflect" title="reflect">reflecting</a> the
-   element's <code title="attr-data-value">value</code> content attribute.</p></dd>
-
-
-   <dt>If the element is a <code>meter</code> element</dt>
-
-   <dd><p>The attribute must act as it would if it was <a href="#reflect" title="reflect">reflecting</a> the
-   element's <code title="attr-meter-value">value</code> content attribute.</p></dd>
-
-
-   <dt>If the element is a <code>time</code> element</dt>
-
-   <dd><p>On getting, if the element has a <code title="attr-time-datetime">datetime</code> content
-   attribute, the IDL attribute must return that content attribute's value; otherwise, it must
-   return the element's <code>textContent</code>. On setting, the IDL attribute must act as it would
-   if it was <a href="#reflect" title="reflect">reflecting</a> the element's <code title="attr-time-datetime">datetime</code> content attribute.</p></dd>
-
-
-   <dt>Otherwise</dt>
-
-   <dd><p>The attribute must act the same as the element's <code>textContent</code>
-   attribute.</p></dd>
-
-
-  <h3 id="htmlpropertiescollection"><span class="secno">6.1 </span>HTMLPropertiesCollection</h3>
-<p>The <code><a href="#htmlpropertiescollection-0">HTMLPropertiesCollection</a></code> interface is used for <a href="#collections">collections</a> of
-  elements that add <a href="#the-properties-of-an-item" title="the properties of an item">name-value pairs</a> to a particular
-  <a href="#concept-item" title="concept-item">item</a> in the <span>microdata</span> model.</p>
-
-  <pre class="idl">interface <dfn id="htmlpropertiescollection-0">HTMLPropertiesCollection</dfn> : <a href="#htmlcollection">HTMLCollection</a> {
-  // inherits <span title="dom-HTMLCollection-length">length</span> and <span title="dom-HTMLCollection-item">item</span>()
-  getter <a href="#propertynodelist">PropertyNodeList</a>? <a href="#dom-htmlpropertiescollection-nameditem" title="dom-HTMLPropertiesCollection-namedItem">namedItem</a>(DOMString name); // shadows inherited namedItem()
-  readonly attribute DOMString[] <a href="#dom-htmlpropertiescollection-names" title="dom-HTMLPropertiesCollection-names">names</a>;
-};
-
-typedef sequence&lt;any&gt; <dfn id="propertyvaluearray">PropertyValueArray</dfn>;
-
-interface <dfn id="propertynodelist">PropertyNodeList</dfn> : <span>NodeList</span> {
-  <a href="#propertyvaluearray">PropertyValueArray</a> <a href="#dom-propertynodelist-getvalues" title="dom-PropertyNodeList-getValues">getValues</a>();
-};</pre>
-
-  <dl class="domintro">
-
-   <dt><var title="">collection</var> . <code title="dom-HTMLCollection-length">length</code></dt>
-   <dd>
-    <p>Returns the number of elements in the collection.</p>
-   </dd>
-
-   <dt><var title="">element</var> = <var title="">collection</var> . <code title="dom-HTMLCollection-item">item</code>(<var title="">index</var>)</dt>
-   <dt><var title="">collection</var>[<var title="">index</var>]</dt>
-   <dd>
-    <p>Returns the element with index <var title="">index</var> from the collection. The items are sorted in <a href="#tree-order">tree order</a>.</p>
-   </dd>
-
-   <dt><var title="">propertyNodeList</var> = <var title="">collection</var> . <code title="dom-HTMLPropertiesCollection-namedItem"><a href="#dom-htmlpropertiescollection-nameditem">namedItem</a></code>(<var title="">name</var>)</dt>
-   <dd>
-    <p>Returns a <code><a href="#propertynodelist">PropertyNodeList</a></code> object containing any elements that add a property named <var title="">name</var>.</p>
-   </dd>
-
-   <dt><var title="">collection</var>[<var title="">name</var>]</dt>
-   <dd>
-    <p>Returns a <code><a href="#propertynodelist">PropertyNodeList</a></code> object containing any elements that add a property named <var title="">name</var>. The <var title="">name</var> index has to be one of the values listed in the <code title="dom-HTMLPropertiesCollection-names"><a href="#dom-htmlpropertiescollection-names">names</a></code> list.</p>
-   </dd>
-
-   <dt><var title="">collection</var> . <code title="dom-HTMLPropertiesCollection-names"><a href="#dom-htmlpropertiescollection-names">names</a></code></dt>
-   <dd>
-    <p>Returns an array with the <a href="#property-names">property names</a> of the elements in the collection.</p>
-   </dd>
-
-   <dt><var title="">propertyNodeList</var> . <code title="dom-PropertyNodeList-getVlues">getValues</code>()</dt>
-   <dd>
-    <p>Returns an array of the various values that the relevant elements have.</p>
-   </dd>
-
-  </dl>
-
-  <div class="impl">
-
-  <p>The object's <span>supported property indices</span> are as defined for
-  <code><a href="#htmlcollection">HTMLCollection</a></code> objects.</p>
-
-  <p>The <span>supported property names</span> consist of the <a href="#property-names">property names</a> of all the
-  elements <span>represented by the collection</span>, in <a href="#tree-order">tree order</a>, ignoring later
-  duplicates.</p>
-
-
-
-  <div class="impl">
-
-  <h2 id="converting-html-to-other-formats"><span class="secno">7 </span>Converting HTML to other formats</h2>
-
-  <h3 id="json"><span class="secno">7.1 </span>JSON</h3>
+  <h3 id="json"><span class="secno">6.1 </span>JSON</h3>
 
   <p>Given a list of nodes <var title="">nodes</var> in a <code>Document</code>, a user agent must
   run the following algorithm to <dfn id="extracting-json" title="extracting JSON">extract the microdata from those nodes
@@ -1547,9 +1387,9 @@ interface <dfn id="propertynodelist">PropertyNodeList</dfn> : <span>NodeList</sp
 
 
 
-    <h2 id="other-changes-to-html5"><span class="secno">8 </span>Other changes to HTML5</h2>
+    <h2 id="other-changes-to-html5"><span class="secno">7 </span>Other changes to HTML5</h2>
 
-  <h3 id="content-models"><span class="secno">8.1 </span>Content models</h3>
+  <h3 id="content-models"><span class="secno">7.1 </span>Content models</h3>
 
   <p>If the <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> attribute is
   present on <code>link</code> or <code>meta</code>, they are
@@ -1557,7 +1397,8 @@ interface <dfn id="propertynodelist">PropertyNodeList</dfn> : <span>NodeList</sp
   <code>link</code> and <code>meta</code> elements may be used where
   <a href="#phrasing-content">phrasing content</a> is expected if the <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> attribute is present.</p>
 
-  <p>If a <code>link</code> element has an <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> attribute, the <code title="attr-link-rel">rel</code> attribute may be omitted.</p>
+  <p>If a <code>link</code> element has an <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code>
+    attribute, the <code title="attr-link-rel">rel</code> attribute may be omitted.</p>
 
   <p>If a <code>meta</code> element has an <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> attribute, the <code title="attr-meta-name">name</code>, <code title="attr-meta-http-equiv">http-equiv</code>, and <code title="attr-meta-charset">charset</code> attributes must be omitted,
   and the <code title="attr-meta-content">content</code> attribute
@@ -1584,13 +1425,12 @@ interface <dfn id="propertynodelist">PropertyNodeList</dfn> : <span>NodeList</sp
   specified.</p>
 <!--/YYY-->
 
-  <div class="impl">
 
-  <h3 id="drag-and-drop"><span class="secno">8.2 </span>Drag-and-drop</h3>
+  <h3 id="drag-and-drop"><span class="secno">7.2 </span>Drag-and-drop</h3>
 
-  <p>The <a href="#drag-and-drop-initialization-steps">drag-and-drop initialization steps</a> are:
-
-  </p><ol>
+  <p>The <a href="#drag-and-drop-initialization-steps">drag-and-drop initialization steps</a> are:</p>
+  
+  <ol>
    <li>
     <p>The user agent must take the <a href="#list-of-dragged-nodes">list of dragged nodes</a>
     and <a href="#extracting-json" title="extracting JSON">extract the microdata from those
@@ -1600,8 +1440,7 @@ interface <dfn id="propertynodelist">PropertyNodeList</dfn> : <span>NodeList</sp
    </li>
   </ol>
 
-  </div>
-<h2 id="iana"><span class="secno">9 </span>IANA considerations</h2>
+<h2 id="iana"><span class="secno">8 </span>IANA considerations</h2>
 
   <!-- http://www.w3.org/2002/06/registering-mediatype.html -->
 
@@ -1666,13 +1505,13 @@ interface <dfn id="propertynodelist">PropertyNodeList</dfn> : <span>NodeList</sp
     </dl>
    </dd>
    <dt>Person &amp; email address to contact for further information:</dt>
-   <dd>Ian Hickson &lt;ian@hixie.ch&gt;</dd>
+   <dd>@@W3C IANA contact</dd>
    <dt>Intended usage:</dt>
    <dd>Common</dd>
    <dt>Restrictions on usage:</dt>
    <dd>No restrictions apply.</dd>
    <dt>Author:</dt>
-   <dd>Ian Hickson &lt;ian@hixie.ch&gt;</dd>
+   <dd>W3C</dd>
    <dt>Change controller:</dt>
    <dd>W3C</dd>
   </dl>
@@ -1701,16 +1540,22 @@ interface <dfn id="propertynodelist">PropertyNodeList</dfn> : <span>NodeList</sp
    <dt id="refsHTML5">[HTML]</dt>
    <dd>
    <cite><a href="http://www.w3.org/TR/html/">HTML</a></cite>,
-   W3C. Various editions and editors, current W3C Recommendation is <a href="http://www.w3.org/TR/html51/">HTML 5.1</a>, Ed. A. Danilo, A. Eicholz, S. Faulkner, T. Leithead.</dd>
+   W3C. Various editions and editors, current W3C Recommendation is 
+   <a href="http://www.w3.org/TR/html51/">HTML 5.1</a>, Ed. A. Danilo, A. Eicholz, S. Faulkner, T. Leithead.</dd>
 
    <dt id="refsJSON">[JSON]</dt>
-   <dd><cite><a href="http://tools.ietf.org/html/rfc4627">The application/json Media Type for JavaScript Object Notation (JSON)</a></cite>, D. Crockford. IETF.</dd>
+   <dd><cite><a href="http://tools.ietf.org/html/rfc4627">The application/json Media Type for JavaScript Object Notation (JSON)</a></cite>,
+     D. Crockford. IETF.</dd>
 
    <dt id="refsRFC2119">[RFC2119]</dt>
-   <dd><cite><a href="http://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a></cite>, S. Bradner. IETF.</dd>
+   <dd><cite><a href="http://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a></cite>,
+     S. Bradner. IETF.</dd>
 
    <dt id="refsURL">[URL]</dt>
-   <dd>Various specifications define aspects of URLs. The non-normative <cite><a href="http://url.spec.whatwg.org/">URL</a></cite>, A. van Kesteren, WHATWG, is generally the most up-to-date. Various IETF RFCs provide fixed stable references.</dd>
-
-
+   <dd>Various specifications define aspects of URLs.
+     The non-normative <cite><a href="http://url.spec.whatwg.org/">URL</a></cite>,
+     A. van Kesteren, WHATWG, is generally the most up-to-date.
+     Various IETF RFCs provide fixed stable references.</dd>
+  </dl>
+  
 </body></html>
