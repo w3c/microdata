@@ -93,37 +93,20 @@
 
   <p>This specification relies on the HTML specification to define the following terms: [[!HTML52]]</p>
 
-  <p>HTML defines the concept of DOM <dfn id="collections">collections</dfn> and the
-  <dfn id="htmlcollection"><code>HTMLCollection</code></dfn> interface, as well as the
-  concept of IDL attributes <dfn id="reflect" title="reflect">reflecting</dfn>
-  content attributes. It also defines <dfn id="tree-order">tree order</dfn> and the
-  concept of a node's <dfn id="home-subtree">home subtree</dfn>.</p>
+  <p>HTML defines <dfn id="tree-order">tree order</dfn> and the
+  concept of a node's <dfn>home subtree</dfn>.</p>
 
-  <p>HTML defines the terms <dfn id="alphanumeric-ascii-characters">alphanumeric ASCII characters</dfn>,
-  <dfn id="space-characters">space characters</dfn> <dfn id="split-a-string-on-spaces">split a string on spaces</dfn>,
-  <dfn id="converted-to-ascii-uppercase">converted to ASCII uppercase</dfn>, and <dfn id="prefix-match">prefix
-  match</dfn>.</p>
+  <p>HTML defines the terms <dfn>space characters</dfn>, <dfn>split a string on spaces</dfn>,
+  and <dfn id="prefix-match">prefix match</dfn>.</p>
 
   <p>HTML defines the meaning of the term <dfn>HTML elements</dfn>, as
-  well as all the elements referenced in this specification. It also
-  defines the <dfn><code>HTMLElement</code></dfn> and
-  <dfn><code>HTMLDocument</code></dfn> interfaces. It defines the
-  specific concept of <dfn id="the-title-element">the <code>title</code> element</dfn> in the
-  context of an <code><a>HTMLDocument</a></code>. In the context of content
-  models it defines the terms <dfn id="flow-content">flow content</dfn> and
-  <dfn id="phrasing-content">phrasing content</dfn>. It also defines what an element's
-  <dfn id="concept-id" title="concept-ID">ID</dfn> or <dfn id="language">language</dfn> is in HTML.</p>
+  well as all the elements referenced in this specification. In the context of content models it defines the terms
+  <dfn>flow content</dfn> and <dfn>phrasing content</dfn>. It also defines what an element's
+  <dfn>ID</dfn> or <dfn id="language">language</dfn> is in HTML.</p>
 
-  <p>HTML defines the set of <dfn id="global-attributes">global attributes</dfn>, as well as
-  terms used in describing attributes and their processing, such as
-  the concept of a <dfn id="boolean-attribute">boolean attribute</dfn>, of an
-  <dfn id="unordered-set-of-unique-space-separated-tokens">unordered set of unique space-separated tokens</dfn>,
-  of a <dfn id="valid-non-negative-integer">valid non-negative integer</dfn>, of a
-  <dfn id="concept-date" title="concept-date">date</dfn>, a <dfn id="concept-time" title="concept-time">time</dfn>,
-  a <dfn id="concept-datetime" title="concept-datetime">global date and time</dfn>, a
-  <dfn id="valid-date-string">valid date string</dfn>, and a
-  <dfn id="valid-global-date-and-time-string">valid global date and time
-  string</dfn>.</p>
+  <p>HTML defines a set of <dfn>global attributes</dfn> and the concepts of a <dfn>boolean attribute</dfn>, and an
+  <dfn>unordered set of unique space-separated tokens</dfn>,
+  </p>
 
   <p>HTML defines what <dfn id="the-document's-current-address">the document's current address</dfn>
   is.</p>
@@ -193,14 +176,14 @@
 
   <p><i>This section is non-normative.</i></p>
   <p>At a high level, microdata consists of a group of name-value pairs. The groups are called
-  <a href="#concept-item" title="concept-item">items</a>, and each name-value pair is a property. Items and properties
+  <a data-lt="concept item">items</a>, and each name-value pair is a property. Items and properties
   are represented by regular elements.</p>
 
-  <p>To create an item, the <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code> attribute is used.</p>
+  <p>To create an item, the <code><a>itemscope</a></code> attribute is used.</p>
 
   <p>To add a property to an item, the
-  <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> attribute is used
-  on one of the <a href="#concept-item" title="concept-item">item's</a> descendants.</p>
+  <code><a>itemprop</a></code> attribute is used
+  on one of the <a data-lt="concept item">item's</a> descendants.</p>
 
   <div class="example">
 
@@ -273,8 +256,8 @@
 
   <div class="example">
 
-   <p>Here, there is an item with a property whose value is a product ID. The ID is not
-   human-friendly, so the product's name is used the human-visible text instead of the ID.</p>
+   <p>Here, there is an item with a property whose value is a product identifier. The identifier is not
+   human-friendly, so the product's name is used as the human-visible text instead.</p>
 
    <pre>&lt;h1 itemscope&gt;
  &lt;data itemprop="product-id" value="9678AOU879"&gt;The Instigator 2000&lt;/data&gt;
@@ -302,7 +285,7 @@
   </div>
 
   <p>Similarly, for date- and time-related data, the <code>time</code> element and its
-  <code title="attr-time-datetime">datetime</code> attribute can be used instead.</p>
+  <code>datetime</code> attribute can be used instead.</p>
 
   <div class="example">
 
@@ -315,7 +298,7 @@
   </div>
 
   <p>Properties can also themselves be groups of name-value pairs, by putting the
-  <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code> attribute
+  <code><a>itemscope</a></code> attribute
   on the element that declares the property.</p>
 
   <p>Items that are not part of others are called <a href="#top-level-microdata-items">top-level microdata items</a>.</p>
@@ -338,16 +321,16 @@
   </div>
 
   <p>Properties that are not descendants of the element with the
-  <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code> attribute
-  can be associated with the <a href="#concept-item" title="concept-item">item</a> using the
-  <code title="attr-itemref"><a href="#attr-itemref">itemref</a></code> attribute.
-  This attribute takes a list of IDs of elements to crawl in addition to crawling the children of
-  the element with the <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code> attribute.</p>
+  <code><a>itemscope</a></code> attribute
+  can be associated with the <a data-lt="concept item">item</a> using the
+  <code><a>itemref</a></code> attribute.
+  This attribute takes a list of <a>ID</a>s of elements to crawl in addition to crawling the children of
+  the element with the <code><a>itemscope</a></code> attribute.</p>
 
   <div class="example">
 
    <p>This example is the same as the previous one, but all the properties are separated from their
-   <a href="#concept-item" title="concept-item">items</a>:</p>
+   <a data-lt="concept item">items</a>:</p>
 
    <pre>&lt;div itemscope id="amanda" itemref="a b"&gt;&lt;/div&gt;
 &lt;p id="a"&gt;Name: &lt;span itemprop="name"&gt;Amanda&lt;/span&gt;&lt;/p&gt;
@@ -363,7 +346,7 @@
 
   </div>
 
-  <p>An <a href="#concept-item" title="concept-item">item</a> can have multiple properties with the same name and
+  <p>An <a data-lt="concept item">item</a> can have multiple properties with the same name and
   different values.</p>
 
   <div class="example">
@@ -433,13 +416,13 @@
   doesn't expect its microdata to be re-used. Microdata is most useful, though, when it is used in
   contexts where other authors and readers are able to cooperate to make new uses of the markup.</p>
 
-  <p>For this purpose, it is necessary to give each <a href="#concept-item" title="concept-item">item</a> a type,
+  <p>For this purpose, it is necessary to give each <a data-lt="concept item">item</a> a type,
   such as "http://example.com/person", or "http://example.org/cat", or "http://band.example.net/".
   Types are identified as <a href="#url" title="URL">URLs</a>.</p>
 
-  <p>The type for an <a href="#concept-item" title="concept-item">item</a> is given as the value of an
-  <code title="attr-itemtype"><a href="#attr-itemtype">itemtype</a></code> attribute on the same element as the
-  <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code> attribute.</p>
+  <p>The type for an <a data-lt="concept item">item</a> is given as the value of an
+  <code><a>itemtype</a></code> attribute on the same element as the
+  <code><a>itemscope</a></code> attribute.</p>
 
   <div class="example">
 
@@ -476,11 +459,11 @@
 <h3>Global identifiers for items</h3>
 
   <p><i>This section is non-normative.</i></p>
-  <p>Sometimes, an <a href="#concept-item" title="concept-item">item</a> gives information about a topic that has a
+  <p>Sometimes, an <a data-lt="concept item">item</a> gives information about a topic that has a
   global identifier. For example, books can be identified by their ISBN number.</p>
 
-  <p>Vocabularies (as identified by the <code title="attr-itemtype"><a href="#attr-itemtype">itemtype</a></code> attribute) can
-  be designed such that <a href="#concept-item" title="concept-item">items</a> get associated with their global
+  <p>Vocabularies (as identified by the <code><a>itemtype</a></code> attribute) can
+  be designed such that <a data-lt="concept item">items</a> get associated with their global
   identifier in an unambiguous way by expressing the global identifiers as <a href="#url" title="URL">URLs</a> given in
   an <code title="attr-itemid"><a href="#attr-itemid">itemid</a></code> attribute.</p>
 
@@ -594,10 +577,10 @@
 <section id="the-microdata-model">
 <h3>The microdata model</h3>
 
-  <p>The microdata model consists of groups of name-value pairs known as <a href="#concept-item" title="concept-item">items</a>.</p>
+  <p>The microdata model consists of groups of name-value pairs known as <a data-lt="concept item">items</a>.</p>
 
-  <p>Each group is known as an <a href="#concept-item" title="concept-item">item</a>. Each
-  <a href="#concept-item" title="concept-item">item</a> can have <a href="#item-types">item types</a>,
+  <p>Each group is known as an <a data-lt="concept item">item</a>. Each
+  <a data-lt="concept item">item</a> can have <a href="#item-types">item types</a>,
   a <a href="#global-identifier">global identifier</a> (if the vocabulary specified by the <a href="#item-types">item types</a>
   <a href="#support-global-identifiers-for-items">support global identifiers for items</a>), and a list of name-value pairs.
   Each name in the name-value pair is known as a
@@ -605,7 +588,7 @@
   <a href="#the-properties-of-an-item" title="the properties of an item">property</a> has one or more
   <a href="#concept-property-value" title="concept-property-value">values</a>.
   Each <a href="#concept-property-value" title="concept-property-value">value</a> is either a string
-  or itself a group of name-value pairs (an <a href="#concept-item" title="concept-item">item</a>).
+  or itself a group of name-value pairs (an <a data-lt="concept item">item</a>).
   The names are unordered relative to each other, but if a particular name has multiple values, they do have a relative order.</p>
 </section>
 
@@ -613,30 +596,29 @@
 <h3>Items</h3>
 
   <p>Every <a href="#html-elements" title="HTML elements">HTML element</a> may have an
-  <dfn id="attr-itemscope" title="attr-itemscope"><code>itemscope</code></dfn> attribute specified.
-  The <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code> attribute is a
+  <dfn><code>itemscope</code></dfn> attribute specified.
+  The <code><a>itemscope</a></code> attribute is a
   <a href="#boolean-attribute">boolean attribute</a>.</p>
 
-  <p>An element with the <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code> attribute specified
-  creates a new <dfn id="concept-item" title="concept-item">item</dfn>, a group of name-value pairs.</p>
+  <p>An element with the <code><a>itemscope</a></code> attribute specified
+  creates a new <dfn data-lt="concept item">item</dfn>, a group of name-value pairs.</p>
 
   <hr>
 
-  <p>Elements with an <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code> attribute may have an
-  <dfn id="attr-itemtype" title="attr-itemtype"><code>itemtype</code></dfn> attribute specified, to give the
-  <a href="#item-types">item types</a> of the <a href="#concept-item" title="concept-item">item</a>.</p>
+  <p>Elements with an <code><a>itemscope</a></code> attribute may have an
+  <dfn><code>itemtype</code></dfn> attribute specified, to give the
+  <a href="#item-types">item types</a> of the <a data-lt="concept item">item</a>.</p>
 
-  <p>The <code title="attr-itemtype"><a href="#attr-itemtype">itemtype</a></code> attribute, if specified, must have a value that
-  is an <a href="#unordered-set-of-unique-space-separated-tokens">unordered set of unique space-separated tokens</a> that are
+  <p>The <code><a>itemtype</a></code> attribute, if specified, must have a value that
+  is an <a>unordered set of unique space-separated tokens</a> that are
   <span>case-sensitive</span>, each of which is a <a href="#valid-url">valid URL</a> that is an <a href="#absolute-url">absolute
   URL</a>, and all of which are defined to use the same vocabulary. The attribute's value must
   have at least one token.</p>
 
-  <p>The <dfn id="item-types">item types</dfn> of an <a href="#concept-item" title="concept-item">item</a> are the tokens obtained
-  by <a href="#split-a-string-on-spaces" title="split a string on spaces">splitting the element's
-  <code title="attr-itemtype">itemtype</code> attribute's value on spaces</a>.
-  If the <code title="attr-itemtype"><a href="#attr-itemtype">itemtype</a></code> attribute is missing or parsing it
-  in this way finds no tokens, the <a href="#concept-item" title="concept-item">item</a> is said to have no
+  <p>The <dfn id="item-types">item types</dfn> of an <a data-lt="concept item">item</a> are the tokens obtained
+  by <a data-lt="split a string on spaces">splitting the element's <code>itemtype</code> attribute's value on spaces</a>.
+  If the <code><a>itemtype</a></code> attribute is missing or parsing it
+  in this way finds no tokens, the <a data-lt="concept item">item</a> is said to have no
   <a href="#item-types">item types</a>.</p>
 
   <p>The <a href="#item-types">item types</a> must all be types defined in <span title="other applicable
@@ -653,48 +635,48 @@
 
    <p><a href="#item-types">Item types</a> are opaque identifiers, and user agents must not dereference unknown
    <a href="#item-types">item types</a>, or otherwise deconstruct them, in order to determine how to process
-   <a href="#concept-item" title="concept-item">items</a> that use them.</p>
+   <a data-lt="concept item">items</a> that use them.</p>
 
 
-  <p>The <code title="attr-itemtype"><a href="#attr-itemtype">itemtype</a></code> attribute must not be specified on elements
-  that do not have an <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code> attribute specified.</p>
+  <p>The <code><a>itemtype</a></code> attribute must not be specified on elements
+  that do not have an <code><a>itemscope</a></code> attribute specified.</p>
 
   <hr>
 
-  <p>An <a href="#concept-item" title="concept-item">item</a> is said to be a <dfn id="typed-item">typed item</dfn>
+  <p>An <a data-lt="concept item">item</a> is said to be a <dfn>typed item</dfn>
   when either it has an <a href="#item-types" title="item types">item type</a>, or it is the
   <a href="#concept-property-value" title="concept-property-value">value</a> of a
-  <a href="#the-properties-of-an-item" title="the properties of an item">property</a> of a <a href="#typed-item">typed item</a>.
-  The <dfn id="relevant-types">relevant types</dfn> for a <a href="#typed-item">typed item</a> is the
-  <a href="#concept-item" title="concept-item">item</a>'s <a href="#item-types">item types</a>,
+  <a href="#the-properties-of-an-item" title="the properties of an item">property</a> of a <a>typed item</a>.
+  The <dfn id="relevant-types">relevant types</dfn> for a <a>typed item</a> is the
+  <a data-lt="concept item">item</a>'s <a href="#item-types">item types</a>,
   if it has any, or else is the <a href="#relevant-types">relevant types</a> of the
-  <a href="#concept-item" title="concept-item">item</a> for which it is a
+  <a data-lt="concept item">item</a> for which it is a
   <a href="#the-properties-of-an-item" title="the properties of an item">property</a>'s
   <a href="#concept-property-value" title="concept-property-value">value</a>.</p>
 
   <hr>
 
-  <p>Elements with an <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code> attribute and an
-  <code title="attr-itemtype"><a href="#attr-itemtype">itemtype</a></code> attribute that references a vocabulary
+  <p>Elements with an <code><a>itemscope</a></code> attribute and an
+  <code><a>itemtype</a></code> attribute that references a vocabulary
   that is defined to <dfn id="support-global-identifiers-for-items">support global identifiers for items</dfn>
   may also have an <dfn id="attr-itemid" title="attr-itemid"><code>itemid</code></dfn> attribute specified,
-  to give a global identifier for the <a href="#concept-item" title="concept-item">item</a>,
-  so that it can be related to other <a href="#concept-item" title="concept-item">items</a> on pages elsewhere on the Web.</p>
+  to give a global identifier for the <a data-lt="concept item">item</a>,
+  so that it can be related to other <a data-lt="concept item">items</a> on pages elsewhere on the Web.</p>
 
   <p>The <code title="attr-itemid"><a href="#attr-itemid">itemid</a></code> attribute, if specified, must have a value that is
   a <span>valid URL potentially surrounded by spaces</span>.</p>
 
-  <p>The <dfn id="global-identifier">global identifier</dfn> of an <a href="#concept-item" title="concept-item">item</a>
+  <p>The <dfn id="global-identifier">global identifier</dfn> of an <a data-lt="concept item">item</a>
   is the value of its element's <code title="attr-itemid"><a href="#attr-itemid">itemid</a></code> attribute, if it has one,
   <a href="#resolve-a-url" title="resolve a url">resolved</a> relative to the element on which the attribute is specified.
   If the <code title="attr-itemid"><a href="#attr-itemid">itemid</a></code> attribute is missing or if resolving it fails, it
   is said to have no <a href="#global-identifier">global identifier</a>.</p>
 
   <p>The <code title="attr-itemid"><a href="#attr-itemid">itemid</a></code> attribute must not be specified on elements
-  that do not have both an <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code> attribute and an
-  <code title="attr-itemtype"><a href="#attr-itemtype">itemtype</a></code> attribute specified, and must not be specified
-  on elements with an <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code> attribute whose
-  <code title="attr-itemtype"><a href="#attr-itemtype">itemtype</a></code> attribute specifies a vocabulary that does not
+  that do not have both an <code><a>itemscope</a></code> attribute and an
+  <code><a>itemtype</a></code> attribute specified, and must not be specified
+  on elements with an <code><a>itemscope</a></code> attribute whose
+  <code><a>itemtype</a></code> attribute specifies a vocabulary that does not
   <a href="#support-global-identifiers-for-items">support global identifiers for items</a>,
   as defined by that vocabulary's specification.</p>
 
@@ -702,27 +684,26 @@
   specification. It is up to such specifications to define whether multiple items with the same
   global identifier (whether on the same page or on different pages) are allowed to exist, and what
   the processing rules for that vocabulary are with respect to handling the case of multiple items
-  with the same ID.</p>
+  with the same <a>global identifier</a>.</p>
 
   <hr>
 
-  <p>Elements with an <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code> attribute may have an
-  <dfn id="attr-itemref" title="attr-itemref"><code>itemref</code></dfn> attribute specified, to give a list of additional
-  elements to crawl to find the name-value pairs of the <a href="#concept-item" title="concept-item">item</a>.</p>
+  <p>Elements with an <code><a>itemscope</a></code> attribute may have an
+  <dfn><code>itemref</code></dfn> attribute specified, to give a list of additional
+  elements to crawl to find the name-value pairs of the <a data-lt="concept item">item</a>.</p>
 
-  <p>The <code title="attr-itemref"><a href="#attr-itemref">itemref</a></code> attribute, if specified, must have a value that
-  is an <a href="#unordered-set-of-unique-space-separated-tokens">unordered set of unique space-separated tokens</a> that are
-  <span>case-sensitive</span>, consisting of <a href="#concept-id" title="concept-ID">IDs</a> of elements in the
-  same <a href="#home-subtree">home subtree</a>.</p>
+  <p>The <code><a>itemref</a></code> attribute, if specified, must have a value that
+  is an <a>unordered set of unique space-separated tokens</a> that are
+  <span>case-sensitive</span>, consisting of <a>ID</a>s of elements in the same <a>home subtree</a>.</p>
 
-  <p>The <code title="attr-itemref"><a href="#attr-itemref">itemref</a></code> attribute must not be specified on elements that
-  do not have an <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code> attribute specified.</p>
+  <p>The <code><a>itemref</a></code> attribute must not be specified on elements that
+  do not have an <code><a>itemscope</a></code> attribute specified.</p>
 
-  <p class="note">The <code title="attr-itemref"><a href="#attr-itemref">itemref</a></code> attribute is not part of the
+  <p class="note">The <code><a>itemref</a></code> attribute is not part of the
   microdata data model. It is merely a syntactic construct to aid authors in adding annotations to
   pages where the data to be annotated does not follow a convenient tree structure. For example, it
   allows authors to mark up data in a table so that each column defines a separate
-  <a href="#concept-item" title="concept-item">item</a>, while keeping the properties in the cells.</p>
+  <a data-lt="concept item">item</a>, while keeping the properties in the cells.</p>
 
   <div class="example">
 
@@ -760,7 +741,7 @@
     <dd>Equipment with lighting</dd>
    </dl>
 
-   <p>Each <a href="#concept-item" title="concept-item">item</a> that uses this vocabulary can be given one or more
+   <p>Each <a data-lt="concept item">item</a> that uses this vocabulary can be given one or more
    of these types, depending on what the product is.</p>
 
    <p>Thus, a locomotive might be marked up as:</p>
@@ -810,16 +791,16 @@
 </section>
 
 <section id="names:-the-itemprop-attribute">
-<h3>Names: the <dfn title="attr-itemprop"><code>itemprop</code></dfn> attribute</h3>
+<h3>Names: the <dfn data-lt="attr-itemprop"><code>itemprop</code></dfn> attribute</h3>
 
   <p>Every <a href="#html-elements" title="HTML elements">HTML element</a> may have an 
-  <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> attribute specified, if doing so
+  <code><a>itemprop</a></code> attribute specified, if doing so
   <a href="#the-properties-of-an-item" title="the properties of an item">adds one or more properties</a> to one or more
-  <a href="#concept-item" title="concept-item">items</a> (as defined below).</p>
+  <a data-lt="concept item">items</a> (as defined below).</p>
 
-  <p>The <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> attribute, if specified,
+  <p>The <code><a>itemprop</a></code> attribute, if specified,
   must have a value that is an
-  <a href="#unordered-set-of-unique-space-separated-tokens">unordered set of unique space-separated tokens</a> that are
+  <a>unordered set of unique space-separated tokens</a> that are
   <span>case-sensitive</span>, representing the names of the name-value pairs that it adds. The
   attribute's value must have at least one token.</p>
 
@@ -827,7 +808,7 @@
 
   <ul>
 
-   <li>If the item is a <a href="#typed-item">typed item</a>: a <dfn id="defined-property-name">defined property name</dfn>
+   <li>If the item is a <a>typed item</a>: a <dfn id="defined-property-name">defined property name</dfn>
    allowed in this situation according to the specification that defines the <a href="#relevant-types">relevant types</a>
    for the item, or</li>
 
@@ -838,7 +819,7 @@
    property name (i.e. one used by the author for private purposes, not defined in a public
    specification), or</li>
 
-   <li>If the item is not a <a href="#typed-item">typed item</a>: a string that contains no "." (U+002E) characters
+   <li>If the item is not a <a>typed item</a>: a string that contains no "." (U+002E) characters
    and no ":" (U+003A) characters, used as a proprietary item property name
    (i.e. one used by the author for private purposes, not defined in a public specification).</li>
 
@@ -846,12 +827,12 @@
 
   <p>Specifications that introduce <a href="#defined-property-name" title="defined property name">defined property names</a>
   must ensure all such property names contain no "." (U+002E) characters, no ":" (U+003A) characters,
-  and no <span title="space character">space characters</span>.</p>
+  and no <a>space characters</a> (defined in [[!HTML52]] as U+0020, U+0009, U+000A, U+000C, and U+000D).</p>
 
-  <p>When an element with an <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> attribute
+  <p>When an element with an <code><a>itemprop</a></code> attribute
   <a href="#the-properties-of-an-item" title="the properties of an item">adds a property</a>
-  to multiple <a href="#concept-item" title="concept-item">items</a>,
-  the requirement above regarding the tokens applies for each <a href="#concept-item" title="concept-item">item</a>
+  to multiple <a data-lt="concept item">items</a>,
+  the requirement above regarding the tokens applies for each <a data-lt="concept item">item</a>
   individually.</p>
 
   <div class="example">
@@ -867,12 +848,12 @@
 
   </div>
 
-  <p>The <dfn id="property-names">property names</dfn> of an element are the tokens that the element's
-  <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> attribute is found to contain
-  when its value is <a href="#split-a-string-on-spaces" title="split a string on spaces">split on spaces</a>,
+  <p>The <dfn>property names</dfn> of an element are the tokens that the element's
+  <code><a>itemprop</a></code> attribute is found to contain
+  when its value is <a data-lt="split a string on spaces">split on spaces</a>,
   with the order preserved but with duplicates removed leaving only the first occurrence of each name.</p>
 
-  <p>Within an <a href="#concept-item" title="concept-item">item</a>, the properties are unordered with respect to
+  <p>Within an <a data-lt="concept item">item</a>, the properties are unordered with respect to
   each other, except for properties with the same name, which are ordered in the order they are
   given by the algorithm that defines <a href="#the-properties-of-an-item">the properties of an item</a>.</p>
 
@@ -922,16 +903,16 @@
 <h3>Values</h3>
 
   <p>The <dfn id="concept-property-value" title="concept-property-value">property value</dfn> of a name-value pair added by an
-  element with an <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> attribute
+  element with an <code><a>itemprop</a></code> attribute
   is as given for the first matching case in the following list:</p>
 
   <dl class="switch">
 
-   <dt>If the element also has an <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code> attribute</dt>
+   <dt>If the element also has an <code><a>itemscope</a></code> attribute</dt>
 
    <dd>
 
-    <p>The value is the <a href="#concept-item" title="concept-item">item</a> created by the element.</p>
+    <p>The value is the <a data-lt="concept item">item</a> created by the element.</p>
 
    </dd>
 
@@ -1059,11 +1040,10 @@
 
    <li><p>Add the child elements of <var>root</var>, if any, to <var>pending</var>.</p></li>
 
-   <li><p>If <var>root</var> has an <code title="attr-itemref"><a href="#attr-itemref">itemref</a></code> attribute,
-   <a href="#split-a-string-on-spaces" title="split a string on spaces">split the value of that
-   <code title="attr-itemref">itemref</code> attribute on spaces</a>. For each resulting token <var>ID</var>,
-   if there is an element in the <a href="#home-subtree">home subtree</a> of <var>root</var> with the
-   <a href="#concept-id" title="concept-ID">ID</a> <var>ID</var>, then add
+   <li><p>If <var>root</var> has an <code><a>itemref</a></code> attribute,
+   <a data-lt="split a string on spaces">split the value of that <code>itemref</code> attribute on spaces</a>.
+   For each resulting token <var>ID</var>, if there is an element in the <a>home subtree</a>
+   of <var>root</var> whose <a>ID</a> is <var>ID</var>, then add
    the first such element to <var>pending</var>.</p></li>
 
    <li><p><i>Loop</i>: If <var>pending</var> is empty, jump to the step labeled <i>end of
@@ -1078,11 +1058,11 @@
    <li><p>Add <var>current</var> to <var>memory</var>.</p></li>
 
    <li><p>If <var>current</var> does not have an
-   <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code> attribute, then:
+   <code><a>itemscope</a></code> attribute, then:
    add all the child elements of <var>current</var> to <var>pending</var>.</p></li>
 
    <li><p>If <var>current</var> has an
-   <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code>
+   <code><a>itemprop</a></code>
    attribute specified and has one or more <a href="#property-names">property names</a>, then add
    <var>current</var> to <var>results</var>.</p></li>
 
@@ -1094,31 +1074,31 @@
 
   </ol>
 
-  <p>A document must not contain any <a href="#concept-item" title="concept-item">items</a> for which the algorithm
+  <p>A document must not contain any <a data-lt="concept item">items</a> for which the algorithm
   to find <a href="#the-properties-of-an-item">the properties of an item</a> finds any
   <dfn id="microdata-error" title="microdata error">microdata errors</dfn>.</p>
 
-  <p>An <a href="#concept-item" title="concept-item">item</a> is a
+  <p>An <a data-lt="concept item">item</a> is a
   <dfn id="top-level-microdata-items" title="top-level microdata items">top-level microdata item</dfn>
-  if its element does not have an <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code>
+  if its element does not have an <code><a>itemprop</a></code>
   attribute.</p>
 
-  <p>All <code title="attr-itemref"><a href="#attr-itemref">itemref</a></code> attributes in a <code>Document</code> must be
-  such that there are no cycles in the graph formed from representing each <a href="#concept-item" title="concept-item">item</a> in the <code>Document</code> as a node in the graph and each
+  <p>All <code><a>itemref</a></code> attributes in a <code>Document</code> must be
+  such that there are no cycles in the graph formed from representing each <a data-lt="concept item">item</a> in the <code>Document</code> as a node in the graph and each
   <a href="#the-properties-of-an-item" title="the properties of an item">property</a> of an item whose <a href="#concept-property-value" title="concept-property-value">value</a> is another item as an edge in the graph connecting
   those two items.</p>
 
   <!-- removed redundant requirement from above. But does this requirement serve any purpose? -->
   <p>A document must not contain any elements that have an
-  <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> attribute
-  that would not be found to be a property of any of the <a href="#concept-item" title="concept-item">items</a>
+  <code><a>itemprop</a></code> attribute
+  that would not be found to be a property of any of the <a data-lt="concept item">items</a>
   in that document were their <a href="#the-properties-of-an-item" title="the properties of an item">properties</a>
   all to be determined.</p>
 
   <div class="example">
 
    <p>In this example, a single license statement is applied to two works, using
-   <code title="attr-itemref"><a href="#attr-itemref">itemref</a></code> from the items representing the works:</p>
+   <code><a>itemref</a></code> from the items representing the works:</p>
 
    <pre>&lt;!DOCTYPE HTML&gt;
 &lt;html&gt;
@@ -1173,8 +1153,8 @@
 <section id="microdata-and-other-namespaces">
 <h3>Microdata and other namespaces</h3>
 
-  <p>Currently, the <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code>,
-  <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code>,
+  <p>Currently, the <code><a>itemscope</a></code>,
+  <code><a>itemprop</a></code>,
   and other microdata attributes are only defined for <a href="#html-elements">HTML elements</a>.
   This means that attributes with the literal names "<code>itemscope</code>", "<code>itemprop</code>", etc,
   do not cause microdata processing to occur on elements in other namespaces, such as SVG.</p>
@@ -1241,7 +1221,7 @@
    <li><p>If the <var>item</var> has any <a href="#item-types">item types</a>, add an entry to <var>result</var>
    called "<code>type</code>" whose value is an array listing the
    <a href="#item-types">item types</a> of <var>item</var>, in the order they were specified on the
-   <code title="attr-itemtype"><a href="#attr-itemtype">itemtype</a></code> attribute.</p>
+   <code><a>itemtype</a></code> attribute.</p>
 
    </li><li><p>If the <var>item</var> has a <a href="#global-identifier">global identifier</a>, add an entry to
    <var>result</var> called "<code>id</code>" whose value is the <a href="#global-identifier">global
@@ -1261,7 +1241,7 @@
      <li><p>Let <var>value</var> be the
      <a href="#concept-property-value" title="concept-property-value">property value</a> of <var>element</var>.</p></li>
 
-     <li><p>If <var>value</var> is an <a href="#concept-item" title="concept-item">item</a>, then:
+     <li><p>If <var>value</var> is an <a data-lt="concept item">item</a>, then:
      If <var>value</var> is in <var>memory</var>, then let <var>value</var> be
      the string "<code>ERROR</code>". Otherwise, <a href="#get-the-object">get the object</a> for
      <var>value</var>, passing a copy of <var>memory</var>, and then replace <var>value</var>
@@ -1392,39 +1372,39 @@
   <section id="content-models">
   <h3>Content models</h3>
 
-  <p>If the <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> attribute is
+  <p>If the <code><a>itemprop</a></code> attribute is
   present on <code>link</code> or <code>meta</code>, they are
   <a href="#flow-content">flow content</a> and <a href="#phrasing-content">phrasing content</a>. The
   <code>link</code> and <code>meta</code> elements may be used where
   <a href="#phrasing-content">phrasing content</a> is expected if the
-  <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> attribute is present.</p>
+  <code><a>itemprop</a></code> attribute is present.</p>
 
   <p>If a <code>link</code> element has an
-    <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code>
+    <code><a>itemprop</a></code>
     attribute, the <code title="attr-link-rel">rel</code> attribute may be omitted.</p>
 
-  <p>If a <code>meta</code> element has an <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code>
+  <p>If a <code>meta</code> element has an <code><a>itemprop</a></code>
   attribute, the <code title="attr-meta-name">name</code>, <code title="attr-meta-http-equiv">http-equiv</code>, and
   <code title="attr-meta-charset">charset</code> attributes must be omitted, and the
   <code title="attr-meta-content">content</code> attribute must be present.</p>
 
-  <p>If the <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> is specified
+  <p>If the <code><a>itemprop</a></code> is specified
   on an <code>a</code> or <code>area</code> element, then the <code title="attr-hyperlink-href">href</code> attribute must also be
   specified.</p>
 
-  <p>If the <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> is specified
+  <p>If the <code><a>itemprop</a></code> is specified
   on an <code>iframe</code> element, then the <code title="attr-iframe-src">data</code> attribute must also be
   specified.</p>
 
-  <p>If the <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> is specified
+  <p>If the <code><a>itemprop</a></code> is specified
   on an <code>embed</code> element, then the <code title="attr-embed-src">data</code> attribute must also be
   specified.</p>
 
-  <p>If the <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> is specified
+  <p>If the <code><a>itemprop</a></code> is specified
   on an <code>object</code> element, then the <code title="attr-object-data">data</code> attribute must also be
   specified.</p>
 
-  <p>If the <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code> is specified
+  <p>If the <code><a>itemprop</a></code> is specified
   on a <span>media element</span>, then the <code title="attr-media-src">src</code> attribute must also be
   specified.</p>
 <!--/YYY-->
