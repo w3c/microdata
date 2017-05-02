@@ -87,8 +87,8 @@
   <section id="terminology">
   <h2>Terminology</h2>
 
-  <p>The URL specification, based on RFC 3986 which uses the term <dfn id="uri">URI</dfn>, defines the terms
-  <dfn id="url">URL</dfn>, <dfn id="valid-url">valid URL</dfn>, and <dfn id="absolute-url">absolute URL</dfn>.
+  <p>The URL specification, and RFC 3986 which uses the term URI, defines a
+  <dfn data-lt="url|uri">URL</dfn>, <dfn>valid URL</dfn>, and <dfn>absolute URL</dfn>.
   For the purposes of this specification, the terms "URL" and "URI" are equivalent. [[RFC3986]][[URL]]</p>
 
   <p>This specification relies on the HTML specification to define the following terms: [[!HTML52]]</p>
@@ -104,12 +104,12 @@
   <dfn id="converted-to-ascii-uppercase">converted to ASCII uppercase</dfn>, and <dfn id="prefix-match">prefix
   match</dfn>.</p>
 
-  <p>HTML defines the meaning of the term <dfn id="html-elements">HTML elements</dfn>, as
+  <p>HTML defines the meaning of the term <dfn>HTML elements</dfn>, as
   well as all the elements referenced in this specification. It also
-  defines the <dfn id="htmlelement"><code>HTMLElement</code></dfn> and
-  <dfn id="htmldocument"><code>HTMLDocument</code></dfn> interfaces. It defines the
+  defines the <dfn><code>HTMLElement</code></dfn> and
+  <dfn><code>HTMLDocument</code></dfn> interfaces. It defines the
   specific concept of <dfn id="the-title-element">the <code>title</code> element</dfn> in the
-  context of an <code><a href="#htmldocument">HTMLDocument</a></code>. In the context of content
+  context of an <code><a>HTMLDocument</a></code>. In the context of content
   models it defines the terms <dfn id="flow-content">flow content</dfn> and
   <dfn id="phrasing-content">phrasing content</dfn>. It also defines what an element's
   <dfn id="concept-id" title="concept-ID">ID</dfn> or <dfn id="language">language</dfn> is in HTML.</p>
@@ -462,11 +462,11 @@
   class of an individual, while a property named "class" given for an item with the type
   "http://example.com/school/teacher" might refer to the classroom a teacher has been assigned.
   Several types can share a vocabulary. For example, the types
-  "<code title="">http://example.org/people/teacher</code>" and "<code title="">http://example.org/people/engineer</code>"
+  "<code>http://example.org/people/teacher</code>" and "<code>http://example.org/people/engineer</code>"
   could be defined to use the same vocabulary
   (though maybe some properties would not be especially useful in both cases, e.g. maybe the
-  "<code title="">http://example.org/people/engineer</code>" type might not typically be used with the
-  "<code title="">classroom</code>" property). Multiple types defined to use the same vocabulary can
+  "<code>http://example.org/people/engineer</code>" type might not typically be used with the
+  "<code>classroom</code>" property). Multiple types defined to use the same vocabulary can
   be given for a single item by listing the URLs as a space-separated list in the attribute' value.
   An item cannot be given two types if they do not use the same vocabulary, however.</p>
 
@@ -502,9 +502,9 @@
  &lt;dd&gt;&lt;time itemprop="pubdate" datetime="1996-01-26"&gt;26 January 1996&lt;/time&gt;
 &lt;/dl&gt;</pre>
 
-   <p>The "<code title="">http://vocab.example.net/book</code>" vocabulary in this example would
+   <p>The "<code>http://vocab.example.net/book</code>" vocabulary in this example would
    define that the <code title="attr-itemid"><a href="#attr-itemid">itemid</a></code> attribute takes a
-   <code title="">urn:</code> <a href="#url">URL</a> pointing to the ISBN of the book.</p>
+   <code>urn:</code> <a href="#url">URL</a> pointing to the ISBN of the book.</p>
 
   </div>
 
@@ -519,14 +519,14 @@
   re-use existing vocabularies, as this makes content re-use easier.</p>
 
   <p>When designing new vocabularies, identifiers can be created either using
-  <a href="#url" title="URL">URLs</a>, or, for properties, as plain words (with no dots or colons). For URLs,
+  <a>URL</a>s, or, for properties, as plain words (with no dots or colons). For URLs,
   conflicts with other vocabularies can be avoided by only using identifiers that correspond to
   pages that the author has control over.</p>
 
   <div class="example">
 
-   <p>For instance, if Jon and Adam both write content at <code title="">example.com</code>, at
-   <code title="">http://example.com/~jon/...</code> and <code title="">http://example.com/~adam/...</code> respectively, then
+   <p>For instance, if Jon and Adam both write content at <code>example.com</code>, at
+   <code>http://example.com/~jon/...</code> and <code>http://example.com/~adam/...</code> respectively, then
    they could select identifiers of the form
    "http://example.com/~jon/name" and "http://example.com/~adam/name"
    respectively.</p>
@@ -860,7 +860,7 @@
 
 <pre><code>&lt;div itemscope itemtype="http://example.com/a"&gt; &lt;ref refid="x"&gt; &lt;/div&gt;
 &lt;div itemscope itemtype="http://example.com/b"&gt; &lt;ref refid="x"&gt; &lt;/div&gt;
-&lt;meta id="x" itemprop="z" content=""&gt;
+&lt;meta id="x" itemprop="z" content=""&gt;</code></pre>
 
      <p>The author should be certain that <samp>z</samp> is valid for both the
      http://example.com/a and http://example.com/b vocabularies.</p>
@@ -952,7 +952,7 @@
    <dd>
 
     <p>The value is the <a href="#absolute-url">absolute URL</a> that results from
-    <a href="#resolve-a-url" title="resolve a url">resolving</a> the value of the element's <code title="">src</code> attribute
+    <a href="#resolve-a-url" title="resolve a url">resolving</a> the value of the element's <code>src</code> attribute
     relative to the element at the time the attribute is set, or the empty string if there is no such attribute
     or if <a href="#resolve-a-url" title="resolve a url">resolving</a> it results in an error.</p>
 
@@ -964,7 +964,7 @@
    <dd>
 
     <p>The value is the <a href="#absolute-url">absolute URL</a> that results from
-    <a href="#resolve-a-url" title="resolve a url">resolving</a> the value of the element's <code title="">href</code> attribute
+    <a href="#resolve-a-url" title="resolve a url">resolving</a> the value of the element's <code>href</code> attribute
     relative to the element at the time the attribute is set, or the empty string if there is no such
     attribute or if <a href="#resolve-a-url" title="resolve a url">resolving</a> it results in an error.</p>
 
@@ -976,7 +976,7 @@
    <dd>
 
     <p>The value is the <a href="#absolute-url">absolute URL</a> that results from
-    <a href="#resolve-a-url" title="resolve a url">resolving</a> the value of the element's <code title="">data</code> attribute
+    <a href="#resolve-a-url" title="resolve a url">resolving</a> the value of the element's <code>data</code> attribute
     relative to the element at the time the attribute is set, or the empty string if there is no such
     attribute or if <a href="#resolve-a-url" title="resolve a url">resolving</a> it results in an error.</p>
 
@@ -1046,51 +1046,51 @@
 <section id="associating-names-with-items">
 <h3>Associating names with items</h3>
 
-  <p>To find <dfn id="the-properties-of-an-item">the properties of an item</dfn> defined by the element <var title="">root</var>,
+  <p>To find <dfn id="the-properties-of-an-item">the properties of an item</dfn> defined by the element <var>root</var>,
   the user agent must run the following steps. These steps are also used to flag
   <a href="#microdata-error" title="microdata error">microdata errors</a>.</p>
 
   <ol>
 
-   <li><p>Let <var title="">results</var>, <var title="">memory</var>, and <var title="">pending</var> be
+   <li><p>Let <var>results</var>, <var>memory</var>, and <var>pending</var> be
    empty lists of elements.</p></li>
 
-   <li><p>Add the element <var title="">root</var> to <var title="">memory</var>.</p></li>
+   <li><p>Add the element <var>root</var> to <var>memory</var>.</p></li>
 
-   <li><p>Add the child elements of <var title="">root</var>, if any, to <var title="">pending</var>.</p></li>
+   <li><p>Add the child elements of <var>root</var>, if any, to <var>pending</var>.</p></li>
 
-   <li><p>If <var title="">root</var> has an <code title="attr-itemref"><a href="#attr-itemref">itemref</a></code> attribute,
+   <li><p>If <var>root</var> has an <code title="attr-itemref"><a href="#attr-itemref">itemref</a></code> attribute,
    <a href="#split-a-string-on-spaces" title="split a string on spaces">split the value of that
-   <code title="attr-itemref">itemref</code> attribute on spaces</a>. For each resulting token <var title="">ID</var>,
-   if there is an element in the <a href="#home-subtree">home subtree</a> of <var title="">root</var> with the
-   <a href="#concept-id" title="concept-ID">ID</a> <var title="">ID</var>, then add
-   the first such element to <var title="">pending</var>.</p></li>
+   <code title="attr-itemref">itemref</code> attribute on spaces</a>. For each resulting token <var>ID</var>,
+   if there is an element in the <a href="#home-subtree">home subtree</a> of <var>root</var> with the
+   <a href="#concept-id" title="concept-ID">ID</a> <var>ID</var>, then add
+   the first such element to <var>pending</var>.</p></li>
 
-   <li><p><i>Loop</i>: If <var title="">pending</var> is empty, jump to the step labeled <i>end of
+   <li><p><i>Loop</i>: If <var>pending</var> is empty, jump to the step labeled <i>end of
    loop</i>.</p></li>
 
-   <li><p>Remove an element from <var title="">pending</var> and let <var title="">current</var> be
+   <li><p>Remove an element from <var>pending</var> and let <var>current</var> be
    that element.</p></li>
 
-   <li><p>If <var title="">current</var> is already in <var title="">memory</var>, there is a
+   <li><p>If <var>current</var> is already in <var>memory</var>, there is a
    <a href="#microdata-error">microdata error</a>; return to the step labeled <i>loop</i>.</p></li>
 
-   <li><p>Add <var title="">current</var> to <var title="">memory</var>.</p></li>
+   <li><p>Add <var>current</var> to <var>memory</var>.</p></li>
 
-   <li><p>If <var title="">current</var> does not have an
+   <li><p>If <var>current</var> does not have an
    <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code> attribute, then:
-   add all the child elements of <var title="">current</var> to <var title="">pending</var>.</p></li>
+   add all the child elements of <var>current</var> to <var>pending</var>.</p></li>
 
-   <li><p>If <var title="">current</var> has an
+   <li><p>If <var>current</var> has an
    <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code>
    attribute specified and has one or more <a href="#property-names">property names</a>, then add
-   <var title="">current</var> to <var title="">results</var>.</p></li>
+   <var>current</var> to <var>results</var>.</p></li>
 
    <li><p>Return to the step labeled <i>loop</i>.</p></li>
 
-   <li><p><i>End of loop</i>: Sort <var title="">results</var> in <a href="#tree-order">tree order</a>.</p></li>
+   <li><p><i>End of loop</i>: Sort <var>results</var> in <a href="#tree-order">tree order</a>.</p></li>
 
-   <li><p>Return <var title="">results</var>.</p></li>
+   <li><p>Return <var>results</var>.</p></li>
 
   </ol>
 
@@ -1143,27 +1143,27 @@
  &lt;/body&gt;
 &lt;/html&gt;</pre>
 
-   <p>The above results in two items with the type "<code title="">http://n.whatwg.org/work</code>",
+   <p>The above results in two items with the type "<code>http://n.whatwg.org/work</code>",
    one with:</p>
 
    <dl class="brief">
     <dt>work
-    </dt><dd><code title="">images/house.jpeg</code>
+    </dt><dd><code>images/house.jpeg</code>
     </dd><dt>title
     </dt><dd>The house I found.
     </dd><dt>license
-    </dt><dd><code title="">http://www.opensource.org/licenses/mit-license.php</code>
+    </dt><dd><code>http://www.opensource.org/licenses/mit-license.php</code>
    </dd></dl>
 
    <p>...and one with:</p>
 
    <dl class="brief">
     <dt>work
-    </dt><dd><code title="">images/mailbox.jpeg</code>
+    </dt><dd><code>images/mailbox.jpeg</code>
     </dd><dt>title
     </dt><dd>The mailbox.
     </dd><dt>license
-    </dt><dd><code title="">http://www.opensource.org/licenses/mit-license.php</code>
+    </dt><dd><code>http://www.opensource.org/licenses/mit-license.php</code>
    </dd></dl>
 
   </div>
@@ -1176,7 +1176,7 @@
   <p>Currently, the <code title="attr-itemscope"><a href="#attr-itemscope">itemscope</a></code>,
   <code title="attr-itemprop"><a href="#names:-the-itemprop-attribute">itemprop</a></code>,
   and other microdata attributes are only defined for <a href="#html-elements">HTML elements</a>.
-  This means that attributes with the literal names "<code title="">itemscope</code>", "<code title="">itemprop</code>", etc,
+  This means that attributes with the literal names "<code>itemscope</code>", "<code>itemprop</code>", etc,
   do not cause microdata processing to occur on elements in other namespaces, such as SVG.</p>
 
   <div class="example">
@@ -1197,27 +1197,27 @@
 <section id="json">
 <h3>JSON</h3>
 
-  <p>Given a list of nodes <var title="">nodes</var> in a <code>Document</code>, a user agent must
+  <p>Given a list of nodes <var>nodes</var> in a <code>Document</code>, a user agent must
   run the following algorithm to <dfn id="extracting-json" title="extracting JSON">extract the microdata from those nodes
   into a JSON form</dfn>:</p>
 
   <ol>
 
-   <li><p>Let <var title="">result</var> be an empty object.</p></li>
+   <li><p>Let <var>result</var> be an empty object.</p></li>
 
-   <li><p>Let <var title="">items</var> be an empty array.</p></li>
+   <li><p>Let <var>items</var> be an empty array.</p></li>
 
-   <li><p>For each <var title="">node</var> in <var title="">nodes</var>, check if the element is a
+   <li><p>For each <var>node</var> in <var>nodes</var>, check if the element is a
    <a href="#top-level-microdata-items" title="top-level microdata items">top-level microdata item</a>, and if it is then
-   <a href="#get-the-object">get the object</a> for that element and add it to <var title="">items</var>.</p></li>
+   <a href="#get-the-object">get the object</a> for that element and add it to <var>items</var>.</p></li>
 
-   <li><p>Add an entry to <var title="">result</var> called "<code title="">items</code>" whose
-   value is the array <var title="">items</var>.</p></li>
+   <li><p>Add an entry to <var>result</var> called "<code>items</code>" whose
+   value is the array <var>items</var>.</p></li>
 
-   <li><p>Return the result of serializing <var title="">result</var> to JSON in the shortest
+   <li><p>Return the result of serializing <var>result</var> to JSON in the shortest
    possible way (meaning no whitespace between tokens, no unnecessary zero digits in numbers, and
    only using Unicode escapes in strings for characters that do not have a dedicated escape
-   sequence), and with a lowercase "<code title="">e</code>" used, when appropriate, in the
+   sequence), and with a lowercase "<code>e</code>" used, when appropriate, in the
    representation of any numbers. [[JSON]]</p></li>
 
   </ol>
@@ -1226,59 +1226,59 @@
   of just returning an array, so that it is possible to extend the algorithm in the future if
   necessary.</p>
 
-  <p>When the user agent is to <dfn id="get-the-object">get the object</dfn> for an item <var title="">item</var>,
-  potentially together with a list of elements <var title="">memory</var>, it must run the following
+  <p>When the user agent is to <dfn id="get-the-object">get the object</dfn> for an item <var>item</var>,
+  potentially together with a list of elements <var>memory</var>, it must run the following
   substeps:</p>
 
   <ol>
 
-   <li><p>Let <var title="">result</var> be an empty object.</p></li>
+   <li><p>Let <var>result</var> be an empty object.</p></li>
 
-   <li><p>If no <var title="">memory</var> was passed to the algorithm, let <var title="">memory</var> be an empty list.</p></li>
+   <li><p>If no <var>memory</var> was passed to the algorithm, let <var>memory</var> be an empty list.</p></li>
 
-   <li><p>Add <var title="">item</var> to <var title="">memory</var>.</p></li>
+   <li><p>Add <var>item</var> to <var>memory</var>.</p></li>
 
-   <li><p>If the <var title="">item</var> has any <a href="#item-types">item types</a>, add an entry to <var title="">result</var>
-   called "<code title="">type</code>" whose value is an array listing the
-   <a href="#item-types">item types</a> of <var title="">item</var>, in the order they were specified on the
+   <li><p>If the <var>item</var> has any <a href="#item-types">item types</a>, add an entry to <var>result</var>
+   called "<code>type</code>" whose value is an array listing the
+   <a href="#item-types">item types</a> of <var>item</var>, in the order they were specified on the
    <code title="attr-itemtype"><a href="#attr-itemtype">itemtype</a></code> attribute.</p>
 
-   </li><li><p>If the <var title="">item</var> has a <a href="#global-identifier">global identifier</a>, add an entry to
-   <var title="">result</var> called "<code title="">id</code>" whose value is the <a href="#global-identifier">global
-   identifier</a> of <var title="">item</var>.</p></li>
+   </li><li><p>If the <var>item</var> has a <a href="#global-identifier">global identifier</a>, add an entry to
+   <var>result</var> called "<code>id</code>" whose value is the <a href="#global-identifier">global
+   identifier</a> of <var>item</var>.</p></li>
 
-   <li><p>Let <var title="">properties</var> be an empty object.</p></li>
+   <li><p>Let <var>properties</var> be an empty object.</p></li>
 
    <li>
 
-    <p>For each element <var title="">element</var> that has one or more <a href="#property-names">property names</a>
+    <p>For each element <var>element</var> that has one or more <a href="#property-names">property names</a>
     and is one of <a href="#the-properties-of-an-item" title="the properties of an item">the properties of the item</a>
-    <var title="">item</var>, in the order those elements are given by the algorithm that returns
+    <var>item</var>, in the order those elements are given by the algorithm that returns
     <a href="#the-properties-of-an-item">the properties of an item</a>, run the following substeps:</p>
 
     <ol>
 
-     <li><p>Let <var title="">value</var> be the
-     <a href="#concept-property-value" title="concept-property-value">property value</a> of <var title="">element</var>.</p></li>
+     <li><p>Let <var>value</var> be the
+     <a href="#concept-property-value" title="concept-property-value">property value</a> of <var>element</var>.</p></li>
 
-     <li><p>If <var title="">value</var> is an <a href="#concept-item" title="concept-item">item</a>, then:
-     If <var title="">value</var> is in <var title="">memory</var>, then let <var title="">value</var> be
-     the string "<code title="">ERROR</code>". Otherwise, <a href="#get-the-object">get the object</a> for
-     <var title="">value</var>, passing a copy of <var title="">memory</var>, and then replace <var title="">value</var>
+     <li><p>If <var>value</var> is an <a href="#concept-item" title="concept-item">item</a>, then:
+     If <var>value</var> is in <var>memory</var>, then let <var>value</var> be
+     the string "<code>ERROR</code>". Otherwise, <a href="#get-the-object">get the object</a> for
+     <var>value</var>, passing a copy of <var>memory</var>, and then replace <var>value</var>
      with the object returned from those steps.</p></li>
 
      <li>
 
-      <p>For each name <var title="">name</var> in <var title="">element</var>'s
+      <p>For each name <var>name</var> in <var>element</var>'s
       <a href="#property-names">property names</a>, run the following substeps:</p>
 
       <ol>
 
-       <li><p>If there is no entry named <var title="">name</var> in <var title="">properties</var>,
-       then add an entry named <var title="">name</var> to <var title="">properties</var> whose
+       <li><p>If there is no entry named <var>name</var> in <var>properties</var>,
+       then add an entry named <var>name</var> to <var>properties</var> whose
        value is an empty array.</p></li>
 
-       <li><p>Append <var title="">value</var> to the entry named <var title="">name</var> in <var title="">properties</var>.</p></li>
+       <li><p>Append <var>value</var> to the entry named <var>name</var> in <var>properties</var>.</p></li>
 
       </ol>
 
@@ -1288,10 +1288,10 @@
 
    </li>
 
-   <li><p>Add an entry to <var title="">result</var> called "<code title="">properties</code>" whose
-   value is the object <var title="">properties</var>.</p></li>
+   <li><p>Add an entry to <var>result</var> called "<code>properties</code>" whose
+   value is the object <var>properties</var>.</p></li>
 
-   <li><p>Return <var title="">result</var>.</p></li>
+   <li><p>Return <var>result</var>.</p></li>
 
   </ol>
 
@@ -1441,7 +1441,7 @@
     and <a href="#extracting-json" title="extracting JSON">extract the microdata from those
     nodes into a JSON form</a>, and then must add the resulting
     string to the <code title="dom-DragEvent-dataTransfer">dataTransfer</code> member,
-    associated with the <code title="">application/microdata+json</code> format.</p>
+    associated with the <code>application/microdata+json</code> format.</p>
    </li>
   </ol>
 
@@ -1486,14 +1486,14 @@
     Labeling a resource with the
     <code><a href="#application/microdata+json">application/microdata+json</a></code> type asserts that the
     resource is a JSON text that consists of an object with a single
-    entry called "<code title="">items</code>" consisting of an array
+    entry called "<code>items</code>" consisting of an array
     of entries, each of which consists of an object with an entry
-    called "<code title="">id</code>" whose value is a string, an
-    entry called "<code title="">type</code>" whose value is another
-    string, and an entry called "<code title="">properties</code>"
+    called "<code>id</code>" whose value is a string, an
+    entry called "<code>type</code>" whose value is another
+    string, and an entry called "<code>properties</code>"
     whose value is an object whose entries each have a value
     consisting of an array of either objects or strings, the objects
-    being of the same form as the objects in the aforementioned "<code title="">items</code>" entry.
+    being of the same form as the objects in the aforementioned "<code>items</code>" entry.
     Thus, the relevant specifications
     are the JSON specification and this specification. [[JSON]]
    </dd>
