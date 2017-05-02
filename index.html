@@ -301,7 +301,7 @@
   <code><a>itemscope</a></code> attribute
   on the element that declares the property.</p>
 
-  <p>Items that are not part of others are called <a href="#top-level-microdata-items">top-level microdata items</a>.</p>
+  <p>Items that are not part of others are called <a data-lt="top-level microdata item">top-level microdata items</a>.</p>
 
   <div class="example">
 
@@ -465,10 +465,10 @@
   <p>Vocabularies (as identified by the <code><a>itemtype</a></code> attribute) can
   be designed such that <a data-lt="concept item">items</a> get associated with their global
   identifier in an unambiguous way by expressing the global identifiers as <a href="#url" title="URL">URLs</a> given in
-  an <code title="attr-itemid"><a href="#attr-itemid">itemid</a></code> attribute.</p>
+  an <code><a>itemid</a></code> attribute.</p>
 
   <p>The exact meaning of the <a href="#url" title="URL">URLs</a> given in
-  <code title="attr-itemid"><a href="#attr-itemid">itemid</a></code> attributes depends on the vocabulary used.</p>
+  <code><a>itemid</a></code> attributes depends on the vocabulary used.</p>
 
   <div class="example">
 
@@ -486,7 +486,7 @@
 &lt;/dl&gt;</pre>
 
    <p>The "<code>http://vocab.example.net/book</code>" vocabulary in this example would
-   define that the <code title="attr-itemid"><a href="#attr-itemid">itemid</a></code> attribute takes a
+   define that the <code><a>itemid</a></code> attribute takes a
    <code>urn:</code> <a href="#url">URL</a> pointing to the ISBN of the book.</p>
 
   </div>
@@ -586,8 +586,8 @@
   Each name in the name-value pair is known as a
   <a href="#the-properties-of-an-item" title="the properties of an item">property</a>, and each
   <a href="#the-properties-of-an-item" title="the properties of an item">property</a> has one or more
-  <a href="#concept-property-value" title="concept-property-value">values</a>.
-  Each <a href="#concept-property-value" title="concept-property-value">value</a> is either a string
+  <a data-lt="property value">values</a>.
+  Each <a data-lt="property value">value</a> is either a string
   or itself a group of name-value pairs (an <a data-lt="concept item">item</a>).
   The names are unordered relative to each other, but if a particular name has multiple values, they do have a relative order.</p>
 </section>
@@ -645,34 +645,34 @@
 
   <p>An <a data-lt="concept item">item</a> is said to be a <dfn>typed item</dfn>
   when either it has an <a href="#item-types" title="item types">item type</a>, or it is the
-  <a href="#concept-property-value" title="concept-property-value">value</a> of a
+  <a data-lt="property value">value</a> of a
   <a href="#the-properties-of-an-item" title="the properties of an item">property</a> of a <a>typed item</a>.
   The <dfn id="relevant-types">relevant types</dfn> for a <a>typed item</a> is the
   <a data-lt="concept item">item</a>'s <a href="#item-types">item types</a>,
   if it has any, or else is the <a href="#relevant-types">relevant types</a> of the
   <a data-lt="concept item">item</a> for which it is a
   <a href="#the-properties-of-an-item" title="the properties of an item">property</a>'s
-  <a href="#concept-property-value" title="concept-property-value">value</a>.</p>
+  <a data-lt="property value">value</a>.</p>
 
   <hr>
 
   <p>Elements with an <code><a>itemscope</a></code> attribute and an
   <code><a>itemtype</a></code> attribute that references a vocabulary
   that is defined to <dfn id="support-global-identifiers-for-items">support global identifiers for items</dfn>
-  may also have an <dfn id="attr-itemid" title="attr-itemid"><code>itemid</code></dfn> attribute specified,
+  may also have an <dfn><code>itemid</code></dfn> attribute specified,
   to give a global identifier for the <a data-lt="concept item">item</a>,
   so that it can be related to other <a data-lt="concept item">items</a> on pages elsewhere on the Web.</p>
 
-  <p>The <code title="attr-itemid"><a href="#attr-itemid">itemid</a></code> attribute, if specified, must have a value that is
+  <p>The <code><a>itemid</a></code> attribute, if specified, must have a value that is
   a <span>valid URL potentially surrounded by spaces</span>.</p>
 
   <p>The <dfn id="global-identifier">global identifier</dfn> of an <a data-lt="concept item">item</a>
-  is the value of its element's <code title="attr-itemid"><a href="#attr-itemid">itemid</a></code> attribute, if it has one,
+  is the value of its element's <code><a>itemid</a></code> attribute, if it has one,
   <a href="#resolve-a-url" title="resolve a url">resolved</a> relative to the element on which the attribute is specified.
-  If the <code title="attr-itemid"><a href="#attr-itemid">itemid</a></code> attribute is missing or if resolving it fails, it
+  If the <code><a>itemid</a></code> attribute is missing or if resolving it fails, it
   is said to have no <a href="#global-identifier">global identifier</a>.</p>
 
-  <p>The <code title="attr-itemid"><a href="#attr-itemid">itemid</a></code> attribute must not be specified on elements
+  <p>The <code><a>itemid</a></code> attribute must not be specified on elements
   that do not have both an <code><a>itemscope</a></code> attribute and an
   <code><a>itemtype</a></code> attribute specified, and must not be specified
   on elements with an <code><a>itemscope</a></code> attribute whose
@@ -902,7 +902,7 @@
 <section id="values">
 <h3>Values</h3>
 
-  <p>The <dfn id="concept-property-value" title="concept-property-value">property value</dfn> of a name-value pair added by an
+  <p>The <dfn>property value</dfn> of a name-value pair added by an
   element with an <code><a>itemprop</a></code> attribute
   is as given for the first matching case in the following list:</p>
 
@@ -1007,7 +1007,7 @@
   <code>audio</code>, <code>embed</code>, <code>iframe</code>, <code>img</code>, <code>link</code>,
   <code>object</code>, <code>source</code>, <code>track</code>, and <code>video</code> elements.</p>
 
-  <p>If a property's <a href="#concept-property-value" title="concept-property-value">value</a>, as defined by the property's
+  <p>If a property's <a data-lt="property value">value</a>, as defined by the property's
   definition, is an <a href="#absolute-url">absolute URL</a>, the property must be specified using a
   <a href="#url-property-elements" title="URL property elements">URL property element</a>.</p>
 
@@ -1029,7 +1029,7 @@
 
   <p>To find <dfn id="the-properties-of-an-item">the properties of an item</dfn> defined by the element <var>root</var>,
   the user agent must run the following steps. These steps are also used to flag
-  <a href="#microdata-error" title="microdata error">microdata errors</a>.</p>
+  <a>microdata error</a>s.</p>
 
   <ol>
 
@@ -1053,7 +1053,7 @@
    that element.</p></li>
 
    <li><p>If <var>current</var> is already in <var>memory</var>, there is a
-   <a href="#microdata-error">microdata error</a>; return to the step labeled <i>loop</i>.</p></li>
+   <a>microdata error</a>; return to the step labeled <i>loop</i>.</p></li>
 
    <li><p>Add <var>current</var> to <var>memory</var>.</p></li>
 
@@ -1076,16 +1076,16 @@
 
   <p>A document must not contain any <a data-lt="concept item">items</a> for which the algorithm
   to find <a href="#the-properties-of-an-item">the properties of an item</a> finds any
-  <dfn id="microdata-error" title="microdata error">microdata errors</dfn>.</p>
+  <dfn>microdata error</dfn>.</p>
 
   <p>An <a data-lt="concept item">item</a> is a
-  <dfn id="top-level-microdata-items" title="top-level microdata items">top-level microdata item</dfn>
+  <dfn>top-level microdata item</dfn>
   if its element does not have an <code><a>itemprop</a></code>
   attribute.</p>
 
   <p>All <code><a>itemref</a></code> attributes in a <code>Document</code> must be
   such that there are no cycles in the graph formed from representing each <a data-lt="concept item">item</a> in the <code>Document</code> as a node in the graph and each
-  <a href="#the-properties-of-an-item" title="the properties of an item">property</a> of an item whose <a href="#concept-property-value" title="concept-property-value">value</a> is another item as an edge in the graph connecting
+  <a href="#the-properties-of-an-item" title="the properties of an item">property</a> of an item whose <a data-lt="property value">value</a> is another item as an edge in the graph connecting
   those two items.</p>
 
   <!-- removed redundant requirement from above. But does this requirement serve any purpose? -->
@@ -1178,8 +1178,8 @@
 <h3>JSON</h3>
 
   <p>Given a list of nodes <var>nodes</var> in a <code>Document</code>, a user agent must
-  run the following algorithm to <dfn id="extracting-json" title="extracting JSON">extract the microdata from those nodes
-  into a JSON form</dfn>:</p>
+  run the following algorithm to extract the microdata from those nodes
+  into a JSON form:</p>
 
   <ol>
 
@@ -1188,7 +1188,7 @@
    <li><p>Let <var>items</var> be an empty array.</p></li>
 
    <li><p>For each <var>node</var> in <var>nodes</var>, check if the element is a
-   <a href="#top-level-microdata-items" title="top-level microdata items">top-level microdata item</a>, and if it is then
+   <a>top-level microdata item</a>, and if it is then
    <a href="#get-the-object">get the object</a> for that element and add it to <var>items</var>.</p></li>
 
    <li><p>Add an entry to <var>result</var> called "<code>items</code>" whose
@@ -1239,7 +1239,7 @@
     <ol>
 
      <li><p>Let <var>value</var> be the
-     <a href="#concept-property-value" title="concept-property-value">property value</a> of <var>element</var>.</p></li>
+     <a>property value</a> of <var>element</var>.</p></li>
 
      <li><p>If <var>value</var> is an <a data-lt="concept item">item</a>, then:
      If <var>value</var> is in <var>memory</var>, then let <var>value</var> be
