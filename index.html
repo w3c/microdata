@@ -66,7 +66,7 @@
 </section>
 
 <section id="sotd">
-  <p>This document is an editor's draft for the <a href="https://www.w3.org/WebPlatform/WG/">Web Platform Working Group</a>, proposed as an update to the <a href="http://www.w3.org/TR/2017/FPWD-microdata-20170502/">2 May 2017 W3C First Public Working Draft</a>.</p>
+  <p>This document is an editor's draft for the <a href="https://www.w3.org/WebPlatform/WG/">Web Platform Working Group</a>, proposed as an update to the <a href="https://www.w3.org/TR/2017/WD-microdata-20170504/">4 May 2017 W3C First Public Working Draft</a>.</p>
 
   <p>This specification is an extension to HTML. All normative content in the HTML specification, unless specifically overridden by this specification, is intended to be the basis for this specification.</p>
 
@@ -1428,6 +1428,35 @@
   </section>
   </section>
 
+  <section id="i18n-considerations">
+  <h2>Internationalisation and localisation</h2>
+  <p><i>This section is not normative</i></p>
+  <p>Machine-readable data may be presented to users, for example by search engines. Identifying content that should,
+  or should not, be translated, would be helpful but currently microdata strips markup. It is possible to use XMLLiterals in
+  RDFa to ensure that markup is kept.</p>
+  <p>Vocabulary design is difficult. Different languages and cultures present view ambiguity differently:
+  two terms with different meanings in one situation may be most naturally translated by a single term that has both meanings,
+  or a single term may have two natural translations. When developing for localisation, it is important to provide
+  sufficient contextual information about terms in a vocabulary to enable accurate translation.</p>
+  </section>
+
+  <section id="privacy-considerations">
+  <h2>Privacy Considerations</h2>
+  <p><i>This section is not normative</i></p>
+  <p>Microdata does not generally interact with personally identifying information, being a static document format.
+  It is possible that information is more clearly identified, and thus to record personally identifying information
+  more explicitly, however this is not a new possibility and can be achieved just as easily without microdata.</p>
+  </section>
+
+  <section id="security-considerations">
+  <h2>Security Considerations</h2>
+  <p><i>This section is not normative</i></p>
+  <p>Microdata does not generally interact with browsers, being a static document format that lacks any DOM interface.
+  Microdata to makes information machine-readable, but does not automatically include provenance information for the statements
+  it encodes. Processors of microdata should consider the trustworthiness of sources they use, including the possibility
+  that data is no longer accurate, and whether the connection over which the data was gathered is secure.</p>
+  </section>
+
   <section id="iana">
 <h2>IANA considerations</h2>
 
@@ -1516,13 +1545,14 @@
   <section id="changes">
   <h2>Changes</h2>
 
-  <p>Changes made between the <a href="@@">First Public Working Draft</a> and the
+  <p>Changes made between the <a href="https://www.w3.org/TR/2017/WD-microdata-20170504/">First Public Working Draft</a> and the
   <a href="http://www.w3.org/TR/2013/NOTE-microdata-20131029/">23 October 2013 W3C Note</a></p>
 
   <ul>
+   <li>Added sections for <a href="i18n-considerations">Internationalisation and localisation</a>, <a href="#privacy-considerations">Privacy</a>, and <a href="#security-considerations">Security Considerations</a>.
   </ul>
 
-  <p>Changes made between the <a href="@@">First Public Working Draft</a> and the
+  <p>Changes made between the <a href="https://www.w3.org/TR/2017/WD-microdata-20170504/">First Public Working Draft</a> and the
   <a href="http://www.w3.org/TR/2013/NOTE-microdata-20131029/">23 October 2013 W3C Note</a></p>
 
   <ul>
