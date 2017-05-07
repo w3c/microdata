@@ -66,7 +66,7 @@
 </section>
 
 <section id="sotd">
-  <p>This document is an editor's draft for the <a href="https://www.w3.org/WebPlatform/WG/">Web Platform Working Group</a>, proposed as an update to the <a href="http://www.w3.org/TR/2017/FPWD-microdata-20170502/">2 May 2017 W3C First Public Working Draft</a>.</p>
+  <p>This document is an editor's draft for the <a href="https://www.w3.org/WebPlatform/WG/">Web Platform Working Group</a>, proposed as an update to the <a href="https://www.w3.org/TR/2017/WD-microdata-20170504/">4 May 2017 W3C First Public Working Draft</a>.</p>
 
   <p>This specification is an extension to HTML. All normative content in the HTML specification, unless specifically overridden by this specification, is intended to be the basis for this specification. [[!HTML52]]</p>
 
@@ -78,7 +78,8 @@
 <!--YYY-->
 <section id="dependencies">
 <h2>Dependencies</h2>
-<p>This specification depends on the HTML specification. [[!HTML52]]</p>
+<p>This specification depends on the HTML specification and its extensions for
+   definitions of individual HTML elements and attributes. [[!HTML52]][[html-extensions]]</p>
 
 <p>Information expressed as microdata can be converted to JSON, as described in <a href="#json">Section 6.1</a>. Microdata can <em>generally</em> be converted to RDF, as described in <a href="https://www.w3.org/TR/microdata-rdf">Microdata to RDF</a>, but only if an additional set of constraints are applied to the microdata content. [[!JSON]][[microdata-rdf]]</p>
 
@@ -87,29 +88,25 @@
   <section id="terminology">
   <h2>Terminology</h2>
 
-  <p>The URL specification, and RFC 3986 which uses the term URI, defines a
-  <dfn data-lt="url|uri">URL</dfn>, <dfn>valid URL</dfn>, and <dfn>absolute URL</dfn>.
-  For the purposes of this specification, the terms "URL" and "URI" are equivalent. [[RFC3986]][[URL]]</p>
+  <p>For the purposes of this specification, the terms "URL" and "URI" are equivalent.
+  The URL specification, and RFC 3986 which uses the term URI, define a <dfn data-lt="url|uri">URL</dfn>,
+  <dfn>valid URL</dfn>, and <dfn>absolute URL</dfn>. [[RFC3986]][[URL]]<p>
+  <p>A <dfn>valid absolute URL</dfn> is an <a>absolute URL</a> which is <a data-lt="valid URL">valid</a>.
+  To <dfn>resolve a URL</dfn> means to convert it to its <a data-lt="absolute URL">absolute form</a>,
+  taking into account the address of the document in which it is found.<!-- and base elements, or not? --></p>
 
-  <p>This specification relies on the HTML specification to define the following terms: [[!HTML52]]</p>
+  <p>DOM 4.1 defines <dfn id="tree-order">tree order</dfn>. [[!DOM41]]</p><!-- and this spec uses it once… -->
 
-  <p>HTML defines <dfn id="tree-order">tree order</dfn> and the
-  concept of a node's <dfn>home subtree</dfn>.</p>
+  <p>This specification relies on the HTML specification to define the individual the following terms: [[!HTML52]]</p>
 
-  <p>HTML defines the terms <dfn>space characters</dfn>, <dfn>split a string on spaces</dfn>,
-  and <dfn id="prefix-match">prefix match</dfn>.</p>
 
-  <p>HTML defines the meaning of the term <dfn>HTML elements</dfn>, as
-  well as all the elements referenced in this specification. In the context of content models it defines the terms
-  <dfn>flow content</dfn> and <dfn>phrasing content</dfn>. It also defines what an element's
-  <dfn>ID</dfn> or <dfn id="language">language</dfn> is in HTML.</p>
-
-  <p>HTML defines a set of <dfn>global attributes</dfn> and the concepts of a <dfn>boolean attribute</dfn>, and an
-  <dfn>unordered set of unique space-separated tokens</dfn>,
-  </p>
-
-  <p>HTML defines what <dfn id="the-document's-current-address">the document's current address</dfn>
-  is.</p>
+  <ul>
+   <li><dfn>space characters</dfn></dt>, <dfn>split a string on spaces</dfn>, and an
+     <dfn>unordered set of unique space-separated tokens</dfn>.</li>
+   <li><dfn>HTML elements</dfn>, <dfn>global attributes</dfn>, <dfn>boolean attribute</dfn>.</li>
+   <li>An element's <dfn>ID</dfn> and <dfn id="language">language</dfn>.</li>
+   <li><dfn>flow content</dfn> and <dfn>phrasing content</dfn>.</li>
+  </ul>
 
 
   </section>
@@ -412,7 +409,7 @@
 
   <p>For this purpose, it is necessary to give each <a data-lt="concept item">item</a> a type,
   such as "http://example.com/person", or "http://example.org/cat", or "http://band.example.net/".
-  Types are identified as <a href="#url" title="URL">URLs</a>.</p>
+  Types are identified as <a data-lt="URL">URLs</a>.</p>
 
   <p>The type for an <a data-lt="concept item">item</a> is given as the value of an
   <code><a>itemtype</a></code> attribute on the same element as the
@@ -458,10 +455,10 @@
 
   <p>Vocabularies (as identified by the <code><a>itemtype</a></code> attribute) can
   be designed such that <a data-lt="concept item">items</a> get associated with their global
-  identifier in an unambiguous way by expressing the global identifiers as <a href="#url" title="URL">URLs</a> given in
+  identifier in an unambiguous way by expressing the global identifiers as <a data-lt="URL">URLs</a> given in
   an <code><a>itemid</a></code> attribute.</p>
 
-  <p>The exact meaning of the <a href="#url" title="URL">URLs</a> given in
+  <p>The exact meaning of the <a data-lt="URL">URLs</a> given in
   <code><a>itemid</a></code> attributes depends on the vocabulary used.</p>
 
   <div class="example">
@@ -577,12 +574,10 @@
   <a data-lt="concept item">item</a> can have <a href="#item-types">item types</a>,
   a <a href="#global-identifier">global identifier</a> (if the vocabulary specified by the <a href="#item-types">item types</a>
   <a href="#support-global-identifiers-for-items">support global identifiers for items</a>), and a list of name-value pairs.
-  Each name in the name-value pair is known as a
-  <a href="#the-properties-of-an-item" title="the properties of an item">property</a>, and each
-  <a href="#the-properties-of-an-item" title="the properties of an item">property</a> has one or more
-  <a data-lt="property value">values</a>.
-  Each <a data-lt="property value">value</a> is either a string
-  or itself a group of name-value pairs (an <a data-lt="concept item">item</a>).
+  Each name in the name-value pair is known as a <a data-lt="item properties">property</a>,
+  and each <a data-lt="item properties">property</a> has one or more <a data-lt="property value">values</a>.
+  Each <a data-lt="property value">value</a> is either a string or itself a group of name-value pairs
+  (an <a data-lt="concept item">item</a>).
   The names are unordered relative to each other, but if a particular name has multiple values, they do have a relative order.</p>
 </section>
 
@@ -591,8 +586,7 @@
 
   <p>Every <a href="#html-elements" title="HTML elements">HTML element</a> may have an
   <dfn><code>itemscope</code></dfn> attribute specified.
-  The <code><a>itemscope</a></code> attribute is a
-  <a href="#boolean-attribute">boolean attribute</a>.</p>
+  The <code><a>itemscope</a></code> attribute is a <a>boolean attribute</a>.</p>
 
   <p>An element with the <code><a>itemscope</a></code> attribute specified
   creates a new <dfn data-lt="concept item">item</dfn>, a group of name-value pairs.</p>
@@ -605,7 +599,7 @@
 
   <p>The <code><a>itemtype</a></code> attribute, if specified, must have a value that
   is an <a>unordered set of unique space-separated tokens</a> that are
-  <span>case-sensitive</span>, each of which is a <a href="#valid-url">valid URL</a> that is an <a href="#absolute-url">absolute
+  <span>case-sensitive</span>, each of which is a <a>valid absolute
   URL</a>, and all of which are defined to use the same vocabulary. The attribute's value must
   have at least one token.</p>
 
@@ -620,7 +614,7 @@
   vocabulary.</p>
 
 
-   <p>Except if otherwise specified by that specification, the <a href="#url" title="URL">URLs</a> given
+   <p>Except if otherwise specified by that specification, the <a data-lt="URL">URLs</a> given
    as the <a href="#item-types">item types</a> should not be automatically dereferenced.</p>
 
    <p class="note">A specification could define that its <a href="#item-types" title="item types">item type</a>
@@ -639,14 +633,11 @@
 
   <p>An <a data-lt="concept item">item</a> is said to be a <dfn>typed item</dfn>
   when either it has an <a href="#item-types" title="item types">item type</a>, or it is the
-  <a data-lt="property value">value</a> of a
-  <a href="#the-properties-of-an-item" title="the properties of an item">property</a> of a <a>typed item</a>.
+  <a data-lt="property value">value</a> of a <a data-lt="item properties">property</a> of a <a>typed item</a>.
   The <dfn id="relevant-types">relevant types</dfn> for a <a>typed item</a> is the
-  <a data-lt="concept item">item</a>'s <a href="#item-types">item types</a>,
-  if it has any, or else is the <a href="#relevant-types">relevant types</a> of the
-  <a data-lt="concept item">item</a> for which it is a
-  <a href="#the-properties-of-an-item" title="the properties of an item">property</a>'s
-  <a data-lt="property value">value</a>.</p>
+  <a data-lt="concept item">item</a>'s <a href="#item-types">item types</a>, if it has any,
+  or else is the <a href="#relevant-types">relevant types</a> of the <a data-lt="concept item">item</a>
+  for which it is a <a data-lt="item properties">property</a>'s <a data-lt="property value">value</a>.</p>
 
   <hr>
 
@@ -658,7 +649,7 @@
   so that it can be related to other <a data-lt="concept item">items</a> on pages elsewhere on the Web.</p>
 
   <p>The <code><a>itemid</a></code> attribute, if specified, must have a value that is
-  a <span>valid URL potentially surrounded by spaces</span>.</p>
+  a <a>valid URL</a> potentially surrounded by <a>space characters</a>.</p>
 
   <p>The <dfn id="global-identifier">global identifier</dfn> of an <a data-lt="concept item">item</a>
   is the value of its element's <code><a>itemid</a></code> attribute, if it has one,
@@ -688,7 +679,7 @@
 
   <p>The <code><a>itemref</a></code> attribute, if specified, must have a value that
   is an <a>unordered set of unique space-separated tokens</a> that are
-  <span>case-sensitive</span>, consisting of <a>ID</a>s of elements in the same <a>home subtree</a>.</p>
+  <span>case-sensitive</span>, consisting of <a>ID</a>s of elements in the same document.</p>
 
   <p>The <code><a>itemref</a></code> attribute must not be specified on elements that
   do not have an <code><a>itemscope</a></code> attribute specified.</p>
@@ -789,7 +780,7 @@
 
   <p>Every <a href="#html-elements" title="HTML elements">HTML element</a> may have an 
   <code><a>itemprop</a></code> attribute specified, if doing so
-  <a href="#the-properties-of-an-item" title="the properties of an item">adds one or more properties</a> to one or more
+  <a data-lt="item properties">adds one or more properties</a> to one or more
   <a data-lt="concept item">items</a> (as defined below).</p>
 
   <p>The <code><a>itemprop</a></code> attribute, if specified,
@@ -802,16 +793,15 @@
 
   <ul>
 
-   <li>If the item is a <a>typed item</a>: a <dfn id="defined-property-name">defined property name</dfn>
+   <li>If the item is a <a>typed item</a>: a <dfn>defined property name</dfn>
    allowed in this situation according to the specification that defines the <a href="#relevant-types">relevant types</a>
    for the item, or</li>
 
-   <li>A <a href="#valid-url">valid URL</a> that is an <a href="#absolute-url">absolute URL</a> defined as an item property
-   name allowed in this situation by a vocabulary specification, or</li>
+   <li>A <a >valid absolute URL</a> defined as an item property name
+   allowed in this situation by a vocabulary specification, or</li>
 
-   <li>A <a href="#valid-url">valid URL</a> that is an <a href="#absolute-url">absolute URL</a>, used as a proprietary item
-   property name (i.e. one used by the author for private purposes, not defined in a public
-   specification), or</li>
+   <li>A <a >valid absolute URL</a>, used as a proprietary item property name
+   (i.e. one used by the author for private purposes, not defined in a public specification), or</li>
 
    <li>If the item is not a <a>typed item</a>: a string that contains no "." (U+002E) characters
    and no ":" (U+003A) characters, used as a proprietary item property name
@@ -819,15 +809,13 @@
 
   </ul>
 
-  <p>Specifications that introduce <a href="#defined-property-name" title="defined property name">defined property names</a>
+  <p>Specifications that introduce <a data-lt="defined property name">defined property names</a>
   must ensure all such property names contain no "." (U+002E) characters, no ":" (U+003A) characters,
   and no <a>space characters</a> (defined in [[!HTML52]] as U+0020, U+0009, U+000A, U+000C, and U+000D).</p>
 
-  <p>When an element with an <code><a>itemprop</a></code> attribute
-  <a href="#the-properties-of-an-item" title="the properties of an item">adds a property</a>
-  to multiple <a data-lt="concept item">items</a>,
-  the requirement above regarding the tokens applies for each <a data-lt="concept item">item</a>
-  individually.</p>
+  <p>When an element with an <code><a>itemprop</a></code> attribute <a data-lt="item properties">adds a property</a>
+  to multiple <a data-lt="concept item">items</a>, the requirement above regarding the tokens applies for each
+  <a data-lt="concept item">item</a> individually.</p>
 
   <div class="example">
 
@@ -926,7 +914,7 @@
 
    <dd>
 
-    <p>The value is the <a href="#absolute-url">absolute URL</a> that results from
+    <p>The value is the <a>absolute URL</a> that results from
     <a href="#resolve-a-url" title="resolve a url">resolving</a> the value of the element's <code>src</code> attribute
     relative to the element at the time the attribute is set, or the empty string if there is no such attribute
     or if <a href="#resolve-a-url" title="resolve a url">resolving</a> it results in an error.</p>
@@ -938,7 +926,7 @@
 
    <dd>
 
-    <p>The value is the <a href="#absolute-url">absolute URL</a> that results from
+    <p>The value is the <a>absolute URL</a> that results from
     <a href="#resolve-a-url" title="resolve a url">resolving</a> the value of the element's <code>href</code> attribute
     relative to the element at the time the attribute is set, or the empty string if there is no such
     attribute or if <a href="#resolve-a-url" title="resolve a url">resolving</a> it results in an error.</p>
@@ -950,7 +938,7 @@
 
    <dd>
 
-    <p>The value is the <a href="#absolute-url">absolute URL</a> that results from
+    <p>The value is the <a>absolute URL</a> that results from
     <a href="#resolve-a-url" title="resolve a url">resolving</a> the value of the element's <code>data</code> attribute
     relative to the element at the time the attribute is set, or the empty string if there is no such
     attribute or if <a href="#resolve-a-url" title="resolve a url">resolving</a> it results in an error.</p>
@@ -997,13 +985,13 @@
 
   </dl>
 
-  <p>The <dfn id="url-property-elements">URL property elements</dfn> are the <code>a</code>, <code>area</code>,
+  <p>The <dfn>URL property elements</dfn> are the <code>a</code>, <code>area</code>,
   <code>audio</code>, <code>embed</code>, <code>iframe</code>, <code>img</code>, <code>link</code>,
   <code>object</code>, <code>source</code>, <code>track</code>, and <code>video</code> elements.</p>
 
   <p>If a property's <a data-lt="property value">value</a>, as defined by the property's
-  definition, is an <a href="#absolute-url">absolute URL</a>, the property must be specified using a
-  <a href="#url-property-elements" title="URL property elements">URL property element</a>.</p>
+  definition, is an <a>absolute URL</a>, the property must be specified using a
+  <a data-lt="URL property elements">URL property element</a>.</p>
 
   <p class="note">These requirements do not apply just because a property value happens to match the
   syntax for a URL. They only apply if the property is explicitly defined as taking such a
@@ -1012,16 +1000,16 @@
   <p class="example">For example, a book about the first moon landing <!-- 1969-07-20 --> could be
   called "mission:moon". A "title" property from a vocabulary that defines a title as being a string
   would not expect the title to be given in an <code>a</code> element, even though it looks like a
-  <a href="#url">URL</a>. On the other hand, if there was a (rather narrowly scoped!) vocabulary for
+  <a>URL</a>. On the other hand, if there was a (rather narrowly scoped!) vocabulary for
   "books whose titles look like URLs" which had a "title" property defined to take a URL, then the
   property <em>would</em> expect the title to be given in an <code>a</code> element (or one of the
-  other <a href="#url-property-elements">URL property elements</a>), because of the requirement above.</p>
+  other <a>URL property elements</a>), because of the requirement above.</p>
 </section>
 
 <section id="associating-names-with-items">
 <h3>Associating names with items</h3>
 
-  <p>To find <dfn id="the-properties-of-an-item">the properties of an item</dfn> defined by the element <var>root</var>,
+  <p>To find <dfn data-lt="item properties">the properties of an item</dfn> defined by the element <var>root</var>,
   the user agent must run the following steps. These steps are also used to flag
   <a>microdata error</a>s.</p>
 
@@ -1036,9 +1024,8 @@
 
    <li><p>If <var>root</var> has an <code><a>itemref</a></code> attribute,
    <a data-lt="split a string on spaces">split the value of that <code>itemref</code> attribute on spaces</a>.
-   For each resulting token <var>ID</var>, if there is an element in the <a>home subtree</a>
-   of <var>root</var> whose <a>ID</a> is <var>ID</var>, then add
-   the first such element to <var>pending</var>.</p></li>
+   For each resulting token <var>ID</var>, if there is an element in the document whose <a>ID</a> is <var>ID</var>,
+   then add the first such element to <var>pending</var>.</p></li>
 
    <li><p><i>Loop</i>: If <var>pending</var> is empty, jump to the step labeled <i>end of
    loop</i>.</p></li>
@@ -1069,25 +1056,21 @@
   </ol>
 
   <p>A document must not contain any <a data-lt="concept item">items</a> for which the algorithm
-  to find <a href="#the-properties-of-an-item">the properties of an item</a> finds any
+  to find <a data-lt="item properties">the properties of an item</a> finds any
   <dfn>microdata error</dfn>.</p>
 
-  <p>An <a data-lt="concept item">item</a> is a
-  <dfn>top-level microdata item</dfn>
-  if its element does not have an <code><a>itemprop</a></code>
-  attribute.</p>
+  <p>An <a data-lt="concept item">item</a> is a <dfn>top-level microdata item</dfn>
+  if its element does not have an <code><a>itemprop</a></code> attribute.</p>
 
-  <p>All <code><a>itemref</a></code> attributes in a <code>Document</code> must be
-  such that there are no cycles in the graph formed from representing each <a data-lt="concept item">item</a> in the <code>Document</code> as a node in the graph and each
-  <a href="#the-properties-of-an-item" title="the properties of an item">property</a> of an item whose <a data-lt="property value">value</a> is another item as an edge in the graph connecting
-  those two items.</p>
+  <p>All <code><a>itemref</a></code> attributes in a <code>Document</code> must be such
+  that there are no cycles in the graph formed from representing each <a data-lt="concept item">item</a>
+  in the <code>Document</code> as a node in the graph and each <a lt="item properties">property</a> of an item whose
+  <a data-lt="property value">value</a> is another item as an edge in the graph connecting those two items.</p>
 
   <!-- removed redundant requirement from above. But does this requirement serve any purpose? -->
-  <p>A document must not contain any elements that have an
-  <code><a>itemprop</a></code> attribute
+  <p>A document must not contain any elements that have an <code><a>itemprop</a></code> attribute
   that would not be found to be a property of any of the <a data-lt="concept item">items</a>
-  in that document were their <a href="#the-properties-of-an-item" title="the properties of an item">properties</a>
-  all to be determined.</p>
+  in that document were their <a data-lt="item properties">properties</a> all to be determined.</p>
 
   <div class="example">
 
@@ -1147,8 +1130,7 @@
 <section id="microdata-and-other-namespaces">
 <h3>Microdata and other namespaces</h3>
 
-  <p>Currently, the <code><a>itemscope</a></code>,
-  <code><a>itemprop</a></code>,
+  <p>Currently, the <code><a>itemscope</a></code>, <code><a>itemprop</a></code>,
   and other microdata attributes are only defined for <a href="#html-elements">HTML elements</a>.
   This means that attributes with the literal names "<code>itemscope</code>", "<code>itemprop</code>", etc,
   do not cause microdata processing to occur on elements in other namespaces, such as SVG.</p>
@@ -1172,8 +1154,7 @@
 <h3>JSON</h3>
 
   <p>Given a list of nodes <var>nodes</var> in a <code>Document</code>, a user agent must
-  run the following algorithm to extract the microdata from those nodes
-  into a JSON form:</p>
+  run the following algorithm to extract the microdata from those nodes into a JSON form:</p>
 
   <ol>
 
@@ -1226,9 +1207,9 @@
    <li>
 
     <p>For each element <var>element</var> that has one or more <a href="#property-names">property names</a>
-    and is one of <a href="#the-properties-of-an-item" title="the properties of an item">the properties of the item</a>
+    and is one of <a data-lt="item properties">the properties of the item</a>
     <var>item</var>, in the order those elements are given by the algorithm that returns
-    <a href="#the-properties-of-an-item">the properties of an item</a>, run the following substeps:</p>
+    <a data-lt="item properties">the properties of an item</a>, run the following substeps:</p>
 
     <ol>
 
@@ -1407,6 +1388,35 @@
 
   </section>
 
+  <section id="i18n-considerations">
+  <h2>Internationalisation and localisation</h2>
+  <p><i>This section is not normative</i></p>
+  <p>Machine-readable data may be presented to users, for example by search engines. Identifying content that should,
+  or should not, be translated, would be helpful but currently microdata strips markup. It is possible to use XMLLiterals in
+  RDFa to ensure that markup is kept.</p>
+  <p>Vocabulary design is difficult. Different languages and cultures present view ambiguity differently:
+  two terms with different meanings in one situation may be most naturally translated by a single term that has both meanings,
+  or a single term may have two natural translations. When developing for localisation, it is important to provide
+  sufficient contextual information about terms in a vocabulary to enable accurate translation.</p>
+  </section>
+
+  <section id="privacy-considerations">
+  <h2>Privacy Considerations</h2>
+  <p><i>This section is not normative</i></p>
+  <p>Microdata does not generally interact with personally identifying information, being a static document format.
+  It is possible that information is more clearly identified, and thus to record personally identifying information
+  more explicitly, however this is not a new possibility and can be achieved just as easily without microdata.</p>
+  </section>
+
+  <section id="security-considerations">
+  <h2>Security Considerations</h2>
+  <p><i>This section is not normative</i></p>
+  <p>Microdata does not generally interact with browsers, being a static document format that lacks any DOM interface.
+  Microdata to makes information machine-readable, but does not automatically include provenance information for the statements
+  it encodes. Processors of microdata should consider the trustworthiness of sources they use, including the possibility
+  that data is no longer accurate, and whether the connection over which the data was gathered is secure.</p>
+  </section>
+
   <section id="iana">
 <h2>IANA considerations</h2>
 
@@ -1495,13 +1505,17 @@
   <section id="changes">
   <h2>Changes</h2>
 
-  <p>Changes made between this version and the <a href="@@">First Public Working Draft</a>.</p>
+
+
+  <p>Changes made between the <a href="https://www.w3.org/TR/2017/WD-microdata-20170504/">First Public Working Draft</a> and the
+  <a href="http://www.w3.org/TR/2013/NOTE-microdata-20131029/">23 October 2013 W3C Note</a></p>
 
   <ul>
+   <li>Added sections for <a href="i18n-considerations">Internationalisation and localisation</a>, <a href="#privacy-considerations">Privacy</a>, and <a href="#security-considerations">Security Considerations</a>.
    <li>Remove drag and drop, as it is not implemented in current browsers.</li>
   </ul>
 
-  <p>Changes made between the <a href="@@">First Public Working Draft</a> and the
+  <p>Changes made between the <a href="https://www.w3.org/TR/2017/WD-microdata-20170504/">First Public Working Draft</a> and the
   <a href="http://www.w3.org/TR/2013/NOTE-microdata-20131029/">23 October 2013 W3C Note</a></p>
 
   <ul>
