@@ -946,41 +946,25 @@
    </dd>
 
 
-   <dt>If the element is a <code>data</code> element</dt>
+    <dt>If the element is a <code>data</code> or <code>meter</code> element</dt>
 
    <dd>
-
-    <p>The value is the value of the element's <code title="attr-data-value">value</code> attribute,
+    <p>The value is the value of the element's <code>value</code> attribute,
     if it has one, or the empty string otherwise.</p>
-
-   </dd>
-
-
-   <dt>If the element is a <code>meter</code> element</dt>
-
-   <dd>
-
-    <p>The value is the value of the element's <code title="attr-meter-value">value</code> attribute,
-    if it has one, or the empty string otherwise.</p>
-
    </dd>
 
 
    <dt>If the element is a <code>time</code> element</dt>
 
    <dd>
-
     <p>The value is the element's <span>datetime value</span>.</p>
-
    </dd>
 
 
    <dt>Otherwise</dt>
 
    <dd>
-
     <p>The value is the element's <code>textContent</code>.</p>
-
    </dd>
 
   </dl>
@@ -1354,34 +1338,25 @@
   <a href="#phrasing-content">phrasing content</a> is expected if the
   <code><a>itemprop</a></code> attribute is present.</p>
 
-  <p>If a <code>link</code> element has an
-    <code><a>itemprop</a></code>
-    attribute, the <code title="attr-link-rel">rel</code> attribute may be omitted.</p>
+  <p>If a <code>link</code> element has an <code><a>itemprop</a></code>
+    attribute, the <code>rel</code> attribute may be omitted.</p>
 
   <p>If a <code>meta</code> element has an <code><a>itemprop</a></code>
-  attribute, the <code title="attr-meta-name">name</code>, <code title="attr-meta-http-equiv">http-equiv</code>, and
-  <code title="attr-meta-charset">charset</code> attributes must be omitted, and the
-  <code title="attr-meta-content">content</code> attribute must be present.</p>
+  attribute, the <code>name</code>, <code>http-equiv</code>, and <code>charset</code> attributes must be omitted,
+  and the <code>content</code> attribute must be present.</p>
 
   <p>If the <code><a>itemprop</a></code> is specified
   on an <code>a</code> or <code>area</code> element, then the <code title="attr-hyperlink-href">href</code> attribute must also be
   specified.</p>
 
-  <p>If the <code><a>itemprop</a></code> is specified
-  on an <code>iframe</code> element, then the <code title="attr-iframe-src">data</code> attribute must also be
-  specified.</p>
+  <p>If the <code><a>itemprop</a></code> is specified on an <code>audio</code>, <code>embed</code>,
+   <code>iframe</code>, <code>img</code>, <code>source</code>, <code>track</code>, or <code>video</code>
+   element, then the <code>src</code> attribute must also be specified.</p>
 
   <p>If the <code><a>itemprop</a></code> is specified
-  on an <code>embed</code> element, then the <code title="attr-embed-src">data</code> attribute must also be
+  on an <code>object</code> element, then the <code>data</code> attribute must also be
   specified.</p>
 
-  <p>If the <code><a>itemprop</a></code> is specified
-  on an <code>object</code> element, then the <code title="attr-object-data">data</code> attribute must also be
-  specified.</p>
-
-  <p>If the <code><a>itemprop</a></code> is specified
-  on a <span>media element</span>, then the <code title="attr-media-src">src</code> attribute must also be
-  specified.</p>
 <!--/YYY-->
   </section>
 
