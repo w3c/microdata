@@ -62,13 +62,13 @@
 
  <body>
  <section id="abstract">
-  <p>This specification defines the HTML microdata mechanism. This mechanism allows machine-readable data to be embedded in HTML documents similarly to the mechanism of RDFa. It is compatible with JSON, and <em>can</em> be written in a style which is convertible to RDF, although two-way conversion is not lossless.</p>
+  <p>This specification defines the HTML microdata mechanism. This mechanism allows machine-readable data to be embedded in HTML documents in a style similar to RDFa. It is compatible with JSON, and <em>can</em> be written in a style which is convertible to RDF, although two-way conversion is not lossless.</p>
 </section>
 
 <section id="sotd">
   <p>This document is an editor's draft for the <a href="https://www.w3.org/WebPlatform/WG/">Web Platform Working Group</a>, proposed as an update to the <a href="https://www.w3.org/TR/2017/WD-microdata-20170504/">4 May 2017 W3C First Public Working Draft</a>.</p>
 
-  <p>This specification is an extension to HTML. All normative content in the HTML specification, unless specifically overridden by this specification, is intended to be the basis for this specification.</p>
+  <p>This specification is an extension to HTML. All normative content in the HTML specification, unless specifically overridden by this specification, is intended to be the basis for this specification. [[!HTML52]]</p>
 
   <!-- where to send feedback (required) -->
   <p>If you wish to make comments regarding this document please
@@ -81,7 +81,7 @@
 <p>This specification depends on the HTML specification and its extensions for
    definitions of individual HTML elements and attributes. [[!HTML52]][[html-extensions]]</p>
 
-<p>Information expressed as microdata can be converted to JSON, as described in <a href="#json">Section 6.1</a>. Microdata can <em>generally</em> be converted to RDF, as described in <a href="https://www.w3.org/TR/microdata-rdf">Microdata to RDF</a>, but only when an additional set of constraints are applied to the microdata content. [[!JSON]][[microdata-rdf]]</p>
+<p>Information expressed as microdata can be converted to JSON, as described in <a href="#json">Section 6.1</a>. Microdata can <em>generally</em> be converted to RDF, as described in <a href="https://www.w3.org/TR/microdata-rdf">Microdata to RDF</a>, but only if an additional set of constraints are applied to the microdata content. [[!JSON]][[microdata-rdf]]</p>
 
 </section>
 
@@ -99,6 +99,7 @@
 
   <p>This specification relies on the HTML specification to define the individual the following terms: [[!HTML52]]</p>
 
+
   <ul>
    <li><dfn>space characters</dfn></dt>, <dfn>split a string on spaces</dfn>, and an
      <dfn>unordered set of unique space-separated tokens</dfn>.</li>
@@ -106,6 +107,7 @@
    <li>An element's <dfn>ID</dfn> and <dfn id="language">language</dfn>.</li>
    <li><dfn>flow content</dfn> and <dfn>phrasing content</dfn>.</li>
   </ul>
+
 
   </section>
 
@@ -390,10 +392,8 @@
 &lt;/figure&gt;</pre>
 
    <p>Both have a figure with a caption, and both, completely unrelated to the figure, have an item
-   with a name-value pair with the name "name" and the value "The Castle". The only difference is
-   that if the user drags the caption out of the document, in the former case, the item will be
-   included in the drag-and-drop data. In neither case is the image in any way associated with the
-   item.</p>
+   with a name-value pair with the name "name" and the value "The Castle".
+   In neither case is the image in any way associated with the item.</p>
 
   </div>
 
@@ -1360,22 +1360,7 @@
 <!--/YYY-->
   </section>
 
-  <section id="drag-and-drop">
-  <h3>Drag-and-drop</h3>
 
-  <p>The <a href="#drag-and-drop-initialization-steps">drag-and-drop initialization steps</a> are:</p>
-  
-  <ol>
-   <li>
-    <p>The user agent must take the <a href="#list-of-dragged-nodes">list of dragged nodes</a>
-    and <a href="#extracting-json" title="extracting JSON">extract the microdata from those
-    nodes into a JSON form</a>, and then must add the resulting
-    string to the <code title="dom-DragEvent-dataTransfer">dataTransfer</code> member,
-    associated with the <code>application/microdata+json</code> format.</p>
-   </li>
-  </ol>
-
-  </section>
   </section>
 
   <section id="i18n-considerations">
@@ -1495,11 +1480,14 @@
   <section id="changes">
   <h2>Changes</h2>
 
+
+
   <p>Changes made between the <a href="https://www.w3.org/TR/2017/WD-microdata-20170504/">First Public Working Draft</a> and the
   <a href="http://www.w3.org/TR/2013/NOTE-microdata-20131029/">23 October 2013 W3C Note</a></p>
 
   <ul>
    <li>Added sections for <a href="i18n-considerations">Internationalisation and localisation</a>, <a href="#privacy-considerations">Privacy</a>, and <a href="#security-considerations">Security Considerations</a>.
+   <li>Remove drag and drop, as it is not implemented in current browsers.</li>
   </ul>
 
   <p>Changes made between the <a href="https://www.w3.org/TR/2017/WD-microdata-20170504/">First Public Working Draft</a> and the
