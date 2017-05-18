@@ -3,6 +3,15 @@
   <meta charset="utf-8">
   <title>HTML Microdata</title>
 
+  <style>
+   /* Styles for SVG */
+   rect, ellipse { fill: none}
+   .item {stroke: #005; stroke-width: 2}
+   .value-box {stroke: #dd0; stroke-width: 2}
+   text { font-family: "Arial"; font-size: 14px; fill: #f00 }
+   .property, .iteminfo { fill: #00a ; font-size: 8px }
+   .value { fill: #000 }
+  </style>
   <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" rel="stylesheet" type="text/css">
 
   <script src='https://www.w3.org/Tools/respec/respec-w3c-common' async class='remove'></script>
@@ -154,29 +163,54 @@
 <h3>Overview</h3>
 
   <p><i>This section is non-normative.</i></p>
-  <p>Sometimes, it is desirable to annotate content with specific machine-readable labels, e.g. to
-  allow generic scripts to provide services that are customised to the page, or to enable content
-  from a variety of cooperating authors to be processed by a single script in a consistent
-  manner.</p>
+  <p>Sometimes, it is desirable to annotate content with specific machine-readable labels.
+  For example, search engines can better identify page content using schema.org annotations,
+  and content management systems can find and use information from documents, if it is marked up in a known way.</p>
 
-  <p>For this purpose, authors can use the microdata features described in this section. Microdata
-  allows nested groups of name-value pairs to be added to documents, in parallel with the existing
-  content.</p>
+  <p>Microdata provides a simple mechanism to label content in a document,
+    so it can be processed as a set of <a data-lt="concept item">items</a>,
+    described by name-value pairs.</p>
+
+  <p>Each name-value pair identifies a <a data-lt="item property">property</a> of the item, and a <a data-lt="property value">value</a> of that property.</p>
+
+  <figure>
+    <figcaption>
+    A common way to represent items, properties and values graphically
+    </figcaption>
+  <p><svg viewbox="0 0 300 45">
+      <g id="diagram1-item">
+        <title>An Item</title>
+        <ellipse class="item" cx="50" cy="25" rx="40" ry="15"/>
+        <text x="35" y="30">Item</text>
+      </g>
+      <g id="diagram1-property">
+        <title>A Property</title>
+        <path d="M95,23h90v-8l10,10l-10,10v-8h-90z"/>
+        <text x="105" y="19">Property</text>
+      </g>
+      <g id="diagram1-value">
+        <title>A Value</title>
+        <rect class="value-box" x="200" y="10" width="80" height="30"/>
+        <text x="215" y="30">Value</text>
+      </g>
+    </svg></p>
+    </figure>
+
+    <p>The value of a property may be an item.</p>
 </section>
 
 <section id="the-basic-syntax">
 <h3>The basic syntax</h3>
 
   <p><i>This section is non-normative.</i></p>
-  <p>At a high level, microdata consists of a group of name-value pairs. The groups are called
-  <a data-lt="concept item">items</a>, and each name-value pair is a property. Items and properties
-  are represented by regular elements.</p>
 
-  <p>To create an item, the <code><a>itemscope</a></code> attribute is used.</p>
+  <p><a data-lt="concept item">Items</a> and properties are generally represented by regular elements.</p>
 
-  <p>To add a property to an item, the
-  <code><a>itemprop</a></code> attribute is used
-  on one of the <a data-lt="concept item">item's</a> descendants.</p>
+  <p>The <a>itemscope</a> attribute creates an <a data-lt="concept item">item</a>.</p>
+
+  <p>The <a>itemprop</a> attribute on a descendent element of an <a data-lt="concept item">item's</a>
+    identifies a <a>property</a> of that item.
+    Typically, the text content of that element is the <a data-lt="property value">value</a> of that property.</p>
 
   <div class="example">
 
@@ -190,6 +224,40 @@
  &lt;p&gt;My name is &lt;span itemprop="name"&gt;Daniel&lt;/span&gt;.&lt;/p&gt;
 &lt;/div&gt;</pre>
 
+  <figure>
+  <figcaption>The example represented graphically: two items, each with a value for the property <code>name</code>
+  <p><svg viewbox="0 0 300 105">
+    <g id="ex2-first-item">
+      <g id="ex2-item1">
+        <ellipse class="item" cx="50" cy="30" rx="40" ry="15"/>
+        <text x="35" y="35">Item</text>
+      </g>
+      <g id="ex2-property1">
+        <path d="M95,28h90v-8l10,10l-10,10v-8h-90z"/>
+        <text x="125" y="24" class="property">name</text>
+      </g>
+      <g id="ex2-value1">
+        <rect class="value-box" x="200" y="15" width="80" height="30"/>
+        <text x="210" y="35" class="value">Elizabeth</text>
+      </g>
+    </g>
+    <g id="ex2-second-item">
+      <g id="ex2-item2">
+        <ellipse class="item" cx="50" cy="80" rx="40" ry="15"/>
+        <text x="35" y="85">Item</text>
+      </g>
+      <g id="ex2-property2">
+        <path d="M95,78h90v-8l10,10l-10,10v-8h-90z"/>
+        <text x="125" y="74" class="property">name</text>
+      </g>
+      <g id="ex2-value2">
+        <rect class="value-box" x="200" y="65" width="80" height="30"/>
+        <text x="210" y="85" class="value">Daniel</text>
+      </g>
+    </g>
+  </svg><p>
+  </figure>
+  
   </div>
 
   <p>Markup without microdata attributes has no effect on microdata.</p>
@@ -582,14 +650,15 @@
 </section>
 
 <section id="items">
-<h3>Items</h3>
+<h3>Items: <a>itemscope</a>, <a>itemtype</a>, and <a>itemid</a>.</h3>
 
-  <p>Every <a href="#html-elements" title="HTML elements">HTML element</a> may have an
+  <p>Every <a data-lt="HTML elements">HTML element</a> may have an
   <dfn><code>itemscope</code></dfn> attribute specified.
   The <code><a>itemscope</a></code> attribute is a <a>boolean attribute</a>.</p>
 
   <p>An element with the <code><a>itemscope</a></code> attribute specified
-  creates a new <dfn data-lt="concept item">item</dfn>, a group of name-value pairs.</p>
+  creates a new <dfn data-lt="concept item">item</dfn>, a group of name-value pairs
+  that describe properties, and their values, of the thing represented by that element.</p>
 
   <hr>
 
@@ -672,23 +741,6 @@
   with the same <a>global identifier</a>.</p>
 
   <hr>
-
-  <p>Elements with an <code><a>itemscope</a></code> attribute may have an
-  <dfn><code>itemref</code></dfn> attribute specified, to give a list of additional
-  elements to crawl to find the name-value pairs of the <a data-lt="concept item">item</a>.</p>
-
-  <p>The <code><a>itemref</a></code> attribute, if specified, must have a value that
-  is an <a>unordered set of unique space-separated tokens</a> that are
-  <span>case-sensitive</span>, consisting of <a>ID</a>s of elements in the same document.</p>
-
-  <p>The <code><a>itemref</a></code> attribute must not be specified on elements that
-  do not have an <code><a>itemscope</a></code> attribute specified.</p>
-
-  <p class="note">The <code><a>itemref</a></code> attribute is not part of the
-  microdata data model. It is merely a syntactic construct to aid authors in adding annotations to
-  pages where the data to be annotated does not follow a convenient tree structure. For example, it
-  allows authors to mark up data in a table so that each column defines a separate
-  <a data-lt="concept item">item</a>, while keeping the properties in the cells.</p>
 
   <div class="example">
 
@@ -776,59 +828,20 @@
 </section>
 
 <section id="names:-the-itemprop-attribute">
-<h3>Names: the <dfn data-lt="attr-itemprop"><code>itemprop</code></dfn> attribute</h3>
+<h3>Properties: the <dfn data-lt="attr-itemprop"><code>itemprop</code></dfn> and <a>itemref</a> attributes</h3>
 
-  <p>Every <a href="#html-elements" title="HTML elements">HTML element</a> may have an 
-  <code><a>itemprop</a></code> attribute specified, if doing so
-  <a data-lt="item properties">adds one or more properties</a> to one or more
-  <a data-lt="concept item">items</a> (as defined below).</p>
+  <p>The <a>itemprop</a> attribute, when added to any <a data-lt="HTML elements">HTML element</a>
+    that is part of an <a>item</a>, identifies a <dfn>property</dfn> of that item.
+    The attribute must be an <a>unordered set of unique space-separated tokens</a>,
+    representing the <span>case-sensitive</span> names of the properties that it adds. The
+    attribute must contain at least one token.</p>
 
-  <p>The <code><a>itemprop</a></code> attribute, if specified,
-  must have a value that is an
-  <a>unordered set of unique space-separated tokens</a> that are
-  <span>case-sensitive</span>, representing the names of the name-value pairs that it adds. The
-  attribute's value must have at least one token.</p>
+  <p>Each token must be either a <a>valid absolute URL</a> or a a string that contains no "." (U+002E) characters
+   and no ":" (U+003A) characters.</p>
 
-  <p>Each token must be either:</p>
-
-  <ul>
-
-   <li>If the item is a <a>typed item</a>: a <dfn>defined property name</dfn>
-   allowed in this situation according to the specification that defines the <a href="#relevant-types">relevant types</a>
-   for the item, or</li>
-
-   <li>A <a >valid absolute URL</a> defined as an item property name
-   allowed in this situation by a vocabulary specification, or</li>
-
-   <li>A <a >valid absolute URL</a>, used as a proprietary item property name
-   (i.e. one used by the author for private purposes, not defined in a public specification), or</li>
-
-   <li>If the item is not a <a>typed item</a>: a string that contains no "." (U+002E) characters
-   and no ":" (U+003A) characters, used as a proprietary item property name
-   (i.e. one used by the author for private purposes, not defined in a public specification).</li>
-
-  </ul>
-
-  <p>Specifications that introduce <a data-lt="defined property name">defined property names</a>
+  <p>Vocabulary specifications that define property names for Microdata
   must ensure all such property names contain no "." (U+002E) characters, no ":" (U+003A) characters,
   and no <a>space characters</a> (defined in [[!HTML52]] as U+0020, U+0009, U+000A, U+000C, and U+000D).</p>
-
-  <p>When an element with an <code><a>itemprop</a></code> attribute <a data-lt="item properties">adds a property</a>
-  to multiple <a data-lt="concept item">items</a>, the requirement above regarding the tokens applies for each
-  <a data-lt="concept item">item</a> individually.</p>
-
-  <div class="example">
-
-     <p>For the following code:</p>
-
-<pre><code>&lt;div itemscope itemtype="http://example.com/a"&gt; &lt;ref refid="x"&gt; &lt;/div&gt;
-&lt;div itemscope itemtype="http://example.com/b"&gt; &lt;ref refid="x"&gt; &lt;/div&gt;
-&lt;meta id="x" itemprop="z" content=""&gt;</code></pre>
-
-     <p>The author should be certain that <samp>z</samp> is valid for both the
-     http://example.com/a and http://example.com/b vocabularies.</p>
-
-  </div>
 
   <p>The <dfn>property names</dfn> of an element are the tokens that the element's
   <code><a>itemprop</a></code> attribute is found to contain
@@ -866,7 +879,32 @@
  &lt;p itemprop="a"&gt;2&lt;/p&gt;
 &lt;/div&gt;</pre>
 
-   <p>And the following:</p>
+  </div>
+
+  <hr>
+
+  <p>Elements with an <code><a>itemscope</a></code> attribute may have an
+  <dfn><code>itemref</code></dfn> attribute specified, to give a list of additional
+  elements to crawl to find the name-value pairs of the <a data-lt="concept item">item</a>.</p>
+
+  <p>The <code><a>itemref</a></code> attribute, if specified, must have a value that
+  is an <a>unordered set of unique space-separated tokens</a> that are
+  <span>case-sensitive</span>, consisting of <a>ID</a>s of elements in the same document.</p>
+
+  <p>The <code><a>itemref</a></code> attribute must not be specified on elements that
+  do not have an <code><a>itemscope</a></code> attribute specified.</p>
+
+  <div class="example">
+
+   <p>The preceding example:</p>
+
+   <pre>&lt;div itemscope&gt;
+ &lt;p itemprop="a"&gt;1&lt;/p&gt;
+ &lt;p itemprop="a"&gt;2&lt;/p&gt;
+ &lt;p itemprop="b"&gt;test&lt;/p&gt;
+&lt;/div&gt;</pre>
+
+   <p>Could also be written as follows:</p>
 
    <pre>&lt;div id="x"&gt;
  &lt;p itemprop="a"&gt;1&lt;/p&gt;
@@ -878,6 +916,32 @@
 </pre>
 
   </div>
+
+
+  <p class="note">The <code><a>itemref</a></code> attribute is not part of the
+  microdata data model. It is merely a syntactic construct to aid authors in adding annotations to
+  pages where the data to be annotated does not follow a convenient tree structure. For example, it
+  allows authors to mark up data in a table so that each column defines a separate
+  <a data-lt="concept item">item</a>, while keeping the properties in the cells.</p>
+
+  <p>When an element with an <code><a>itemprop</a></code> attribute <a data-lt="item properties">adds a property</a>
+  to multiple <a data-lt="concept item">items</a>, the requirement above regarding the tokens applies for each
+  <a data-lt="concept item">item</a> individually.</p>
+
+  <div class="example">
+
+     <p>For the following code:</p>
+
+<pre><code>&lt;div itemscope itemtype="http://example.com/a"&gt; &lt;ref itemred="x"&gt; &lt;/div&gt;
+&lt;div itemscope itemtype="http://example.com/b"&gt; &lt;ref itemref="x"&gt; &lt;/div&gt;
+&lt;meta id="x" itemprop="z" content=""&gt;</code></pre>
+
+     <p>The author should be certain that <samp>z</samp> is valid for both the
+     http://example.com/a and http://example.com/b vocabularies.</p>
+
+  </div>
+
+
 
 </section>
 
@@ -1115,7 +1179,7 @@
 <h3>Microdata and other namespaces</h3>
 
   <p>Currently, the <code><a>itemscope</a></code>, <code><a>itemprop</a></code>,
-  and other microdata attributes are only defined for <a href="#html-elements">HTML elements</a>.
+  and other microdata attributes are only defined for <a>HTML elements</a>.
   This means that attributes with the literal names "<code>itemscope</code>", "<code>itemprop</code>", etc,
   do not cause microdata processing to occur on elements in other namespaces, such as SVG.</p>
 
