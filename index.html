@@ -1468,12 +1468,29 @@
 </section>
 
 
+  <section id="a11y-considerations">
+  <h2>Accessibility and microdata</h2>
+  <p><i>This section is not normative</i></p>
+  <p>Microdata can be used to provide machine-parseable information
+    about content that is processed by tools to improve accessibility.</p>
+  <p>When editing content that contains microdata, authors should consider the possibility that this is the case.
+    Authoring and content management tools should implement the Authoring Tool Accessibility Guidelines,
+    and in this context note Guideline 
+    [B1.1.2 - Ensure Accessibility Information is Preserved](https://www.w3.org/TR/ATAG20/#gl_b12), 
+    if applicable drawing attention to the fact that changes in content may mean the encoded metadata is not accurate.</p>
+  <p>Authors should be aware that a great deal of accessibility information is ignored in extracting microdata,
+    including attributes such as <code>alt</code> and ARIA information. Authors should consider whether to 
+    encode accessibility information explicitly, or to use a more expressive approach such as RDFa. [[RDFA-CORE]]
+  </section>
+
   <section id="i18n-considerations">
   <h2>Internationalisation and localisation</h2>
   <p><i>This section is not normative</i></p>
+  <p>Microdata conversion means that almost all internationalisation-related information is lost, 
+    except if it is specifically encoded as microdata, in which case it is important to pay attention when editing, as above for accessibility.</p>
   <p>Machine-readable data may be presented to users, for example by search engines. Identifying content that should,
   or should not, be translated, would be helpful but currently microdata strips markup. It is possible to use XMLLiterals in
-  RDFa to ensure that markup is kept.</p>
+  RDFa to ensure that markup is kept. [[RDFA-CORE]]</p>
   <p>Vocabulary design is difficult. Different languages and cultures present view ambiguity differently:
   two terms with different meanings in one situation may be most naturally translated by a single term that has both meanings,
   or a single term may have two natural translations. When developing for localisation, it is important to provide
@@ -1483,18 +1500,19 @@
   <section id="privacy-considerations">
   <h2>Privacy Considerations</h2>
   <p><i>This section is not normative</i></p>
-  <p>Microdata does not generally interact with personally identifying information, being a static document format.
-  It is possible that information is more clearly identified, and thus to record personally identifying information
-  more explicitly, however this is not a new possibility and can be achieved just as easily without microdata.</p>
+  <p>Microdata is a static document format, so cannot directly transmit privacy-sensitive information by itself.
+  However it more clearly identifies information, in a way that facilitates merging with data from other sources.</p>
+    <p>Authors should take care to ensure that their use of microdata is in line with privacy policies and any applicable regulation.</p>
   </section>
 
   <section id="security-considerations">
   <h2>Security Considerations</h2>
   <p><i>This section is not normative</i></p>
   <p>Microdata does not generally interact with browsers, being a static document format that lacks any DOM interface.
-  Microdata to makes information machine-readable, but does not automatically include provenance information for the statements
+  Microdata makes information machine-readable, but does not automatically include provenance information for the statements
   it encodes. Processors of microdata should consider the trustworthiness of sources they use, including the possibility
-  that data is no longer accurate, and whether the connection over which the data was gathered is secure.</p>
+  that data is no longer accurate. Likewise the security of connection over which the data was gathered,
+    and the possibility that it has been altered by a "man-in-the-middle" attack should be considered.</p>
   </section>
 
   <section id="iana">
