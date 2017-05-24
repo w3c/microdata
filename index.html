@@ -75,13 +75,20 @@
 </section>
 
 <section id="sotd">
-  <p>This document is an editor's draft for the <a href="https://www.w3.org/WebPlatform/WG/">Web Platform Working Group</a>, proposed as an update to the <a href="https://www.w3.org/TR/2017/WD-microdata-20170504/">4 May 2017 W3C First Public Working Draft</a>.</p>
+  <p>This document is an editor's draft for the <a href="https://www.w3.org/WebPlatform/WG/">Web Platform Working Group</a>,
+  proposed as an update to the
+  <a href="https://www.w3.org/TR/2017/WD-microdata-20170504/">4 May 2017 W3C First Public Working Draft</a>.</p>
 
-  <p>This specification is an extension to HTML. All normative content in the HTML specification, unless specifically overridden by this specification, is intended to be the basis for this specification. [[!HTML52]]</p>
+  <p>This specification is an extension to HTML. 
+  All normative content in the HTML specification not specifically overridden by this specification
+  is intended to be normative for this specification. [[!HTML52]]</p>
 
   <!-- where to send feedback (required) -->
   <p>If you wish to make comments regarding this document please
-    <a href="https://github.com/w3c/microdata">submit them as github issues</a>. All feedback is welcome, but please note the <a href="https://github.com/w3c/microdata/blob/master/CONTRIBUTING.md">contribution guidelines</a> require agreement to the terms of the W3C Patent Policy for substantive contributions.</p>
+    <a href="https://github.com/w3c/microdata">submit them as github issues</a>.
+    All feedback is welcome, but please note the
+    <a href="https://github.com/w3c/microdata/blob/master/CONTRIBUTING.md">contribution guidelines</a>
+    require agreement to the terms of the W3C Patent Policy for substantive contributions.</p>
 </section>
 
 <!--YYY-->
@@ -100,11 +107,14 @@
   <p>For the purposes of this specification, the terms "URL" and "URI" are equivalent.
   The URL specification, and RFC 3986 which uses the term URI, define a <dfn data-lt="url|uri">URL</dfn>,
   <dfn>valid URL</dfn>, and <dfn>absolute URL</dfn>. [[RFC3986]][[URL]]<p>
-  <p>A <dfn>valid absolute URL</dfn> is an <a>absolute URL</a> which is <a data-lt="valid URL">valid</a>.
-  To <dfn>resolve a URL</dfn> means to convert it to its <a data-lt="absolute URL">absolute form</a>,
-  taking into account the address of the document in which it is found.<!-- and base elements, or not? --></p>
+  <p>A <dfn>valid absolute URL</dfn> is an <a>absolute URL</a> which is <a data-lt="valid URL">valid</a>.</p>
 
-  <p>DOM 4.1 defines <dfn id="tree-order">tree order</dfn>. [[!DOM41]]</p><!-- and this spec uses it once… -->
+  <p>To <dfn data-lt="resolving">resolve a URL</dfn> means to consider it a URL,
+  and convert it to its <a data-lt="absolute URL">absolute form</a>,
+  taking into account the address of the document in which it is found.<!-- and base elements, or not? #37 --></p>
+
+  <p>DOM 4.1 defines <dfn><code>textContent</code></dfn> for attributes, and for elements or nodes, 
+  as well as the term <dfn id="tree-order">tree order</dfn>. [[!DOM41]]</p><!-- and this spec uses tree order once… badly -->
 
   <p>This specification relies on the HTML specification to define the individual the following terms: [[!HTML52]]</p>
 
@@ -112,7 +122,7 @@
   <ul>
    <li><dfn>space characters</dfn>, <dfn>split a string on spaces</dfn>, and an
      <dfn>unordered set of unique space-separated tokens</dfn>.</li>
-   <li><dfn>HTML elements</dfn>, <dfn>global attributes</dfn>, <dfn>boolean attribute</dfn>.</li>
+   <li><dfn data-lt="HTML elements">HTML Element</a>, <dfn>global attribute</dfn>, <dfn>boolean attribute</dfn>.</li>
    <li>An element's <dfn>ID</dfn> and <dfn id="language">language</dfn>.</li>
    <li><dfn>flow content</dfn> and <dfn>phrasing content</dfn>.</li>
   </ul>
@@ -295,25 +305,26 @@
 
   </div>
 
-  <p>When a string value is a <a href="#url">URL</a>, it is expressed using the <code>a</code> element and
-  its <code title="attr-hyperlink-href">href</code> attribute, the <code>img</code> element and its
-  <code title="attr-img-src">src</code> attribute, or other elements that link to or embed external
-  resources.</p>
+  <p>If the text that would normally be the value of a property, such as the element content,
+  is unsuitable for recording the property value,
+  it can be expressed using the <a>content</a> attribute of the element.</p>
 
   <div class="example">
 
-   <p>In this example, the item has one property, "image", whose value is a URL:</p>
+   <p>Here, the visible content may be added by a script.
+   A microdata processor can extract the content from the <a>content</a> attribute without running scripts. 
+   The value of the <var>product-id</var> property for this item is <samp>9678AOU879</samp></p>
 
-   <pre>&lt;div itemscope&gt;
- &lt;img itemprop="image" src="google-logo.png" alt="Google"&gt;
-&lt;/div&gt;</pre>
+   <pre>&lt;li itemscope&gt;
+ &lt;span itemprop="product-id" content="9678AOU879"
+     class="reference--id_code-autoinsert"&gt;&lt;/span&gt;
+&lt;/li&gt;</pre>
 
   </div>
 
-  <p>When a string value is in some machine-readable format unsuitable
-  for human consumption, it is expressed using the <code title="attr-data-value">value</code> attribute of the
-  <code>data</code> element, with the human-readable version given in
-  the element's contents.</p>
+  <p>When a string value is in some machine-readable format unsuitable to present as the content of an element,
+  it can be expressed using the <code title="attr-data-value">value</code> attribute of the <code>data</code> element,
+  as long as there is no <a>content</a> attribute.</p>
 
   <div class="example">
 
@@ -324,10 +335,44 @@
  &lt;data itemprop="product-id" value="9678AOU879"&gt;The Instigator 2000&lt;/data&gt;
 &lt;/h1&gt;</pre>
 
+   <p class="warning">This will not work if there is a <a>content</a> attribute as well. In the following example,
+    the value of the <var>product-id</var> property is taken from the <a>content</a> attribute, so it will be
+    <samp>This one rocks!</samp>:</p>
+
+   <pre>&lt;h1 itemscope&gt;
+ &lt;data itemprop="product-id" value="9678AOU879" 
+   content="This one rocks!"&gt;The Instigator 2000&lt;/data&gt;
+&lt;/h1&gt;</pre>
+
+  </div>
+
+  <p>When an <a>itemprop</a> is used on an element that can have a <code>src</code> or <code>href</code> attribute
+    such as links and media elements, that <em>does not</em> have a <a>content</a> attribute,
+    the value of the name-value pair is an <a>absolute URL</a> based on the 
+    <code>src</code> or <code>href</code> attribute (or the empty string if they are missing or there is an error).</p>
+
+  <div class="example">
+
+   <p>In this example, the item has one property, <var>logo</var>, whose value is a URL that will begin with the
+    current location of the document, and end with <samp>/our-logo.png</samp>:</p>
+
+   <pre>&lt;div itemscope&gt; itemtype="http://schema.org/LocalBusiness"
+ &lt;img itemprop="logo" src="our-logo.png" alt="Our Company"&gt;
+&lt;/div&gt;</pre>
+
+   <p>Note in particular that accessibility information, such as the <code>alt</code> attribute in the previous example,
+     is ignored. To provide that as a value, repeat it in a <a>content</a> attribute. In the following example, the value
+     of the <var>name</var> property is <samp>Our Company</samp>:</p>
+
+   <pre>&lt;div itemscope&gt; itemtype="http://schema.org/LocalBusiness"
+ &lt;img itemprop="name" src="our-logo.png"
+     content="Our Company" alt="Our Company"&gt;
+&lt;/div&gt;</pre>
+
   </div>
 
   <p>For numeric data, the <code>meter</code> element and its <code title="attr-meter-value">value</code> attribute
-  can be used instead.</p>
+  can be used instead, as long as there is no <a>content</a> attribute.</p>
 
   <div class="example">
 
@@ -346,7 +391,8 @@
   </div>
 
   <p>Similarly, for date- and time-related data, the <code>time</code> element and its
-  <code>datetime</code> attribute can be used instead.</p>
+  <code>datetime</code> attribute can be used to specify a specifically formatted date or time,
+  as long as there is no <a>content</a> attribute.</p>
 
   <div class="example">
 
@@ -722,7 +768,7 @@
 
   <p>The <dfn id="global-identifier">global identifier</dfn> of an <a data-lt="concept item">item</a>
   is the value of its element's <code><a>itemid</a></code> attribute, if it has one,
-  <a href="#resolve-a-url" title="resolve a url">resolved</a> relative to the element on which the attribute is specified.
+  <a data-lt="resolve a url">resolved</a> relative to the element on which the attribute is specified.
   If the <code><a>itemid</a></code> attribute is missing or if resolving it fails, it
   is said to have no <a href="#global-identifier">global identifier</a>.</p>
 
@@ -946,30 +992,29 @@
 </section>
 
 <section id="values">
-<h3>Values</h3>
+<h3>Values: the <dfn><code>content</code></dfn> attribute.</h3>
 
-  <p>The <dfn>property value</dfn> of a name-value pair added by an
-  element with an <code><a>itemprop</a></code> attribute
-  is as given for the first matching case in the following list:</p>
+
+  <p>The algorithm to determine the <dfn data-lt="property value">value</dfn> for a name-value pair
+  is given by applying the first matching case in the following list:</p>
 
   <dl class="switch">
 
    <dt>If the element also has an <code><a>itemscope</a></code> attribute</dt>
 
    <dd>
-
     <p>The value is the <a data-lt="concept item">item</a> created by the element.</p>
-
    </dd>
 
 
-   <dt>If the element is a <code>meta</code> element</dt>
+   <dt>If the element has a <a>content</a> attribute</dt>
 
    <dd>
-
-    <p>The value is the value of the element's <code title="attr-content">content</code> attribute,
-    if any, or the empty string if there is no such attribute.</p>
-
+    <p>The value is the <a>textContent</a> of the element's <a>content</a> attribute.</p>
+   </dd>
+   <dd class="note">
+    <p>HTML only allows the <a>content</a> attribute on the <code>meta</code> element. 
+    This specification changes the content model to allow it on any element, as a <a>global attribute</a>.</p>
    </dd>
 
 
@@ -977,51 +1022,44 @@
    <code>img</code>, <code>source</code>, <code>track</code>, or <code>video</code> element</dt>
 
    <dd>
-
-    <p>The value is the <a>absolute URL</a> that results from
-    <a href="#resolve-a-url" title="resolve a url">resolving</a> the value of the element's <code>src</code> attribute
-    relative to the element at the time the attribute is set, or the empty string if there is no such attribute
-    or if <a href="#resolve-a-url" title="resolve a url">resolving</a> it results in an error.</p>
-
+    <p>If the element has a <code>src</code> attribute,
+    let <var>proposed value</var> be the result of <a>resolving</a> that attribute's <a>textContent</a>.
+    If <var>proposed value</var> is a <a>valid absolute URL</a>: The value is <var>proposed value</var>.<br>
+    <i>otherwise</i>The value is the empty string.</p>
    </dd>
 
 
    <dt>If the element is an <code>a</code>, <code>area</code>, or <code>link</code> element</dt>
 
    <dd>
-
-    <p>The value is the <a>absolute URL</a> that results from
-    <a href="#resolve-a-url" title="resolve a url">resolving</a> the value of the element's <code>href</code> attribute
-    relative to the element at the time the attribute is set, or the empty string if there is no such
-    attribute or if <a href="#resolve-a-url" title="resolve a url">resolving</a> it results in an error.</p>
-
+    <p>If the element has an <code>href</code> attribute,
+    let <var>proposed value</var> be the result of <a>resolving</a> that attribute's <a>textContent</a>.
+    If <var>proposed value</var> is a <a>valid absolute URL</a>: The value is <var>proposed value</var>.<br>
+    <i>otherwise</i>The value is the empty string.</p>
    </dd>
 
 
    <dt>If the element is an <code>object</code> element</dt>
 
    <dd>
-
-    <p>The value is the <a>absolute URL</a> that results from
-    <a href="#resolve-a-url" title="resolve a url">resolving</a> the value of the element's <code>data</code> attribute
-    relative to the element at the time the attribute is set, or the empty string if there is no such
-    attribute or if <a href="#resolve-a-url" title="resolve a url">resolving</a> it results in an error.</p>
-
+    <p>If the element has a <code>data</code> attribute,
+    let <var>proposed value</var> be the result of <a>resolving</a> that attribute's <a>textContent</a>.
+    If <var>proposed value</var> is a <a>valid absolute URL</a>: The value is <var>proposed value</var>.<br>
+    <i>otherwise</i>The value is the empty string.</p>
    </dd>
 
 
     <dt>If the element is a <code>data</code> or <code>meter</code> element</dt>
 
    <dd>
-    <p>The value is the value of the element's <code>value</code> attribute,
-    if it has one, or the empty string otherwise.</p>
+    <p>If the element has a <code>value</code> attribute, the value is that attribute's <a>textContent</a>.</p>
    </dd>
 
 
    <dt>If the element is a <code>time</code> element</dt>
 
    <dd>
-    <p>The value is the element's <span>datetime value</span>.</p>
+    <p>If the element has a <code>datetime</code> attribute, the value that attribute's <a>textContent</a>.</p>
    </dd>
 
 
@@ -1395,7 +1433,7 @@
   <section id="new-attributes">
   <h3>New attributes</h3>
 
-  <p>This specification adds the following <a>global attributes</a> and associated validity constraints to HTML:</p>
+  <p>This specification adds the following <a data-lt="global attribute">global attributes</a> and associated validity constraints to HTML:</p>
 
   <dl>
 
@@ -1435,6 +1473,10 @@
   <h3>Content models</h3>
 
   <p>This section changes the content models defined by HTML in the following ways:</p>
+
+  <p>The <code>content</code> attribute redefined by this specification as a <a>global attribute</a>
+  that may be present on that element.</p>
+  <p class="Note">This is consistent with [[HTML-RDFA]], which uses the attribute for the same purpose.</p>
 
   <p>If the <code><a>itemprop</a></code> attribute is
   present on <code>link</code> or <code>meta</code>, they are
@@ -1609,6 +1651,12 @@
   <a href="http://www.w3.org/TR/2013/NOTE-microdata-20131029/">23 October 2013 W3C Note</a></p>
 
   <ul>
+   <li>Allow the <code>content</code> attribute on any element where an <a>itemprop</a> attribute is present,
+     to provide a readable value for a property.</li>
+   <li>Adjust the algorithm for determining the <a>value</a> of a name-value pair, to match implementation:
+     <ul><li><code>data</code>, <code>meter</code>, and <code>time</code> elements' <a>textContent</a> is used
+       if they do not have an attribute that supplies the <a>value</a>.</li>
+       <li>If there is a <code>content</code> attribute present, it provides the <a>value</a>.</li></ul></li>
    <li>Added sections for <a href="i18n-considerations">Internationalisation and localisation</a>, <a href="#privacy-considerations">Privacy</a>, and <a href="#security-considerations">Security Considerations</a>.
    <li>Remove drag and drop, as it is not implemented in current browsers.</li>
   </ul>
@@ -1629,7 +1677,7 @@
   <p>The original specification for Microdata was developed by Ian Hickson.
   Uptake has been substantially been driven by its use for the schema.org vocabulary.</p>
 
-  <p>The current editors would like to thank the following people for direct contributions to their work:</p>
+  <p>The current editors would like to thank the following people for direct contributions to this work:</p>
 
   <p>
 Gregg Kellogg,
