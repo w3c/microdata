@@ -109,14 +109,12 @@
   <dfn>valid URL</dfn>, and <dfn>absolute URL</dfn>. [[RFC3986]][[URL]]<p>
   <p>A <dfn>valid absolute URL</dfn> is an <a>absolute URL</a> which is <a data-lt="valid URL">valid</a>.</p>
 
-  <p>To <dfn data-lt="resolving">resolve a URL</dfn> means to consider it a URL,
-  and convert it to its <a data-lt="absolute URL">absolute form</a>,
-  taking into account the address of the document in which it is found.<!-- and base elements, or not? #37 --></p>
+  <p>RFC 3986 defines the term <dfn data-lt="resolving">resolve a URL</dfn> [[!RFC3986]].</p>
 
   <p>DOM 4.1 defines <dfn><code>textContent</code></dfn> for attributes, and for elements or nodes, 
   as well as the term <dfn id="tree-order">tree order</dfn>. [[!DOM41]]</p><!-- and this spec uses tree order once… badly -->
 
-  <p>This specification relies on the HTML specification to define the individual the following terms: [[!HTML52]]</p>
+  <p>This specification relies on the HTML specification to define the following terms: [[!HTML52]]</p>
 
 
   <ul>
@@ -230,11 +228,13 @@
    <p>Here there are two items, each of which has the property "name":</p>
 
    <pre>&lt;div itemscope&gt;
- &lt;p&gt;My name is &lt;span itemprop="name"&gt;Elizabeth&lt;/span&gt;.&lt;/p&gt;
+ &lt;p&gt;My name is
+  &lt;span itemprop="name"&gt;Elizabeth&lt;/span&gt;.&lt;/p&gt;
 &lt;/div&gt;
 
 &lt;div itemscope&gt;
- &lt;p&gt;My name is &lt;span itemprop="name"&gt;Daniel&lt;/span&gt;.&lt;/p&gt;
+ &lt;p&gt;My name is 
+  &lt;span itemprop="name"&gt;Daniel&lt;/span&gt;.&lt;/p&gt;
 &lt;/div&gt;</pre>
 
   <figure>
@@ -281,16 +281,21 @@
    respectively:</p>
 
    <pre>&lt;div itemscope&gt;
- &lt;p&gt;My &lt;em&gt;name&lt;/em&gt; is &lt;span itemprop="name"&gt;E&lt;strong&gt;liz&lt;/strong&gt;abeth&lt;/span&gt;.&lt;/p&gt;
+ &lt;p&gt;My &lt;em&gt;name&lt;/em&gt; is
+  &lt;span itemprop="name"&gt;E&lt;strong&gt;liz&lt;/strong&gt;abeth&lt;/span&gt;.&lt;/p&gt;
 &lt;/div&gt;
 
 &lt;section&gt;
  &lt;div itemscope&gt;
   &lt;aside&gt;
-   &lt;p&gt;My name is &lt;span itemprop="name"&gt;&lt;a href="/?user=daniel"&gt;Daniel&lt;/a&gt;&lt;/span&gt;.&lt;/p&gt;
+   &lt;p&gt;My name is
+    &lt;span itemprop="name"&gt;&lt;a href="/?user=daniel"&gt;Daniel&lt;/a&gt;&lt;/span&gt;.&lt;/p&gt;
   &lt;/aside&gt;
  &lt;/div&gt;
 &lt;/section&gt;</pre>
+
+  <p class="warning">Note that this means any information recorded in markup for purposes such as internationalisation
+  or accessibility will be lost in the conversion to data.</p>
 
   </div>
 
@@ -332,7 +337,9 @@
   <div class="example">
 
    <p>Here, there is an item with a property whose value is a product identifier. The identifier is not
-   human-friendly, so the product's name is used as the human-visible text instead.</p>
+   human-friendly, so instead it is encoded for microdata using the <code>value</code> attribute
+   of the <code>data</code> element, and the product's name is used as the text content of the element
+   that is rendered on the page.</p>
 
    <pre>&lt;h1 itemscope&gt;
  &lt;data itemprop="product-id" value="9678AOU879"&gt;The Instigator 2000&lt;/data&gt;
@@ -349,7 +356,7 @@
 
   </div>
 
-  <p>When an <a>itemprop</a> is used on an element that can have a <code>src</code> or <code>href</code> attribute
+  <p>When an <a>itemprop</a> is used on an element that can have a <code>src</code> or <code>href</code> attribute,
     such as links and media elements, that <em>does not</em> have a <a>content</a> attribute,
     the value of the name-value pair is an <a>absolute URL</a> based on the 
     <code>src</code> or <code>href</code> attribute (or the empty string if they are missing or there is an error).</p>
@@ -363,13 +370,13 @@
  &lt;img itemprop="logo" src="our-logo.png" alt="Our Company"&gt;
 &lt;/div&gt;</pre>
 
-   <p>Note in particular that accessibility information, such as the <code>alt</code> attribute in the previous example,
+   <p class="warning">Note that accessibility information, such as the <code>alt</code> attribute in the previous example,
      is ignored. To provide that as a value, repeat it in a <a>content</a> attribute. In the following example, the value
-     of the <var>name</var> property is <samp>Our Company</samp>:</p>
+     of the <var>name</var> property is <samp>The Company</samp>:</p>
 
    <pre>&lt;div itemscope&gt; itemtype="http://schema.org/LocalBusiness"
  &lt;img itemprop="name" src="our-logo.png"
-     content="Our Company" alt="Our Company"&gt;
+     content="The Company" alt="Our Company"&gt;
 &lt;/div&gt;</pre>
 
   </div>
@@ -379,7 +386,7 @@
 
   <div class="example">
 
-   <p>Here a rating is given using a <code>meter</code> element.</p>
+   <p>Here a rating of <samp>3.5</samp> is given using a <code>meter</code> element.</p>
 
    <pre>&lt;div itemscope itemtype="http://schema.org/Product"&gt;
  &lt;span itemprop="name"&gt;Panasonic White 60L Refrigerator&lt;/span&gt;
@@ -495,14 +502,16 @@
 
   <div class="example">
 
-   <p>There is no semantic difference, for instance, between the following two examples:</p>
+   <p>The following two examples are exactly the same as microdata:</p>
 
    <pre>&lt;figure&gt;
  &lt;img src="castle.jpeg"&gt;
- &lt;figcaption&gt;&lt;span itemscope&gt;&lt;span itemprop="name"&gt;The Castle&lt;/span&gt;&lt;/span&gt; (1986)&lt;/figcaption&gt;
+ &lt;figcaption&gt;&lt;span itemscope&gt;&lt;span
+  itemprop="name"&gt;The Castle&lt;/span&gt;&lt;/span&gt; (1986)&lt;/figcaption&gt;
 &lt;/figure&gt;</pre>
 
-   <pre>&lt;span itemscope&gt;&lt;meta itemprop="name" content="The Castle"&gt;&lt;/span&gt;
+   <pre>&lt;span itemscope&gt;&lt;meta itemprop="name"
+ content="The Castle"&gt;&lt;/span&gt;
 &lt;figure&gt;
  &lt;img src="castle.jpeg"&gt;
  &lt;figcaption&gt;The Castle (1986)&lt;/figcaption&gt;
@@ -798,7 +807,7 @@
 
    <dl>
     <dt>product-code</dt>
-    <dd>An integer that names the product in the manufacturer's catalog.</dd>
+    <dd>A number that identifies the product in the manufacturer's catalog.</dd>
     <dt>name</dt>
     <dd>A brief description of the product.</dd>
     <dt>scale</dt>
@@ -888,9 +897,9 @@
   <p>Each token must be either a <a>valid absolute URL</a> or a a string that contains no "." (U+002E) characters
    and no ":" (U+003A) characters.</p>
 
-  <p>Vocabulary specifications that define property names for Microdata
-  must ensure all such property names contain no "." (U+002E) characters, no ":" (U+003A) characters,
-  and no <a>space characters</a> (defined in [[!HTML52]] as U+0020, U+0009, U+000A, U+000C, and U+000D).</p>
+  <p>Vocabulary specifications must not define property names for Microdata
+  that contain "." (U+002E) characters, ":" (U+003A) characters,
+  nor <a>space characters</a> (defined in [[!HTML52]] as U+0020, U+0009, U+000A, U+000C, and U+000D).</p>
 
   <p>The <dfn>property names</dfn> of an element are the tokens that the element's
   <code><a>itemprop</a></code> attribute is found to contain
@@ -966,13 +975,6 @@
 
   </div>
 
-
-  <p class="note">The <code><a>itemref</a></code> attribute is not part of the
-  microdata data model. It is merely a syntactic construct to aid authors in adding annotations to
-  pages where the data to be annotated does not follow a convenient tree structure. For example, it
-  allows authors to mark up data in a table so that each column defines a separate
-  <a data-lt="concept item">item</a>, while keeping the properties in the cells.</p>
-
   <p>When an element with an <code><a>itemprop</a></code> attribute <a data-lt="item properties">adds a property</a>
   to multiple <a data-lt="concept item">items</a>, the requirement above regarding the tokens applies for each
   <a data-lt="concept item">item</a> individually.</p>
@@ -985,7 +987,7 @@
 &lt;div itemscope itemtype="http://example.com/b"&gt; &lt;ref itemref="x"&gt; &lt;/div&gt;
 &lt;meta id="x" itemprop="z" content=""&gt;</code></pre>
 
-     <p>The author should be certain that <samp>z</samp> is valid for both the
+     <p>The author should be certain that <samp>z</samp> is a valid property name for both the
      http://example.com/a and http://example.com/b vocabularies.</p>
 
   </div>
@@ -1028,7 +1030,7 @@
     <p>If the element has a <code>src</code> attribute,
     let <var>proposed value</var> be the result of <a>resolving</a> that attribute's <a>textContent</a>.
     If <var>proposed value</var> is a <a>valid absolute URL</a>: The value is <var>proposed value</var>.<br>
-    <i>otherwise</i>The value is the empty string.</p>
+    <i>otherwise</i> The value is the empty string.</p>
    </dd>
 
 
@@ -1038,7 +1040,7 @@
     <p>If the element has an <code>href</code> attribute,
     let <var>proposed value</var> be the result of <a>resolving</a> that attribute's <a>textContent</a>.
     If <var>proposed value</var> is a <a>valid absolute URL</a>: The value is <var>proposed value</var>.<br>
-    <i>otherwise</i>The value is the empty string.</p>
+    <i>otherwise</i> The value is the empty string.</p>
    </dd>
 
 
@@ -1048,7 +1050,7 @@
     <p>If the element has a <code>data</code> attribute,
     let <var>proposed value</var> be the result of <a>resolving</a> that attribute's <a>textContent</a>.
     If <var>proposed value</var> is a <a>valid absolute URL</a>: The value is <var>proposed value</var>.<br>
-    <i>otherwise</i>The value is the empty string.</p>
+    <i>otherwise</i> The value is the empty string.</p>
    </dd>
 
 
@@ -1062,7 +1064,7 @@
    <dt>If the element is a <code>time</code> element</dt>
 
    <dd>
-    <p>If the element has a <code>datetime</code> attribute, the value that attribute's <a>textContent</a>.</p>
+    <p>If the element has a <code>datetime</code> attribute, the value is that attribute's <a>textContent</a>.</p>
    </dd>
 
 
@@ -1090,7 +1092,7 @@
   called "mission:moon". A "title" property from a vocabulary that defines a title as being a string
   would not expect the title to be given in an <code>a</code> element, even though it looks like a
   <a>URL</a>. On the other hand, if there was a (rather narrowly scoped!) vocabulary for
-  "books whose titles look like URLs" which had a "title" property defined to take a URL, then the
+  "books whose titles look like URLs" which had a "title" property whose content was defined as a URL, then the
   property <em>would</em> expect the title to be given in an <code>a</code> element (or one of the
   other <a>URL property elements</a>), because of the requirement above.</p>
 </section>
@@ -1157,9 +1159,9 @@
   <a data-lt="property value">value</a> is another item as an edge in the graph connecting those two items.</p>
 
   <!-- removed redundant requirement from above. But does this requirement serve any purpose? -->
-  <p>A document must not contain any elements that have an <code><a>itemprop</a></code> attribute
-  that would not be found to be a property of any of the <a data-lt="concept item">items</a>
-  in that document were their <a data-lt="item properties">properties</a> all to be determined.</p>
+  <p>A document must not contain an <code><a>itemprop</a></code> attribute
+  that would not be a property of any <a data-lt="concept item">item</a>
+  in that document were the <a data-lt="item properties">properties</a> all to be determined.</p>
 
   <div class="example">
 
@@ -1237,7 +1239,7 @@
 </section>
 
 <section id="converting-html-to-other-formats">
-<h2>Converting HTML to other formats</h2>
+<h2>Converting Microdata to other formats</h2>
 
 <section id="json">
 <h3>JSON</h3>
@@ -1431,7 +1433,7 @@
   </section>
 
   <section id="other-changes-to-html5">
-  <h2>Changes to HTML5</h2>
+  <h2>Changes to HTML</h2>
 
   <section id="new-attributes">
   <h3>New attributes</h3>
@@ -1481,12 +1483,9 @@
   that may be present on that element.</p>
   <p class="Note">This is consistent with [[HTML-RDFA]], which uses the attribute for the same purpose.</p>
 
-  <p>If the <code><a>itemprop</a></code> attribute is
-  present on <code>link</code> or <code>meta</code>, they are
-  <a href="#flow-content">flow content</a> and <a href="#phrasing-content">phrasing content</a>. The
-  <code>link</code> and <code>meta</code> elements may be used where
-  <a href="#phrasing-content">phrasing content</a> is expected if the
-  <code><a>itemprop</a></code> attribute is present.</p>
+  <p>If the <code><a>itemprop</a></code> attribute is present on a <code>link</code> or <code>meta</code> element,
+  that element is <a href="#flow-content">flow content</a> and <a href="#phrasing-content">phrasing content</a>,
+  and may be used where <a href="#phrasing-content">phrasing content</a> is expected.</p>
 
   <p>If a <code>link</code> element has an <code><a>itemprop</a></code>
     attribute, the <code>rel</code> attribute may be omitted.</p>
@@ -1521,8 +1520,8 @@
   <p>When editing content that contains microdata, authors should consider the possibility that this is the case.
     Authoring and content management tools should implement the Authoring Tool Accessibility Guidelines,
     and in this context note Guideline 
-    [B1.1.2 - Ensure Accessibility Information is Preserved](https://www.w3.org/TR/ATAG20/#gl_b12), 
-    if applicable drawing attention to the fact that changes in content may mean the encoded metadata is not accurate.</p>
+    <a href="https://www.w3.org/TR/ATAG20/#gl_b12">B1.1.2 - Ensure Accessibility Information is Preserved</a>, 
+    if applicable drawing attention to the fact that changes in content may mean the encoded metadata is not accurate. [[ATAG]]</p>
   <p>Authors should be aware that a great deal of accessibility information is ignored in extracting microdata,
     including attributes such as <code>alt</code> and ARIA information. Authors should consider whether to 
     encode accessibility information explicitly, or to use a more expressive approach such as RDFa. [[RDFA-CORE]]
@@ -1548,17 +1547,21 @@
   <p>Microdata does not introduce new mechanisms to transmit privacy-sensitive information.
     However it more clearly identifies information,
     in a way that facilitates finding data and merging it with data from other sources.</p>
-  <p>Authors should take care to ensure that their use of microdata is in line with privacy policies and any applicable regulation.</p>
+  <p>Authors and processors should take care to ensure that their use of microdata is in line with privacy policies
+  and any applicable regulation.</p>
   </section>
 
   <section id="security-considerations">
   <h2>Security Considerations</h2>
   <p><i>This section is not normative</i></p>
-  <p>Microdata does not generally interact with browsers, being a static document format that lacks any DOM interface.
-  Microdata makes information machine-readable, but does not automatically include provenance information for the statements
-  it encodes. Processors of microdata should consider the trustworthiness of sources they use, including the possibility
-  that data is no longer accurate. Likewise the security of connection over which the data was gathered,
-  and the possibility that it has been altered by a "man-in-the-middle" attack should be considered.</p>
+  <p>Microdata does not generally interact with browsers, being a static document format that lacks any DOM interface.</p>
+
+  <p>Microdata makes information machine-readable,
+  but does not automatically include provenance information for the statements it encodes.</p>
+
+  <p>Processors of microdata should consider the trustworthiness of sources they use,
+  including the possibility that data is no longer accurate,
+  and the possibility that data gathered over an insecure connection has been altered by a "man-in-the-middle" attack.</p>
   </section>
 
   <section id="iana">
@@ -1678,17 +1681,19 @@
   <section id="acknowledgements">
   <h2>Acknowledgements</h2>
 
-  <p>The original specification for Microdata was developed by Ian Hickson.
+  <p>The original specification for Microdata was developed by Ian Hickson. Without him this specification would not exist.
   Uptake has been substantially been driven by its use for the schema.org vocabulary.</p>
 
   <p>The current editors would like to thank the following people for direct contributions to this work:</p>
 
   <p>
+Christine Runnegar,
 Gregg Kellogg,
 Ivan Herman,
 Jens Oliver Meiert,
 Léonie Watson,
 Manu Sporny,
+Nick Doty,
 Tab Atkins,
 Tavis Tucker,
 Xiaoqian Wu,
