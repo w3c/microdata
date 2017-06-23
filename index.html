@@ -584,15 +584,10 @@
 
   <p><i>This section is non-normative.</i></p>
   <p>Sometimes, an <a data-lt="concept item">item</a> gives information about a topic that has a
-  global identifier. For example, books can be identified by their ISBN number.</p>
+  global identifier. For example, books can be identified by their ISBN number, or concepts can be identified by a URL as in [[rdf-primer]].</p>
 
-  <p>Vocabularies (as identified by the <code><a>itemtype</a></code> attribute) can
-  be designed such that <a data-lt="concept item">items</a> get associated with their global
-  identifier in an unambiguous way by expressing the global identifiers as <a data-lt="URL">URLs</a> given in
-  an <code><a>itemid</a></code> attribute.</p>
-
-  <p>The exact meaning of the <a data-lt="URL">URLs</a> given in
-  <code><a>itemid</a></code> attributes depends on the vocabulary used.</p>
+  <p>The <code><a>itemtype</a></code> attribute associates an <a data-lt="concept item">item</a> with a global identifier
+  in the form of a <a data-lt="URL">URLs</a>.</p>
 
   <div class="example">
 
@@ -608,10 +603,6 @@
  &lt;dt&gt;Publication date
  &lt;dd&gt;&lt;time itemprop="pubdate" datetime="1996-01-26"&gt;26 January 1996&lt;/time&gt;
 &lt;/dl&gt;</pre>
-
-   <p>The "<code>http://vocab.example.net/book</code>" vocabulary in this example would
-   define that the <code><a>itemid</a></code> attribute takes a
-   <code>urn:</code> <a href="#url">URL</a> pointing to the ISBN of the book.</p>
 
   </div>
 
@@ -693,8 +684,7 @@
 
   <p>Each group is known as an <a data-lt="concept item">item</a>. Each
   <a data-lt="concept item">item</a> can have <a href="#item-types">item types</a>,
-  a <a href="#global-identifier">global identifier</a> (if the vocabulary specified by the <a href="#item-types">item types</a>
-  <a href="#support-global-identifiers-for-items">support global identifiers for items</a>), and a list of name-value pairs.
+  a <a href="#global-identifier">global identifier</a>, and a list of name-value pairs.
   Each name in the name-value pair is known as a <a data-lt="item properties">property</a>,
   and each <a data-lt="item properties">property</a> has one or more <a data-lt="property value">values</a>.
   Each <a data-lt="property value">value</a> is either a string or itself a group of name-value pairs
@@ -775,12 +765,11 @@
 
   <hr>
 
-  <p>Elements with an <code><a>itemscope</a></code> attribute and an
-  <code><a>itemtype</a></code> attribute that references a vocabulary
-  that is defined to <dfn id="support-global-identifiers-for-items">support global identifiers for items</dfn>
+  <p>Elements with both <a>itemscope</a> and <a>itemtype> attributes
   may also have an <dfn><code>itemid</code></dfn> attribute specified,
   to give a global identifier for the <a data-lt="concept item">item</a>,
-  so that it can be related to other <a data-lt="concept item">items</a> on pages elsewhere on the Web.</p>
+  so that it can be related to other <a data-lt="concept item">items</a> elsewhere on the Web,
+  or with concepts beyond the Web such as ISBN numbers for published books.</p>
 
   <p>The <code><a>itemid</a></code> attribute, if specified, must have a value that is
   a <a>valid URL</a> potentially surrounded by <a>space characters</a>.</p>
@@ -793,17 +782,7 @@
 
   <p>The <code><a>itemid</a></code> attribute must not be specified on elements
   that do not have both an <code><a>itemscope</a></code> attribute and an
-  <code><a>itemtype</a></code> attribute specified, and must not be specified
-  on elements with an <code><a>itemscope</a></code> attribute whose
-  <code><a>itemtype</a></code> attribute specifies a vocabulary that does not
-  <a href="#support-global-identifiers-for-items">support global identifiers for items</a>,
-  as defined by that vocabulary's specification.</p>
-
-  <p>The exact meaning of a <a href="#global-identifier">global identifier</a> is determined by the vocabulary's
-  specification. It is up to such specifications to define whether multiple items with the same
-  global identifier (whether on the same page or on different pages) are allowed to exist, and what
-  the processing rules for that vocabulary are with respect to handling the case of multiple items
-  with the same <a>global identifier</a>.</p>
+  <code><a>itemtype</a></code> attribute specified.</p>
 
   <hr>
 
