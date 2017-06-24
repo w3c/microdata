@@ -1447,15 +1447,13 @@
 
    <dt><a>itemprop</a></dt>
     <dd>When present on an element, it identifies that the element provides the <a>property value</a>
-     of the <a>item</a> in which it appears, for the property whose name is the content of the attribute</dd>
-    <dd class="note">This attribute is equivalent to the <code>property</code> attribute in [[RDFA-CORE]].</dd>
+      of the <a>item</a> in which it appears, and the attribute's value defines the <a>property name</a>.</dd>
+    <dd class="note">This attribute is equivalent to the <code>property</code> attribute in [[rdfa-core]].</dd>
 
    <dt><a>itemid</a></dt>
     <dd>This is an <a>absolute URL</a> that provides a global identifier for an <a>item</a>.</dd>
     <dd>The <a>itemid</a> attribute must not be specified on elements that do not have
      both an <a>itemscope</a> attribute and an <a><code>itemtype</code></a> attribute specified.</dd>
-    <dd>The <a>itemid</a> attribute must not be specified on elements with an <a><code>itemscope</code></a> attribute
-     whose <a>itemtype</a> attribute specifies a vocabulary that does not <a>support global identifiers for items</a>.</dd>
    <dd class="note">This is approximately equivalent to declaring that an <a>item</a> is
     <code>owl:sameAs</code> the value of the attribute. [[owl-ref]]</dd>
 
@@ -1518,7 +1516,7 @@
     if applicable drawing attention to the fact that changes in content may mean the encoded metadata is not accurate. [[ATAG20]]</p>
   <p>Authors should be aware that a great deal of accessibility information is ignored in extracting microdata,
     including attributes such as <code>alt</code> and ARIA information. Authors should consider whether to 
-    encode accessibility information explicitly, or to use a more expressive approach such as RDFa. [[RDFA-CORE]]
+    encode accessibility information explicitly, or to use a more expressive approach such as RDFa. [[rdfa-core]]
   </section>
 
   <section id="i18n-considerations">
@@ -1528,7 +1526,7 @@
     except if it is specifically encoded as microdata, in which case it is important to pay attention when editing, as above for accessibility.</p>
   <p>Machine-readable data may be presented to users, for example by search engines. Identifying content that should,
   or should not, be translated, would be helpful but currently microdata strips markup. It is possible to use XMLLiterals in
-  RDFa to ensure that markup is kept. [[RDFA-CORE]]</p>
+  RDFa to ensure that markup is kept. [[rdfa-core]]</p>
   <p>Vocabulary design is difficult. Different languages and cultures present view ambiguity differently:
   two terms with different meanings in one situation may be most naturally translated by a single term that has both meanings,
   or a single term may have two natural translations. When developing for localisation, it is important to provide
