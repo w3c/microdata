@@ -772,7 +772,7 @@
 
   <hr>
 
-  <p>Elements with both <a>itemscope</a> and <a>itemtype> attributes
+  <p>Elements with both <a>itemscope</a> and <a>itemtype</a> attributes
   may also have an <dfn><code>itemid</code></dfn> attribute specified,
   to give a global identifier for the <a data-lt="concept item">item</a>,
   so that it can be related to other <a data-lt="concept item">items</a> elsewhere on the Web,
@@ -1443,7 +1443,7 @@
    <dt><a>itemtype</a></dt>
     <dd>This is a list of <a data-lt="absolute URL">absolute URLs</a> that identify an <a>item</a> within a particular vocabulary.</dd>
     <dd>The <a>itemtype</a> attribute must not be specified on elements that do not have an <a>itemscope</a> attribute.</dd>
-    <dd class="note">This attribute performs a function similar to the combination of <code>vocab</code> and <code>typeof</code> attributes in [[RDFA-CORE]].</dd>
+    <dd class="note">This attribute performs a function similar to the combination of <code>vocab</code> and <code>typeof</code> attributes in [[rdfa-core]].</dd>
 
    <dt><a>itemprop</a></dt>
     <dd>When present on an element, it identifies that the element provides the <a>property value</a>
@@ -1652,9 +1652,9 @@
   <p>Changes made between the current draft and the <a href="https://www.w3.org/TR/2017/WD-microdata-20170504/">First Public Working Draft</a>:</p>
 
   <ul>
-    <li>Allow <a>itemid</a> in general, rather than expecting vocabularies to explain what it means</li>
+    <li>Allow <a>itemid</a> in general, rather than expecting vocabularies to explain what it means.</li>
     <li>Add a mechanism to determine the URL that is a <a>vocabulary identifier</a>,
-      and use it as the start of the property name for <a>typed items</a>
+      and use it as the start of the property name for any <a>typed item</a>.</li>
    <li>Remove section "microdata and other namespaces" which implied that microdata would not work in other namespaces. Because it does.</li>
    <li>Allow the <code>content</code> attribute on any element where an <a>itemprop</a> attribute is present,
      to provide a readable value for a property.</li>
