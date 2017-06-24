@@ -690,8 +690,8 @@
   <p>The microdata model consists of groups of name-value pairs known as <a data-lt="concept item">items</a>.</p>
 
   <p>Each group is known as an <a data-lt="concept item">item</a>. Each
-  <a data-lt="concept item">item</a> can have <a href="#item-types">item types</a>,
-  a <a href="#global-identifier">global identifier</a>, and a list of name-value pairs.
+  <a data-lt="concept item">item</a> can have zero or more <a>item types</a>,
+  <a>global identifier</a>(s), and associated name-value pairs.
   Each name in the name-value pair is known as a <a data-lt="item properties">property</a>,
   and each <a data-lt="item properties">property</a> has one or more <a data-lt="property value">values</a>.
   Each <a data-lt="property value">value</a> is either a string or itself a group of name-value pairs
@@ -714,7 +714,7 @@
 
   <p>Elements with an <code><a>itemscope</a></code> attribute may have an
   <dfn><code>itemtype</code></dfn> attribute specified, to give the
-  <a href="#item-types">item types</a> of the <a data-lt="concept item">item</a>.</p>
+  <a>item types</a> of the <a data-lt="concept item">item</a>.</p>
 
   <p>The <code><a>itemtype</a></code> attribute, if specified, must have a value that
   is an <a>unordered set of unique space-separated tokens</a> that are
@@ -722,13 +722,13 @@
   URL</a>, and all of which are in the same vocabulary. The attribute's value must
   have at least one token.</p>
 
-  <p>The <dfn id="item-types">item types</dfn> of an <a data-lt="concept item">item</a> are the tokens obtained
+  <p>The <dfn data-lt="item type">item types</dfn> of an <a data-lt="concept item">item</a> are the tokens obtained
   by <a data-lt="split a string on spaces">splitting the element's <code>itemtype</code> attribute's value on spaces</a>.
   If the <code><a>itemtype</a></code> attribute is missing or parsing it
   in this way finds no tokens, the <a data-lt="concept item">item</a> is said to have no
-  <a href="#item-types">item types</a>.</p>
+  <a>item types</a>.</p>
 
-  <p>The <a href="#item-types">item types</a> determine the <dfn>vocabulary identifier</dfn>. This is a URL
+  <p>The <a>item types</a> determine the <dfn>vocabulary identifier</dfn>. This is a URL
   that is prepended to <a>property names</a>, which identifies them as part of their vocabulary.
   The value of the vocabulary identifier for an item is determined as follows:</p>
 
@@ -752,9 +752,9 @@
    <p>User agents must not automatically dereference <em>unknown</em> <a data-lt="URL">URLs</a> given as <a>item types</a>
    and <a>property names</a>. These URLs are <i>a priori</i> opaque identifiers.</p>
 
-   <p class="note">A specification could define that its <a href="#item-types" title="item types">item type</a>
+   <p class="note">A specification could define that its <a>item types</a>
    can be derefenced to provide the user with help information. Vocabulary authors are encouraged to provide useful information
-   at the given <a href="#url">URL</a>, either in prose or a formal language such as RDF. User agents are
+   at the given <a>URL</a>, either in prose or a formal language such as RDF. User agents are
    </p>
 
   <p>The <code><a>itemtype</a></code> attribute must not be specified on elements
@@ -763,11 +763,11 @@
   <hr>
 
   <p>An <a data-lt="concept item">item</a> is said to be a <dfn>typed item</dfn>
-  when either it has an <a href="#item-types" title="item types">item type</a>, or it is the
+  when either it has an <a>item type</a>, or it is the
   <a data-lt="property value">value</a> of a <a data-lt="item properties">property</a> of a <a>typed item</a>.
   The <dfn id="relevant-types">relevant types</dfn> for a <a>typed item</a> is the
-  <a data-lt="concept item">item</a>'s <a href="#item-types">item types</a>, if it has any,
-  or else is the <a href="#relevant-types">relevant types</a> of the <a data-lt="concept item">item</a>
+  <a data-lt="concept item">item</a>'s <a>item types</a>, if it has any,
+  or else is the <a>relevant types</a> of the <a data-lt="concept item">item</a>
   for which it is a <a data-lt="item properties">property</a>'s <a data-lt="property value">value</a>.</p>
 
   <hr>
@@ -785,7 +785,7 @@
   is the value of its element's <code><a>itemid</a></code> attribute, if it has one,
   <a data-lt="resolve a url">resolved</a> relative to the element on which the attribute is specified.
   If the <code><a>itemid</a></code> attribute is missing or if resolving it fails, it
-  is said to have no <a href="#global-identifier">global identifier</a>.</p>
+  is said to have no <a>global identifier</a>.</p>
 
   <p>The <code><a>itemid</a></code> attribute must not be specified on elements
   that do not have both an <code><a>itemscope</a></code> attribute and an
@@ -816,7 +816,7 @@
     for which the product is intended.</dd>
    </dl>
 
-   <p>This vocabulary has four defined <a href="#item-types">item types</a>:</p>
+   <p>This vocabulary has four defined <a>item types</a>:</p>
 
    <dl>
     <dt>http://md.example.com/loco</dt>
@@ -1146,12 +1146,12 @@
 
    <li><p>If <var>current</var> has an
    <code><a>itemprop</a></code>
-   attribute specified and has one or more <a href="#property-names">property names</a>, then add
+   attribute specified and has one or more <a>property names</a>, then add
    <var>current</var> to <var>results</var>.</p></li>
 
    <li><p>Return to the step labeled <i>loop</i>.</p></li>
 
-   <li><p><i>End of loop</i>: Sort <var>results</var> in <a href="#tree-order">tree order</a>.</p></li>
+   <li><p><i>End of loop</i>: Sort <var>results</var> in <a>tree order</a>.</p></li>
 
    <li><p>Return <var>results</var>.</p></li>
 
@@ -1248,8 +1248,7 @@
    <li><p>Let <var>items</var> be an empty array.</p></li>
 
    <li><p>For each <var>node</var> in <var>nodes</var>, check if the element is a
-   <a>top-level microdata item</a>, and if it is then
-   <a href="#get-the-object">get the object</a> for that element and add it to <var>items</var>.</p></li>
+   <a>top-level microdata item</a>, and if it is then <a>get the object</a> for that element and add it to <var>items</var>.</p></li>
 
    <li><p>Add an entry to <var>result</var> called "<code>items</code>" whose
    value is the array <var>items</var>.</p></li>
@@ -1266,7 +1265,7 @@
   of just returning an array, so that it is possible to extend the algorithm in the future if
   necessary.</p>
 
-  <p>When the user agent is to <dfn id="get-the-object">get the object</dfn> for an item <var>item</var>,
+  <p>When the user agent is to <dfn>get the object</dfn> for an item <var>item</var>,
   potentially together with a list of elements <var>memory</var>, it must run the following
   substeps:</p>
 
@@ -1278,20 +1277,20 @@
 
    <li><p>Add <var>item</var> to <var>memory</var>.</p></li>
 
-   <li><p>If the <var>item</var> has any <a href="#item-types">item types</a>, add an entry to <var>result</var>
+   <li><p>If the <var>item</var> has any <a>item types</a>, add an entry to <var>result</var>
    called "<code>type</code>" whose value is an array listing the
-   <a href="#item-types">item types</a> of <var>item</var>, in the order they were specified on the
+   <a>item types</a> of <var>item</var>, in the order they were specified on the
    <code><a>itemtype</a></code> attribute.</p>
 
-   </li><li><p>If the <var>item</var> has a <a href="#global-identifier">global identifier</a>, add an entry to
-   <var>result</var> called "<code>id</code>" whose value is the <a href="#global-identifier">global
+   </li><li><p>If the <var>item</var> has a <a>global identifier</a>, add an entry to
+   <var>result</var> called "<code>id</code>" whose value is the <a>global
    identifier</a> of <var>item</var>.</p></li>
 
    <li><p>Let <var>properties</var> be an empty object.</p></li>
 
    <li>
 
-    <p>For each element <var>element</var> that has one or more <a href="#property-names">property names</a>
+    <p>For each element <var>element</var> that has one or more <a>property names</a>
     and is one of <a data-lt="item properties">the properties of the item</a>
     <var>item</var>, in the order those elements are given by the algorithm that returns
     <a data-lt="item properties">the properties of an item</a>, run the following substeps:</p>
@@ -1303,14 +1302,14 @@
 
      <li><p>If <var>value</var> is an <a data-lt="concept item">item</a>, then:
      If <var>value</var> is in <var>memory</var>, then let <var>value</var> be
-     the string "<code>ERROR</code>". Otherwise, <a href="#get-the-object">get the object</a> for
+     the string "<code>ERROR</code>". Otherwise, <a>get the object</a> for
      <var>value</var>, passing a copy of <var>memory</var>, and then replace <var>value</var>
      with the object returned from those steps.</p></li>
 
      <li>
 
       <p>For each name <var>name</var> in <var>element</var>'s
-      <a href="#property-names">property names</a>, run the following substeps:</p>
+      <a>property names</a>, run the following substeps:</p>
 
       <ol>
 
@@ -1476,8 +1475,8 @@
   <p class="Note">This is consistent with [[HTML-RDFA]], which uses the attribute for the same purpose.</p>
 
   <p>If the <code><a>itemprop</a></code> attribute is present on a <code>link</code> or <code>meta</code> element,
-  that element is <a href="#flow-content">flow content</a> and <a href="#phrasing-content">phrasing content</a>,
-  and may be used where <a href="#phrasing-content">phrasing content</a> is expected.</p>
+  that element is <a>flow content</a> and <a>phrasing content</a>,
+  and may be used where <a>phrasing content</a> is expected.</p>
 
   <p>If a <code>link</code> element has an <code><a>itemprop</a></code>
     attribute, the <code>rel</code> attribute may be omitted.</p>
