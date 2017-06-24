@@ -71,7 +71,9 @@
 
  <body>
  <section id="abstract">
-  <p>This specification defines the HTML microdata mechanism. This mechanism allows machine-readable data to be embedded in HTML documents in a style similar to RDFa. It is compatible with JSON, and <em>can</em> be written in a style which is convertible to RDF, although two-way conversion is not lossless.</p>
+  <p>This specification defines new HTML attributes to embed machine-readable data in HTML documents in a style similar to RDFa.
+    It is compatible with JSON, and <em>can</em> be written in a style which is convertible to RDF,
+    although two-way conversion is not lossless.</p>
 </section>
 
 <section id="sotd">
@@ -97,7 +99,12 @@
 <p>This specification depends on the HTML specification and its extensions for
    definitions of individual HTML elements and attributes. [[!HTML52]][[html-extensions]]</p>
 
-<p>Information expressed as microdata can be converted to JSON, as described in <a href="#json">Section 6.1</a>. Microdata can <em>generally</em> be converted to RDF, as described in <a href="https://www.w3.org/TR/microdata-rdf">Microdata to RDF</a>, but only if an additional set of constraints are applied to the microdata content. [[!JSON]][[microdata-rdf]]</p>
+<p>Information expressed as microdata can be converted to JSON, as described in <a href="#json">Section 6.1</a>. 
+  Microdata can be converted to RDF, for example via conversion to JSON-LD or RDFa,
+  if additional constraints are applied to the microdata content.
+  A process to convert microdata directly to RDF is described in <a href="https://www.w3.org/TR/microdata-rdf">Microdata to RDF</a>.
+  [[JSON]] [[rdfa-core]] [[microdata-rdf]]</p>
+  
 
 </section>
 
@@ -1644,6 +1651,7 @@
   <p>Changes made between the current draft and the <a href="https://www.w3.org/TR/2017/WD-microdata-20170504/">First Public Working Draft</a>:</p>
 
   <ul>
+    <li>Allow <a>itemid</a> in general, rather than expecting vocabularies to explain what it means</li>
     <li>Add a mechanism to determine the URL that is a <a>vocabulary identifier</a>,
       and use it as the start of the property name for <a>typed items</a>
    <li>Remove section "microdata and other namespaces" which implied that microdata would not work in other namespaces. Because it does.</li>
@@ -1676,6 +1684,7 @@
   <p>The current editors would like to thank the following people for direct contributions to this work:</p>
 
   <p>
+
 Christine Runnegar,
 Gregg Kellogg,
 Ivan Herman,
@@ -1684,6 +1693,8 @@ Léonie Watson,
 Manu Sporny,
 Marcos Caceres,
 Nick Doty,
+Philippe Le Hégaret,
+Ralph Swick,
 Robin Berjon,
 Tab Atkins,
 Tavis Tucker,
