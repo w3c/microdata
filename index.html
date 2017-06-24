@@ -776,7 +776,7 @@
 
   <hr>
 
-  <p>Elements with both <a>itemscope</a> and <a>itemtype> attributes
+  <p>Elements with both <a>itemscope</a> and <a>itemtype</a> attributes
   may also have an <dfn><code>itemid</code></dfn> attribute specified,
   to give a global identifier for the <a data-lt="concept item">item</a>,
   so that it can be related to other <a data-lt="concept item">items</a> elsewhere on the Web,
@@ -1447,19 +1447,17 @@
    <dt><a>itemtype</a></dt>
     <dd>This is a list of <a data-lt="absolute URL">absolute URLs</a> that identify an <a>item</a> within a particular vocabulary.</dd>
     <dd>The <a>itemtype</a> attribute must not be specified on elements that do not have an <a>itemscope</a> attribute.</dd>
-    <dd class="note">This attribute performs a function similar to the combination of <code>vocab</code> and <code>typeof</code> attributes in [[RDFA-CORE]].</dd>
+    <dd class="note">This attribute performs a function similar to the combination of <code>vocab</code> and <code>typeof</code> attributes in [[rdfa-core]].</dd>
 
    <dt><a>itemprop</a></dt>
     <dd>When present on an element, it identifies that the element provides the <a>property value</a>
-     of the <a>item</a> in which it appears, for the property whose name is the content of the attribute</dd>
-    <dd class="note">This attribute is equivalent to the <code>property</code> attribute in [[RDFA-CORE]].</dd>
+      of the <a>item</a> in which it appears, and the attribute's value defines the <a>property name</a>.</dd>
+    <dd class="note">This attribute is equivalent to the <code>property</code> attribute in [[rdfa-core]].</dd>
 
    <dt><a>itemid</a></dt>
     <dd>This is an <a>absolute URL</a> that provides a global identifier for an <a>item</a>.</dd>
     <dd>The <a>itemid</a> attribute must not be specified on elements that do not have
      both an <a>itemscope</a> attribute and an <a><code>itemtype</code></a> attribute specified.</dd>
-    <dd>The <a>itemid</a> attribute must not be specified on elements with an <a><code>itemscope</code></a> attribute
-     whose <a>itemtype</a> attribute specifies a vocabulary that does not <a>support global identifiers for items</a>.</dd>
    <dd class="note">This is approximately equivalent to declaring that an <a>item</a> is
     <code>owl:sameAs</code> the value of the attribute. [[owl-ref]]</dd>
 
@@ -1522,7 +1520,7 @@
     if applicable drawing attention to the fact that changes in content may mean the encoded metadata is not accurate. [[ATAG20]]</p>
   <p>Authors should be aware that a great deal of accessibility information is ignored in extracting microdata,
     including attributes such as <code>alt</code> and ARIA information. Authors should consider whether to 
-    encode accessibility information explicitly, or to use a more expressive approach such as RDFa. [[RDFA-CORE]]
+    encode accessibility information explicitly, or to use a more expressive approach such as RDFa. [[rdfa-core]]
   </section>
 
   <section id="i18n-considerations">
@@ -1532,7 +1530,7 @@
     except if it is specifically encoded as microdata, in which case it is important to pay attention when editing, as above for accessibility.</p>
   <p>Machine-readable data may be presented to users, for example by search engines. Identifying content that should,
   or should not, be translated, would be helpful but currently microdata strips markup. It is possible to use XMLLiterals in
-  RDFa to ensure that markup is kept. [[RDFA-CORE]]</p>
+  RDFa to ensure that markup is kept. [[rdfa-core]]</p>
   <p>Vocabulary design is difficult. Different languages and cultures present view ambiguity differently:
   two terms with different meanings in one situation may be most naturally translated by a single term that has both meanings,
   or a single term may have two natural translations. When developing for localisation, it is important to provide
@@ -1656,9 +1654,9 @@
   <p>Changes made between the current draft and the <a href="https://www.w3.org/TR/2017/WD-microdata-20170504/">First Public Working Draft</a>:</p>
 
   <ul>
-    <li>Allow <a>itemid</a> in general, rather than expecting vocabularies to explain what it means</li>
+    <li>Allow <a>itemid</a> in general, rather than expecting vocabularies to explain what it means.</li>
     <li>Add a mechanism to determine the URL that is a <a>vocabulary identifier</a>,
-      and use it as the start of the property name for <a>typed items</a>
+      and use it as the start of the property name for any <a>typed item</a>.</li>
    <li>Remove section "microdata and other namespaces" which implied that microdata would not work in other namespaces. Because it does.</li>
    <li>Allow the <code>content</code> attribute on any element where an <a>itemprop</a> attribute is present,
      to provide a readable value for a property.</li>
@@ -1666,7 +1664,9 @@
      <ul><li><code>data</code>, <code>meter</code>, and <code>time</code> elements' <a>textContent</a> is used
        if they do not have an attribute that supplies the <a>value</a>.</li>
        <li>If there is a <code>content</code> attribute present, it provides the <a>value</a>.</li></ul></li>
-   <li>Added sections for <a href="i18n-considerations">Internationalisation and localisation</a>, <a href="#privacy-considerations">Privacy</a>, and <a href="#security-considerations">Security Considerations</a>.
+    <li>Added non-normative sections for <a href="#a11y-considerations">Accessibility and microdata</a>,
+      <a href="i18n-considerations">Internationalisation and localisation</a>, <a href="#privacy-considerations">Privacy</a>,
+      and <a href="#security-considerations">Security Considerations</a>.
    <li>Remove drag and drop, as it is not implemented in current browsers.</li>
   </ul>
 
