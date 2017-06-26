@@ -89,7 +89,7 @@
 
   <!-- where to send feedback (required) -->
   <p>If you wish to make comments regarding this document please
-    <a href="https://github.com/w3c/microdata">submit them as github issues</a>.
+    <a href="https://github.com/w3c/microdata/issues">submit them as github issues</a>.
     All feedback is welcome, but please note the
     <a href="https://github.com/w3c/microdata/blob/master/CONTRIBUTING.md">contribution guidelines</a>
     require agreement to the terms of the W3C Patent Policy for substantive contributions.</p>
@@ -750,6 +750,7 @@
    <li>If there is only one unique value in <var>potential values</value> return that value. Otherwise return the 
     first item in <var>potential values</var>.</li>
   </li>
+</ul>
 
    <p>User agents must not automatically dereference <em>unknown</em> <a data-lt="URL">URLs</a> given as <a>item types</a>
    and <a>property names</a>. These URLs are <i>a priori</i> opaque identifiers.</p>
@@ -914,7 +915,9 @@
       does not match any value in <var>properties</var>, then append it to <var>properties</var>, 
       and process the next value.</dd>
     <dt>Otherwise</dt>
-     <dd>append the value to <var>properties</var> and process the next value.</dd></li>
+     <dd>append the value to <var>properties</var> and process the next value.</dd>
+   </dl>
+   </li>
 
    <li>If <var>properties</var> is not empty, return <var>properties</var>.</li> 
   </ul>
@@ -1168,7 +1171,7 @@
 
   <p>All <code><a>itemref</a></code> attributes in a <code>Document</code> must be such
   that there are no cycles in the graph formed from representing each <a data-lt="concept item">item</a>
-  in the <code>Document</code> as a node in the graph and each <a lt="item properties">property</a> of an item whose
+  in the <code>Document</code> as a node in the graph and each <a data-lt="item properties">property</a> of an item whose
   <a data-lt="property value">value</a> is another item as an edge in the graph connecting those two items.</p>
 
   <!-- removed redundant requirement from above. But does this requirement serve any purpose? -->
