@@ -774,7 +774,7 @@
 
   <hr>
 
-  <p>Elements with both <a>itemscope</a> and <a>itemtype</a> attributes
+  <p>Elements with an <a>itemscope</a> attribute
   may also have an <dfn><code>itemid</code></dfn> attribute specified,
   to give a global identifier for the <a data-lt="concept item">item</a>,
   so that it can be related to other <a data-lt="concept item">items</a> elsewhere on the Web,
@@ -790,8 +790,7 @@
   is said to have no <a>global identifier</a>.</p>
 
   <p>The <code><a>itemid</a></code> attribute must not be specified on elements
-  that do not have both an <code><a>itemscope</a></code> attribute and an
-  <code><a>itemtype</a></code> attribute specified.</p>
+  that do not have an <code><a>itemscope</a></code> attribute.</p>
 
   <hr>
 
@@ -1456,7 +1455,7 @@
    <dt><a>itemid</a></dt>
     <dd>This is an <a>absolute URL</a> that provides a global identifier for an <a>item</a>.</dd>
     <dd>The <a>itemid</a> attribute must not be specified on elements that do not have
-     both an <a>itemscope</a> attribute and an <a><code>itemtype</code></a> attribute specified.</dd>
+     an <a>itemscope</a> attribute specified.</dd>
    <dd class="note">This is approximately equivalent to declaring that an <a>item</a> is
     <code>owl:sameAs</code> the value of the attribute. [[owl-ref]]</dd>
 
@@ -1650,7 +1649,15 @@
   <p>An exact history of changes to the text is available in the <a href="https://github.com/w3c/microdata/commits">Github commit log</a>.
   The following information is provided as an overview of the substantive changes made to the specification between each publication.</p>
 
-  <p>Changes made between the current draft and the <a href="https://www.w3.org/TR/2017/WD-microdata-20170504/">First Public Working Draft</a>:</p>
+  <p>Changes made between the current draft
+    and the <a href="https://www.w3.org/TR/2017/WD-microdata-20170626/">second Working Draft</a>:</p>
+    
+  <ul>
+    <li><a>itemid</a> may be specified on an element with an <a>itemscope</a> attribute, not just a <a>typed item</a></li>
+  </ul>
+
+  <p>Changes made between the <a href="https://www.w3.org/TR/2017/WD-microdata-20170626/">second Working Draft</a>
+    and the <a href="https://www.w3.org/TR/2017/WD-microdata-20170504/">First Public Working Draft</a>:</p>
 
   <ul>
     <li>Allow <a>itemid</a> in general, rather than expecting vocabularies to explain what it means.</li>
