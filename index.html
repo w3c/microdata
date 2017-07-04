@@ -99,10 +99,10 @@
 <p>This specification depends on the HTML specification and its extensions for
    definitions of individual HTML elements and attributes. [[!HTML52]][[html-extensions]]</p>
 
-<p>Information expressed as microdata can be converted to JSON, as described in <a href="#json">Section 6.1</a>. 
+<p>Information expressed as Microdata can be converted to JSON, as described in <a href="#json">Section 6.1</a>. 
   Microdata can be converted to RDF, for example via conversion to JSON-LD or RDFa,
-  if additional constraints are applied to the microdata content.
-  A process to convert microdata directly to RDF is described in <a href="https://www.w3.org/TR/microdata-rdf">Microdata to RDF</a>.
+  if additional constraints are applied to the Microdata content.
+  A process to convert Microdata directly to RDF is described in <a href="https://www.w3.org/TR/microdata-rdf">Microdata to RDF</a>.
   [[JSON]] [[rdfa-core]] [[microdata-rdf]]</p>
   
 
@@ -280,11 +280,11 @@
   
   </div>
 
-  <p>Markup other than microdata attributes has no effect on microdata.</p>
+  <p>Markup other than Microdata attributes has no effect on Microdata.</p>
 
   <div class="example">
 
-   <p>These two examples are exactly equivalent, at a microdata level, as the previous two examples
+   <p>These two examples are exactly equivalent, at a Microdata level, as the previous two examples
    respectively:</p>
 
    <pre>&lt;div itemscope&gt;
@@ -327,7 +327,7 @@
   <div class="example">
 
    <p>Here, the visible content may be added by a script.
-   A microdata processor can extract the content from the <a>content</a> attribute without running scripts. 
+   A Microdata processor can extract the content from the <a>content</a> attribute without running scripts. 
    The value of the <var>product-id</var> property for this item is <samp>9678AOU879</samp></p>
 
    <pre>&lt;li itemscope&gt;
@@ -344,7 +344,7 @@
   <div class="example">
 
    <p>Here, there is an item with a property whose value is a product identifier. The identifier is not
-   human-friendly, so instead it is encoded for microdata using the <code>value</code> attribute
+   human-friendly, so instead it is encoded for Microdata using the <code>value</code> attribute
    of the <code>data</code> element, and the product's name is used as the text content of the element
    that is rendered on the page.</p>
 
@@ -424,7 +424,7 @@
   <code><a>itemscope</a></code> attribute
   on the element that declares the property.</p>
 
-  <p>Items that are not part of others are called <a data-lt="top-level microdata item">top-level microdata items</a>.</p>
+  <p>Items that are not part of others are called <a data-lt="top-level microdata item">top-level Microdata items</a>.</p>
 
   <div class="example">
 
@@ -439,7 +439,7 @@
    "band" is an item in its own right, with two properties, "name" and "size". The "name" of the
    band is "Jazz Band", and the "size" is "12".</p>
 
-   <p>The outer item in this example is a top-level microdata item.</p>
+   <p>The outer item in this example is a top-level Microdata item.</p>
 
   </div>
 
@@ -503,12 +503,12 @@
 
   </div>
 
-  <p>It's important to note that there is no relationship between the microdata and the content of
-  the document where the microdata is marked up.</p>
+  <p>It's important to note that there is no relationship between the Microdata and the content of
+  the document where the Microdata is marked up.</p>
 
   <div class="example">
 
-   <p>The following two examples are exactly the same microdata, because they produce exactly the same information when processed:</p>
+   <p>The following two examples are exactly the same Microdata, because they produce exactly the same information when processed:</p>
 
    <pre>&lt;figure&gt;
  &lt;img src="castle.jpeg"&gt;
@@ -536,7 +536,7 @@
 
   <p><i>This section is non-normative.</i></p>
   <p>The examples in the previous section show how information could be marked up on a page that
-  doesn't expect its microdata to be re-used. Microdata is most useful, though, when it is used in
+  doesn't expect its Microdata to be re-used. Microdata is most useful, though, when it is used in
   contexts where other authors and readers are able to cooperate to make new uses of the markup.</p>
 
   <p>For this purpose, it is necessary to give each <a data-lt="concept item">item</a> a type,
@@ -620,7 +620,7 @@
 <h3>Selecting names when defining vocabularies</h3>
 
   <p><i>This section is non-normative.</i></p>
-  <p>Using microdata means using a vocabulary. For some purposes an ad-hoc vocabulary is adequate, 
+  <p>Using Microdata means using a vocabulary. For some purposes an ad-hoc vocabulary is adequate, 
   but authors are encouraged to re-use existing vocabularies to make content re-use easier.</p>
 
   <p>When designing new vocabularies, identifiers can be created either using
@@ -683,12 +683,12 @@
 </section>
 
 <section id="encoding-microdata">
-<h2>Encoding microdata</h2>
+<h2>Encoding Microdata</h2>
 
 <section id="the-microdata-model">
-<h3>The microdata model</h3>
+<h3>The Microdata model</h3>
 
-  <p>The microdata model consists of groups of name-value pairs known as <a data-lt="concept item">items</a>.</p>
+  <p>The Microdata model consists of groups of name-value pairs known as <a data-lt="concept item">items</a>.</p>
 
   <p>Each group is known as an <a data-lt="concept item">item</a>. Each
   <a data-lt="concept item">item</a> can have zero or more <a>item types</a>,
@@ -1116,7 +1116,7 @@
 
   <p>To find <dfn data-lt="item properties">the properties of an item</dfn> defined by the element <var>root</var>,
   the user agent must run the following steps. These steps are also used to flag
-  <a>microdata error</a>s.</p>
+  <a data-lt="Microdata Error">Microdata Errors</a>.</p>
 
   <ol>
 
@@ -1139,7 +1139,7 @@
    that element.</p></li>
 
    <li><p>If <var>current</var> is already in <var>memory</var>, there is a
-   <a>microdata error</a>; return to the step labeled <i>loop</i>.</p></li>
+   <a>Microdata Error</a>; return to the step labeled <i>loop</i>.</p></li>
 
    <li><p>Add <var>current</var> to <var>memory</var>.</p></li>
 
@@ -1162,9 +1162,9 @@
 
   <p>A document must not contain any <a data-lt="concept item">items</a> for which the algorithm
   to find <a data-lt="item properties">the properties of an item</a> finds any
-  <dfn>microdata error</dfn>.</p>
+  <dfn>Microdata Error</dfn>.</p>
 
-  <p>An <a data-lt="concept item">item</a> is a <dfn>top-level microdata item</dfn>
+  <p>An <a data-lt="concept item">item</a> is a <dfn>top-level Microdata item</dfn>
   if its element does not have an <code><a>itemprop</a></code> attribute.</p>
 
   <p>All <code><a>itemref</a></code> attributes in a <code>Document</code> must be such
@@ -1242,7 +1242,7 @@
 <h3>JSON</h3>
 
   <p>Given a list of nodes <var>nodes</var> in a <code>Document</code>, a user agent must
-  run the following algorithm to extract the microdata from those nodes into a JSON form:</p>
+  run the following algorithm to extract the Microdata from those nodes into a JSON form:</p>
 
   <ol>
 
@@ -1251,7 +1251,7 @@
    <li><p>Let <var>items</var> be an empty array.</p></li>
 
    <li><p>For each <var>node</var> in <var>nodes</var>, check if the element is a
-   <a>top-level microdata item</a>, and if it is then <a>get the object</a> for that element and add it to <var>items</var>.</p></li>
+   <a>top-level Microdata item</a>, and if it is then <a>get the object</a> for that element and add it to <var>items</var>.</p></li>
 
    <li><p>Add an entry to <var>result</var> called "<code>items</code>" whose
    value is the array <var>items</var>.</p></li>
@@ -1507,16 +1507,16 @@
 
 
   <section id="a11y-considerations">
-  <h2>Accessibility and microdata</h2>
+  <h2>Accessibility and Microdata</h2>
   <p><i>This section is not normative</i></p>
   <p>Microdata can be used to provide machine-parseable information
     about content that is processed by tools to improve accessibility.</p>
-  <p>When editing content that contains microdata, authors should consider the possibility that this is the case.
+  <p>When editing content that contains Microdata, authors should consider the possibility that this is the case.
     Authoring and content management tools should implement the Authoring Tool Accessibility Guidelines,
     and in this context note Guideline 
     <a href="https://www.w3.org/TR/ATAG20/#gl_b12">B1.1.2 - Ensure Accessibility Information is Preserved</a>, 
     if applicable drawing attention to the fact that changes in content may mean the encoded metadata is not accurate. [[ATAG20]]</p>
-  <p>Authors should be aware that a great deal of accessibility information is ignored in extracting microdata,
+  <p>Authors should be aware that a great deal of accessibility information is ignored in extracting Microdata,
     including attributes such as <code>alt</code> and ARIA information. Authors should consider whether to 
     encode accessibility information explicitly, or to use a more expressive approach such as RDFa. [[rdfa-core]]
   </section>
@@ -1525,9 +1525,9 @@
   <h2>Internationalisation and localisation</h2>
   <p><i>This section is not normative</i></p>
   <p>Microdata conversion means that almost all internationalisation-related information is lost, 
-    except if it is specifically encoded as microdata, in which case it is important to pay attention when editing, as above for accessibility.</p>
+    except if it is specifically encoded as Microdata, in which case it is important to pay attention when editing, as above for accessibility.</p>
   <p>Machine-readable data may be presented to users, for example by search engines. Identifying content that should,
-  or should not, be translated, would be helpful but currently microdata strips markup. It is possible to use XMLLiterals in
+  or should not, be translated, would be helpful but currently Microdata strips markup. It is possible to use XMLLiterals in
   RDFa to ensure that markup is kept. [[rdfa-core]]</p>
   <p>Vocabulary design is difficult. Different languages and cultures present view ambiguity differently:
   two terms with different meanings in one situation may be most naturally translated by a single term that has both meanings,
@@ -1541,7 +1541,7 @@
   <p>Microdata does not introduce new mechanisms to transmit privacy-sensitive information.
     However it more clearly identifies information,
     in a way that facilitates finding data and merging it with data from other sources.</p>
-  <p>Authors and processors should take care to ensure that their use of microdata is in line with privacy policies
+  <p>Authors and processors should take care to ensure that their use of Microdata is in line with privacy policies
   and any applicable regulation.</p>
   </section>
 
@@ -1553,7 +1553,7 @@
   <p>Microdata makes information machine-readable,
   but does not automatically include provenance information for the statements it encodes.</p>
 
-  <p>Processors of microdata should consider the trustworthiness of sources they use,
+  <p>Processors of Microdata should consider the trustworthiness of sources they use,
   including the possibility that data is no longer accurate,
   and the possibility that data gathered over an insecure connection has been altered by a "man-in-the-middle" attack.</p>
   </section>
@@ -1609,7 +1609,7 @@
    </dd>
    <dt>Applications that use this media type:</dt>
    <dd>
-    <p>Applications that transfer data intended for use with HTML's microdata feature, especially in
+    <p>Applications that transfer data intended for use with Microdata, especially in
     the context of drag-and-drop, are the primary application class for this type.</p>
    </dd>
    <dt>Additional information:</dt>
@@ -1663,14 +1663,14 @@
     <li>Allow <a>itemid</a> in general, rather than expecting vocabularies to explain what it means.</li>
     <li>Add a mechanism to determine the URL that is a <a>vocabulary identifier</a>,
       and use it as the start of the property name for any <a>typed item</a>.</li>
-   <li>Remove section "microdata and other namespaces" which implied that microdata would not work in other namespaces. Because it does.</li>
+   <li>Remove section "Microdata and other namespaces" which implied that Microdata would not work in other namespaces. Because it does.</li>
    <li>Allow the <code>content</code> attribute on any element where an <a>itemprop</a> attribute is present,
      to provide a readable value for a property.</li>
    <li>Adjust the algorithm for determining the <a>value</a> of a name-value pair, to match implementation:
      <ul><li><code>data</code>, <code>meter</code>, and <code>time</code> elements' <a>textContent</a> is used
        if they do not have an attribute that supplies the <a>value</a>.</li>
        <li>If there is a <code>content</code> attribute present, it provides the <a>value</a>.</li></ul></li>
-    <li>Added non-normative sections for <a href="#a11y-considerations">Accessibility and microdata</a>,
+    <li>Added non-normative sections for <a href="#a11y-considerations">Accessibility and Microdata</a>,
       <a href="i18n-considerations">Internationalisation and localisation</a>, <a href="#privacy-considerations">Privacy</a>,
       and <a href="#security-considerations">Security Considerations</a>.
    <li>Remove drag and drop, as it is not implemented in current browsers.</li>
