@@ -796,8 +796,9 @@
 
   <div class="example">
 
-   <p>This example shows a simple vocabulary used to describe the products of a model railway
-   manufacturer. The vocabulary has just five property names:</p>
+   <p>This example shows Microdata used to describe model railway products.
+     manufacturer. The <a>vocabulary identifier</a> is <samp>https://md.example.com/</samp>.
+     The example uses five property names:</p>
 
    <dl>
     <dt>product-code</dt>
@@ -817,16 +818,16 @@
     for which the product is intended.</dd>
    </dl>
 
-   <p>This vocabulary has four defined <a>item types</a>:</p>
+   <p>It identifies four <a>item types</a>:</p>
 
    <dl>
-    <dt>http://md.example.com/loco</dt>
+    <dt>https://md.example.com/loco</dt>
     <dd>Rolling stock with an engine</dd>
-    <dt>http://md.example.com/passengers</dt>
+    <dt>https://md.example.com/passengers</dt>
     <dd>Passenger rolling stock</dd>
-    <dt>http://md.example.com/track</dt>
+    <dt>https://md.example.com/track</dt>
     <dd>Track pieces</dd>
-    <dt>http://md.example.com/lighting</dt>
+    <dt>https://md.example.com/lighting</dt>
     <dd>Equipment with lighting</dd>
    </dl>
 
@@ -835,8 +836,9 @@
 
    <p>Thus, a locomotive might be marked up as:</p>
 
-<pre class="html">&lt;dl itemscope itemtype="http://md.example.com/loco
-                        http://md.example.com/lighting"&gt;
+<pre class="html">&lt;dl itemscope itemtype="https://md.example.com/loco
+                        https://md.example.com/lighting"
+                itemid="https://md.example.com/product-catalog/33041"&gt;
  &lt;dt&gt;Name:
  &lt;dd itemprop="name"&gt;Tank Locomotive (DB 80)
  &lt;dt&gt;Product code:
@@ -849,8 +851,9 @@
 
    <p>A turnout lantern retrofit kit might be marked up as:</p>
 
-   <pre class="html">&lt;dl itemscope itemtype="http://md.example.com/track
-                       http://md.example.com/lighting"&gt;
+   <pre class="html">&lt;dl itemscope itemtype="https://md.example.com/track
+                       https://md.example.com/lighting"
+               itemid="https://md.example.com/product-catalog/74470"&gt;
  &lt;dt&gt;Name:
  &lt;dd itemprop="name"&gt;Turnout Lantern Kit
  &lt;dt&gt;Product code:
@@ -862,7 +865,8 @@
 
    <p>A passenger car with no lighting might be marked up as:</p>
 
-   <pre class="html">&lt;dl itemscope itemtype="http://md.example.com/passengers"&gt;
+   <pre class="html">&lt;dl itemscope itemtype="https://md.example.com/passengers"
+               itemid="https://md.example.com/product-catalog/8710"&gt;
  &lt;dt&gt;Name:
  &lt;dd itemprop="name"&gt;Express Train Passenger Car (DB Am 203)
  &lt;dt&gt;Product code:
@@ -870,10 +874,6 @@
  &lt;dt&gt;Scale:
  &lt;dd itemprop="scale"&gt;Z
 &lt;/dl&gt;</pre>
-
-   <p>Great care is necessary when creating new vocabularies. Often, a hierarchical approach to
-   types can be taken that results in a vocabulary where each item only ever has a single type,
-   which is generally much simpler to manage.</p>
 
   </div>
 
