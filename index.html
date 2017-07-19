@@ -737,14 +737,14 @@
    <li>Let <var>potential values</var> be an empty array of URLs.</li>
    <li>Let <var>tokens</a> be the value of the <a>itemtype</a> attribute, split on spaces.</li>
    <li>For each value of <var>tokens</var>: <dl class="switch">
-    <dt>If there is a NUMBER SIGN Ux0023 ("#") in the value</dt>
-     <dd>Append the substring of the value from the beginning to the <em>first</em> NUMBER SIGN Ux0023 ("#") to
+    <dt>If there is a NUMBER SIGN U+0023 ("#") in the value</dt>
+     <dd>Append the substring of the value from the beginning to the <em>first</em> NUMBER SIGN U+0023 ("#") to
       <var>potential values</var></dd>
-    <dt>Otherwise, if there is a SOLIDUS Ux002F ("/") in the value</dt>
-     <dd>Append the substring of the value from the beginning to the <em>last</em> SOLIDUS Ux002F ("/") to
+    <dt>Otherwise, if there is a SOLIDUS U+002F ("/") in the value</dt>
+     <dd>Append the substring of the value from the beginning to the <em>last</em> SOLIDUS U+002F ("/") to
       <var>potential values</var></dd>
     <dt>Otherwise</dt>
-     <dd>Append a SOLIDUS Ux002F ("/") to the value, and append the resulting string to <var>potential values</var></dd>
+     <dd>Append a SOLIDUS U+002F ("/") to the value, and append the resulting string to <var>potential values</var></dd>
     </dl></li>
    <li>If there is only one unique value in <var>potential values</value> return that value. Otherwise return the 
     first item in <var>potential values</var>.</li>
@@ -1457,13 +1457,13 @@
             to avoid unwanted changes in the rendering of the content.</p>
           </li>
           <li>If the element with <code>id</code> <var>reference</var> has no <code>resource</code> attribute,
-            add a <code>resource</code> attribute whose value is a NUMBER SIGN Ux0023 followed by <var>reference</var>
+            add a <code>resource</code> attribute whose value is a NUMBER SIGN U+0023 followed by <var>reference</var>
             to the element.</li>
           <li>If the element with <code>id</code> <var>reference</var> has no <code>typeof</code> attribute,
             add a <code>typeof="rdfa:Pattern"</code> attribute to the element.</li>
           <li>Add a <code>link</code> child element to the element that represents the <a>item</a>,
             with a <code>rel="rdfa:copy"</code> attribute and an <code>href</code> attribute
-            whose value is a NUMBER SIGN Ux0023 followed by <var>reference</var></li>
+            whose value is a NUMBER SIGN U+0023 followed by <var>reference</var></li>
         </ol>
         <p>And then remove the </a>itemref</a> attribute.</li>
     </ol>
