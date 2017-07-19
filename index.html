@@ -1489,21 +1489,21 @@
 
      <p>An example using <a>itemref</a> shows scope for optimisation:</p>
 
-     <pre class="html">  &lt;figure <mark>vocab="http://schema.org/"</mark> typeof="CreativeWork"&gt;
+     <pre class="html">  &lt;figure <mark>vocab="https://schema.org/"</mark> typeof="CreativeWork"&gt;
    &lt;link rel="rdfa:copy" href="#licenses"&gt;
    &lt;img property="image" src="images/house.jpeg"
     alt="A white house, boarded up, sits in a forest."&gt;
    &lt;figcaption property="name"&gt;The house I found.&lt;/figcaption&gt;
   &lt;/figure&gt;
-  &lt;figure <mark>vocab="http://schema.org/"</mark> typeof="CreativeWork"&gt;
+  &lt;figure <mark>vocab="https://schema.org/"</mark> typeof="CreativeWork"&gt;
    &lt;link rel="rdfa:copy" href="#licenses"&gt;
    &lt;img property="image" src="images/mailbox.jpeg"
     alt="Outside the house is a mailbox. It has a leaflet inside."&gt;
    &lt;figcaption property="name"&gt;The mailbox.&lt;/figcaption&gt;
   &lt;/figure&gt;
   &lt;footer&gt;
-   <mark>&lt;div vocab="http://schema.org/"&gt;
-    &lt;div vocab="http://schema.org/"&gt;</mark>
+   <mark>&lt;div vocab="https://schema.org/"&gt;
+    &lt;div vocab="https://schema.org/"&gt;</mark>
      &lt;p typeof="rdfa:Pattern" resource="#licenses"
       id="licenses"&gt;All images licensed under the &lt;a property="license"
       href="http://www.opensource.org/licenses/mit-license.php"&gt;MIT license&lt;/a&gt;.&lt;/p&gt;
@@ -1513,7 +1513,7 @@
 
      <p>It could be rewritten as:</p>
 
-     <pre class="html"><mark>&lt;div vocab="http://schema.org/"&gt;</mark>
+     <pre class="html"><mark>&lt;div vocab="https://schema.org/"&gt;</mark>
   &lt;figure typeof="CreativeWork"&gt;
    &lt;link rel="rdfa:copy" href="#licenses"&gt;
    &lt;img property="image" src="images/house.jpeg"
