@@ -1242,7 +1242,7 @@
 <h3>JSON-LD</h3>
 
   <p>Given a list of nodes <var>nodes</var> in a <code>Document</code>, a user agent must
-  run the following algorithm to extract the Microdata from those nodes into a JSON-LD:</p>
+  run the following algorithm to extract the Microdata from those nodes into [[!JSON-LD]]:</p>
 
   <ol>
 
@@ -1251,7 +1251,7 @@
    <li><p>Let <var>items</var> be an empty array.</p></li>
 
    <li><p>For each <var>node</var> in <var>nodes</var>, check if the element is a
-   <a>top-level Microdata item</a>, and if it is then <a>get the object</a> for that element and add it to <var>items</var>.</p></li>
+   <a>top-level Microdata item</a>, and if it is then <a>get the object for JSON-LD</a> for that element and add it to <var>items</var>.</p></li>
 
    <li><p>Add an entry to <var>result</var> called "<code>items</code>" whose
    value is the array <var>items</var>.</p></li>
@@ -1267,7 +1267,7 @@
   of just returning an array, so that it is possible to extend the algorithm in the future if
   necessary.</p>
 
-  <p>When the user agent is to <dfn>get the object</dfn> for an item <var>item</var>,
+  <p>When the user agent is to <dfn>get the object for JSON-LD</dfn> for an item <var>item</var>,
   potentially together with a list of elements <var>memory</var>, it must run the following
   substeps:</p>
 
