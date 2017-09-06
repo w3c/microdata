@@ -737,14 +737,14 @@
    <li>Let <var>potential values</var> be an empty array of URLs.</li>
    <li>Let <var>tokens</a> be the value of the <a>itemtype</a> attribute, split on spaces.</li>
    <li>For each value of <var>tokens</var>: <dl class="switch">
-    <dt>If there is a NUMBER SIGN Ux0023 ("#") in the value</dt>
-     <dd>Append the substring of the value from the beginning to the <em>first</em> NUMBER SIGN Ux0023 ("#") to
+    <dt>If there is a NUMBER SIGN U+0023 ("#") in the value</dt>
+     <dd>Append the substring of the value from the beginning to the <em>first</em> NUMBER SIGN U+0023 ("#") to
       <var>potential values</var></dd>
-    <dt>Otherwise, if there is a SOLIDUS Ux002F ("/") in the value</dt>
-     <dd>Append the substring of the value from the beginning to the <em>last</em> SOLIDUS Ux002F ("/") to
+    <dt>Otherwise, if there is a SOLIDUS U+002F ("/") in the value</dt>
+     <dd>Append the substring of the value from the beginning to the <em>last</em> SOLIDUS U+002F ("/") to
       <var>potential values</var></dd>
     <dt>Otherwise</dt>
-     <dd>Append a SOLIDUS Ux002F ("/") to the value, and append the resulting string to <var>potential values</var></dd>
+     <dd>Append a SOLIDUS U+002F ("/") to the value, and append the resulting string to <var>potential values</var></dd>
     </dl></li>
    <li>If there is only one unique value in <var>potential values</value> return that value. Otherwise return the 
     first item in <var>potential values</var>.</li>
@@ -1611,7 +1611,121 @@
 }</pre>
 
   </div>
-</section>
+  </section>
+
+  <section>
+    <h3>RDFa</h3>
+
+    <p>A <a>typed item</a> can generally be readily converted to RDFa.
+      This is useful for example to provide greater support for internationalization, or to include markup in the resulting data.
+      The algorithm to <dfn data-lt="microdata to rdfa">convert a Microdata <a>item</a> to RDFa</dfn> is as follows:</p>
+
+    <ol>
+      <li>Replace the <a>itemscope</a> attribute with a <code>vocab</code> attribute,
+        whose value is the <a>vocabulary identifier</a> for the item.</li>
+      <li>Let <var>local type</var> be the difference between the <a>vocabulary identifier</a> and the first
+        value of <a>itemtype</a>. Replace the <a>itemtype</a> attribute with a <code>typeof</code> attribute
+        whose value is <var>local type</var>.</li>
+      <li>If <a data-lt="split a string on spaces">splitting the value on spaces</a> for the <a>itemtype</a> attribute
+        results in more than one value,
+        then for each value <var>extra type</var> of <a>itemtype</a> after the first,
+        add an empty <code>span</code> child element to the element that represents the item,
+        with the attribute <code>rel="rdf:type"</code>
+        and a <code>resource</code> attribute whose value is <var>extra type</var>.</li>
+      <li>Change each <a>itemprop</a> attribute to a <code>property</code> attribute with the same value</li>
+      <li>Change each <a>itemid</a> attribute to an <code>about</code> attribute with the same value</li>
+      <li>For the value of each <a>itemref</a> attribute, for each value <var>reference</var>
+        that is a result of <a data-lt="split a string on spaces">splitting the value on spaces</a> follow the following substeps:
+        <ol>
+          <li>Add an element as the immediate parent of the element with <code>id</code> <var>reference</var>,
+            with a <code>vocab</code> attribute whose value is the <a>vocabulary identifier</a> for the item.
+            <p class="note">The choice of element is left to the author, to provide sufficient flexibility
+            to avoid unwanted changes in the rendering of the content.</p>
+          </li>
+          <li>If the element with <code>id</code> <var>reference</var> has no <code>resource</code> attribute,
+            add a <code>resource</code> attribute whose value is a NUMBER SIGN U+0023 followed by <var>reference</var>
+            to the element.</li>
+          <li>If the element with <code>id</code> <var>reference</var> has no <code>typeof</code> attribute,
+            add a <code>typeof="rdfa:Pattern"</code> attribute to the element.</li>
+          <li>Add a <code>link</code> child element to the element that represents the <a>item</a>,
+            with a <code>rel="rdfa:copy"</code> attribute and an <code>href</code> attribute
+            whose value is a NUMBER SIGN U+0023 followed by <var>reference</var></li>
+        </ol>
+        <p>And then remove the </a>itemref</a> attribute.</li>
+    </ol>
+
+    <p class="note">There is significant scope for optimising this algorithm, which may result in redundant <code>vocab</code>
+      declarations in particular.</p> 
+
+    <div class="example">
+    
+      <p>The example of a locomotive given above @@link would be converted to RDFa as follows:</p>
+
+      <pre class="html">&lt;dl vocab="http://md.example.com/" typeof="loco"&gt;
+ &lt;span rel="rdf:type" resource="http://md.example.com/lighting"&gt;&lt;/span&gt;
+ &lt;dt&gt;Name:
+ &lt;dd property="name"&gt;Tank Locomotive (DB 80)
+ &lt;dt&gt;Product code:
+ &lt;dd property="product-code"&gt;33041
+ &lt;dt&gt;Scale:
+ &lt;dd property="http://my.test/scale"&gt;HO
+ &lt;dt&gt;Digital:
+ &lt;dd property="digital"&gt;Delta
+&lt;/dl&gt;</pre>
+
+     <p>An example using <a>itemref</a> shows scope for optimisation:</p>
+
+     <pre class="html">  &lt;figure <mark>vocab="https://schema.org/"</mark> typeof="CreativeWork"&gt;
+   &lt;link rel="rdfa:copy" href="#licenses"&gt;
+   &lt;img property="image" src="images/house.jpeg"
+    alt="A white house, boarded up, sits in a forest."&gt;
+   &lt;figcaption property="name"&gt;The house I found.&lt;/figcaption&gt;
+  &lt;/figure&gt;
+  &lt;figure <mark>vocab="https://schema.org/"</mark> typeof="CreativeWork"&gt;
+   &lt;link rel="rdfa:copy" href="#licenses"&gt;
+   &lt;img property="image" src="images/mailbox.jpeg"
+    alt="Outside the house is a mailbox. It has a leaflet inside."&gt;
+   &lt;figcaption property="name"&gt;The mailbox.&lt;/figcaption&gt;
+  &lt;/figure&gt;
+  &lt;footer&gt;
+   <mark>&lt;div vocab="https://schema.org/"&gt;
+    &lt;div vocab="https://schema.org/"&gt;</mark>
+     &lt;p typeof="rdfa:Pattern" resource="#licenses"
+      id="licenses"&gt;All images licensed under the &lt;a property="license"
+      href="http://www.opensource.org/licenses/mit-license.php"&gt;MIT license&lt;/a&gt;.&lt;/p&gt;
+    <mark>&lt;/div&gt;
+   &lt;/div&gt;</mark>
+  &lt;/footer&gt;</pre>
+
+     <p>It could be rewritten as:</p>
+
+     <pre class="html"><mark>&lt;div vocab="https://schema.org/"&gt;</mark>
+  &lt;figure typeof="CreativeWork"&gt;
+   &lt;link rel="rdfa:copy" href="#licenses"&gt;
+   &lt;img property="image" src="images/house.jpeg"
+    alt="A white house, boarded up, sits in a forest."&gt;
+   &lt;figcaption property="name"&gt;The house I found.&lt;/figcaption&gt;
+  &lt;/figure&gt;
+  &lt;figure typeof="CreativeWork"&gt;
+   &lt;link rel="rdfa:copy" href="#licenses"&gt;
+   &lt;img property="image" src="images/mailbox.jpeg"
+    alt="Outside the house is a mailbox. It has a leaflet inside."&gt;
+   &lt;figcaption property="name"&gt;The mailbox.&lt;/figcaption&gt;
+  &lt;/figure&gt;
+  &lt;footer&gt;
+   &lt;p typeof="rdfa:Pattern" resource="#licenses"
+    id="licenses"&gt;All images licensed under the &lt;a property="license"
+    href="http://www.opensource.org/licenses/mit-license.php"&gt;MIT license&lt;/a&gt;.&lt;/p&gt;
+  &lt;/footer&gt;
+<mark>&lt;/div&gt;</mark>
+</pre>
+
+
+
+    </div>
+
+  </section>
+
   </section>
 
   <section id="other-changes-to-html5">
