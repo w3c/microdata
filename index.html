@@ -129,7 +129,7 @@
   <ul>
    <li><dfn>space characters</dfn>, <dfn>split a string on spaces</dfn>, and an
      <dfn>unordered set of unique space-separated tokens</dfn>.</li>
-   <li><dfn data-lt="HTML elements">HTML Element</a>, <dfn>global attribute</dfn>, <dfn>boolean attribute</dfn>.</li>
+   <li><dfn data-lt="HTML elements">HTML Element</a></dfn>, <dfn>global attribute</dfn>, <dfn>boolean attribute</dfn>.</li>
    <li>An element's <dfn>ID</dfn> and <dfn id="language">language</dfn>.</li>
    <li><dfn>flow content</dfn> and <dfn>phrasing content</dfn>.</li>
   </ul>
@@ -197,7 +197,7 @@
     <figcaption>
     A common way to represent items, properties and values graphically
     </figcaption>
-  <p><svg viewbox="0 0 300 45">
+  <svg viewbox="0 0 300 45">
       <g id="diagram1-item">
         <title>An Item</title>
         <ellipse class="item" cx="50" cy="25" rx="40" ry="15"/>
@@ -213,7 +213,7 @@
         <rect class="value-box" x="200" y="10" width="80" height="30"/>
         <text x="215" y="30">Value</text>
       </g>
-    </svg></p>
+    </svg>
     </figure>
 
     <p>The value of a property may be an item.</p>
@@ -568,7 +568,7 @@
     <dt><samp>http://example.org/animals#name</samp></dt>
      <dd>"Hedral"</dd>
     <dt><samp>http://example.org/animals#desc</samp></dt>
-     <dd>Hedral is a male american domestic shorthair, with a fluffy black fur with white paws and belly.
+     <dd>Hedral is a male american domestic shorthair, with a fluffy black fur with white paws and belly.</dd>
     <dt><samp>http://example.org/animals#img</samp></dt>
      <dd>hedral.jpeg</dd>
    </dl>
@@ -671,7 +671,7 @@
     <dt>http://example.com/fn</dt>
      <dd>Hedral</dd>
     <dt>http://myvocab.example.org/animals/desc</dt>
-     </dd>Hedral is a male american domestic shorthair, with a fluffy black fur with white paws and belly.</dd>
+     <dd>Hedral is a male american domestic shorthair, with a fluffy black fur with white paws and belly.</dd>
     <dt>http://example.com/color</dt>
      <dd>black</dd>
     <dt>http://example.com/color</dt>
@@ -1033,8 +1033,8 @@
    <dd>
     <p>The value is the <a>textContent</a> of the element's <a>content</a> attribute.</p>
    </dd>
-   <dd class="note">
-    <p>HTML only allows the <a>content</a> attribute on the <code>meta</code> element. 
+   <dd>
+    <p class="note">HTML only allows the <a>content</a> attribute on the <code>meta</code> element. 
     This specification changes the content model to allow it on any element, as a <a>global attribute</a>.</p>
    </dd>
 
@@ -1747,19 +1747,19 @@
    <dt><a>itemtype</a></dt>
     <dd>This is a list of <a data-lt="absolute URL">absolute URLs</a> that identify an <a>item</a> within a particular vocabulary.</dd>
     <dd>The <a>itemtype</a> attribute must not be specified on elements that do not have an <a>itemscope</a> attribute.</dd>
-    <dd class="note">This attribute performs a function similar to the combination of <code>vocab</code> and <code>typeof</code> attributes in [[rdfa-core]].</dd>
+    <dd><p class="note">This attribute performs a function similar to the combination of <code>vocab</code> and <code>typeof</code> attributes in [[rdfa-core]].<p></dd>
 
    <dt><a>itemprop</a></dt>
     <dd>When present on an element, it identifies that the element provides the <a>property value</a>
       of the <a>item</a> in which it appears, and the attribute's value defines the <a>property name</a>.</dd>
-    <dd class="note">This attribute is equivalent to the <code>property</code> attribute in [[rdfa-core]].</dd>
+    <dd><p class="note">This attribute is equivalent to the <code>property</code> attribute in [[rdfa-core]].<p></dd>
 
    <dt><a>itemid</a></dt>
     <dd>This is an <a>absolute URL</a> that provides a global identifier for an <a>item</a>.</dd>
     <dd>The <a>itemid</a> attribute must not be specified on elements that do not have
      an <a>itemscope</a> attribute specified.</dd>
-   <dd class="note">This is approximately equivalent to declaring that an <a>item</a> is
-    <code>owl:sameAs</code> the value of the attribute. [[owl-ref]]</dd>
+   <dd><p class="note">This is approximately equivalent to declaring that an <a>item</a> is
+    <code>owl:sameAs</code> the value of the attribute. [[owl-ref]]<p></dd>
 
    <dt><a><code>itemref</code></a></dt>
     <dd>This is a space seperated list of <a data-lt="ID">IDs</a> of elements
