@@ -82,11 +82,8 @@
   <p>This document is an editor's draft for the <a href="https://www.w3.org/WebPlatform/WG/">Web Platform Working Group</a>,
   proposed as an update to the
   <a href="https://www.w3.org/TR/2017/WD-microdata-20170626/">26 June 2017 W3C Working Draft</a>. 
-    The editors hope to request advancement to Candidate Recommendation before the beginning of August 2017.</p>
-
-  <p>This specification is an extension to HTML. 
-  All normative content in the HTML specification not specifically overridden by this specification
-  is intended to be normative for this specification. [[!HTML52]]</p>
+    The editors hope to request advancement to Candidate Recommendation before the end of November 2017.
+    Review is particularly sought on the algorithms for conversion to <a href="#json-ld">JSON-LD</a> and <a href="rdfa">RDFa</a>.</p>
 
   <!-- where to send feedback (required) -->
   <p>If you wish to make comments regarding this document please
@@ -94,13 +91,24 @@
     All feedback is welcome, but please note the
     <a href="https://github.com/w3c/microdata/blob/master/CONTRIBUTING.md">contribution guidelines</a>
     require agreement to the terms of the W3C Patent Policy for substantive contributions.</p>
+
 </section>
 
 <!--YYY-->
 <section id="dependencies">
 <h2>Dependencies</h2>
-<p>This specification depends on the HTML specification and its extensions for
-   definitions of individual HTML elements and attributes. [[!HTML52]][[html-extensions]]</p>  
+ <p>This specification is an extension to HTML. 
+  All normative content in the HTML specification not specifically overridden by this specification
+  is intended to be normative for this specification. 
+   This specification depends on the HTML specification and its extensions for
+   definitions of individual HTML elements and attributes. [[!HTML52]][[html-extensions]]</p>
+
+  <p>Information expressed as Microdata can be converted to <a href="#json-l">JSON-LD</a>,
+    <a href="#json">JSON</a>, or <a href="#rdfa">RDFa as described in <a href="#converting-html-to-other-formats">Section 6</a>. 
+  Microdata can be converted to RDF, for example via conversion to JSON-LD or RDFa,
+  if additional constraints are applied to the Microdata content.
+  A process to convert Microdata directly to RDF is described in <a href="https://www.w3.org/TR/microdata-rdf">Microdata to RDF</a>.
+  [[JSON-LD]], [[JSON]], [[rdfa-core]], [[microdata-rdf]]</p>
 
 </section>
 
@@ -123,7 +131,7 @@
   <ul>
    <li><dfn>space characters</dfn>, <dfn>split a string on spaces</dfn>, and an
      <dfn>unordered set of unique space-separated tokens</dfn>.</li>
-   <li><dfn data-lt="HTML elements">HTML Element</a>, <dfn>global attribute</dfn>, <dfn>boolean attribute</dfn>.</li>
+   <li><dfn data-lt="HTML elements">HTML Element</a></dfn>, <dfn>global attribute</dfn>, <dfn>boolean attribute</dfn>.</li>
    <li>An element's <dfn>ID</dfn> and <dfn id="language">language</dfn>.</li>
    <li><dfn>flow content</dfn> and <dfn>phrasing content</dfn>.</li>
   </ul>
@@ -191,7 +199,7 @@
     <figcaption>
     A common way to represent items, properties and values graphically
     </figcaption>
-  <p><svg viewbox="0 0 300 45">
+  <svg viewbox="0 0 300 45">
       <g id="diagram1-item">
         <title>An Item</title>
         <ellipse class="item" cx="50" cy="25" rx="40" ry="15"/>
@@ -207,7 +215,7 @@
         <rect class="value-box" x="200" y="10" width="80" height="30"/>
         <text x="215" y="30">Value</text>
       </g>
-    </svg></p>
+    </svg>
     </figure>
 
     <p>The value of a property may be an item.</p>
@@ -607,7 +615,7 @@
     <dt><samp>http://example.org/animals#name</samp></dt>
      <dd>"Hedral"</dd>
     <dt><samp>http://example.org/animals#desc</samp></dt>
-     <dd>Hedral is a male american domestic shorthair, with a fluffy black fur with white paws and belly.
+     <dd>Hedral is a male american domestic shorthair, with a fluffy black fur with white paws and belly.</dd>
     <dt><samp>http://example.org/animals#img</samp></dt>
      <dd>hedral.jpeg</dd>
    </dl>
@@ -710,7 +718,7 @@
     <dt>http://example.com/fn</dt>
      <dd>Hedral</dd>
     <dt>http://myvocab.example.org/animals/desc</dt>
-     </dd>Hedral is a male american domestic shorthair, with a fluffy black fur with white paws and belly.</dd>
+     <dd>Hedral is a male american domestic shorthair, with a fluffy black fur with white paws and belly.</dd>
     <dt>http://example.com/color</dt>
      <dd>black</dd>
     <dt>http://example.com/color</dt>
@@ -778,14 +786,14 @@
    <li>Let <var>potential values</var> be an empty array of URLs.</li>
    <li>Let <var>tokens</a> be the value of the <a>itemtype</a> attribute, split on spaces.</li>
    <li>For each value of <var>tokens</var>: <dl class="switch">
-    <dt>If there is a NUMBER SIGN Ux0023 ("#") in the value</dt>
-     <dd>Append the substring of the value from the beginning to the <em>first</em> NUMBER SIGN Ux0023 ("#") to
+    <dt>If there is a NUMBER SIGN U+0023 ("#") in the value</dt>
+     <dd>Append the substring of the value from the beginning to the <em>first</em> NUMBER SIGN U+0023 ("#") to
       <var>potential values</var></dd>
-    <dt>Otherwise, if there is a SOLIDUS Ux002F ("/") in the value</dt>
-     <dd>Append the substring of the value from the beginning to the <em>last</em> SOLIDUS Ux002F ("/") to
+    <dt>Otherwise, if there is a SOLIDUS U+002F ("/") in the value</dt>
+     <dd>Append the substring of the value from the beginning to the <em>last</em> SOLIDUS U+002F ("/") to
       <var>potential values</var></dd>
     <dt>Otherwise</dt>
-     <dd>Append a SOLIDUS Ux002F ("/") to the value, and append the resulting string to <var>potential values</var></dd>
+     <dd>Append a SOLIDUS U+002F ("/") to the value, and append the resulting string to <var>potential values</var></dd>
     </dl></li>
    <li>If there is only one unique value in <var>potential values</value> return that value. Otherwise return the 
     first item in <var>potential values</var>.</li>
@@ -1072,8 +1080,8 @@
    <dd>
     <p>The value is the <a>textContent</a> of the element's <a>content</a> attribute.</p>
    </dd>
-   <dd class="note">
-    <p>HTML only allows the <a>content</a> attribute on the <code>meta</code> element. 
+   <dd>
+    <p class="note">HTML only allows the <a>content</a> attribute on the <code>meta</code> element. 
     This specification changes the content model to allow it on any element, as a <a>global attribute</a>.</p>
    </dd>
 
@@ -1279,6 +1287,192 @@
 <section id="converting-html-to-other-formats">
 <h2>Converting Microdata to other formats</h2>
 
+<section id="jsonLD">
+<h3>JSON-LD</h3>
+
+  <p>Given a list of nodes <var>nodes</var> in a <code>Document</code>, a user agent must
+  run the following algorithm to extract the Microdata from those nodes into [[!JSON-LD]]:</p>
+
+  <ol>
+
+   <li><p>Let <var>result</var> be an empty object.</p></li>
+
+   <li><p>Let <var>items</var> be an empty array.</p></li>
+
+   <li><p>For each <var>node</var> in <var>nodes</var>, check if the element is a
+   <a>top-level Microdata item</a>, and if it is then <a>get the object for JSON-LD</a> for that element and add it to <var>items</var>.</p></li>
+
+   <li><p>Add an entry to <var>result</var> called "<code>items</code>" whose
+   value is the array <var>items</var>.</p></li>
+
+   <li><p>Add an entry to <var>result</var> called "<code>@context</code>" whose value is the following object:</p>
+     <pre class="html">{ "@vocab" : "" }</pre></li>
+
+   <li><p>Return the result of serializing <var>result</var> to JSON. [[JSON]]</p></li>
+
+  </ol>
+
+  <p class="note">This algorithm returns an object with a single property that is an array, instead
+  of just returning an array, so that it is possible to extend the algorithm in the future if
+  necessary.</p>
+
+  <p>When the user agent is to <dfn>get the object for JSON-LD</dfn> for an item <var>item</var>,
+  potentially together with a list of elements <var>memory</var>, it must run the following
+  substeps:</p>
+
+  <ol>
+
+   <li><p>Let <var>result</var> be an empty object.</p></li>
+
+   <li><p>If no <var>memory</var> was passed to the algorithm, let <var>memory</var> be an empty list.</p></li>
+
+   <li><p>Add <var>item</var> to <var>memory</var>.</p></li>
+
+   <li><p>If the <var>item</var> has any <a>item types</a>, add an entry to <var>result</var>
+   called "<code>@type</code>" whose value is an array listing the
+   <a>item types</a> of <var>item</var>, in the order they were specified on the
+   <code><a>itemtype</a></code> attribute.</p>
+
+   </li><li><p>If the <var>item</var> has a <a>global identifier</a>, add an entry to
+   <var>result</var> called "<code>@id</code>" whose value is the <a>global
+   identifier</a> of <var>item</var>.</p></li>
+
+   <li><p>Let <var>properties</var> be an empty object.</p></li>
+
+   <li>
+
+    <p>For each element <var>element</var> that has one or more <a>property names</a>
+    and is one of <a data-lt="item properties">the properties of the item</a>
+    <var>item</var>, in the order those elements are given by the algorithm that returns
+    <a data-lt="item properties">the properties of an item</a>, run the following substeps:</p>
+
+    <ol>
+
+     <li><p>Let <var>value</var> be the
+     <a>property value</a> of <var>element</var>.</p></li>
+
+     <li><p>If <var>value</var> is an <a data-lt="concept item">item</a>, then:
+     If <var>value</var> is in <var>memory</var>, then let <var>value</var> be
+     the string "<code>ERROR</code>". Otherwise, <a>get the object</a> for
+     <var>value</var>, passing a copy of <var>memory</var>, and then replace <var>value</var>
+     with the object returned from those steps.</p></li>
+
+     <li>
+
+      <p>For each name <var>name</var> in <var>element</var>'s
+      <a>property names</a>, run the following substeps:</p>
+
+      <ol>
+
+       <li><p>If there is no entry named <var>name</var> in <var>result</var>,
+       then add an entry named <var>name</var> to <var>result</var> whose
+       value is an empty array.</p></li>
+
+       <li><p>Append <var>value</var> to the entry named <var>name</var> in <var>result</var>.</p></li>
+
+      </ol>
+
+     </li>
+
+    </ol>
+
+   </li>
+
+   <li><p>Return <var>result</var>.</p></li>
+
+  </ol>
+
+  <div class="example">
+
+   <p>For example, take this markup:</p>
+
+   <pre class="html">&lt;!DOCTYPE HTML&gt;
+&lt;title&gt;My Blog&lt;/title&gt;
+&lt;article itemscope itemtype="https://schema.org/BlogPosting"&gt;
+ &lt;header&gt;
+  &lt;h1 itemprop="headline"&gt;Progress report&lt;/h1&gt;
+  &lt;p&gt;&lt;time itemprop="datePublished" datetime="2013-08-29"&gt;today&lt;/time&gt;&lt;/p&gt;
+  &lt;link itemprop="url" href="?comments=0"&gt;
+ &lt;/header&gt;
+ &lt;p&gt;All in all, he's doing well with his swim lessons. The biggest thing was he had trouble
+ putting his head in, but we got it down.&lt;/p&gt;
+ &lt;section&gt;
+  &lt;h1&gt;Comments&lt;/h1&gt;
+  &lt;article itemprop="comment" itemscope itemtype="https://schema.org/Comment" id="c1"&gt;
+   &lt;link itemprop="url" href="#c1"&gt;
+   &lt;footer&gt;
+    &lt;p&gt;Posted by: &lt;span itemprop="creator" itemscope itemtype="https://schema.org/Person"&gt;
+     &lt;span itemprop="name"&gt;Greg&lt;/span&gt;
+    &lt;/span&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;time itemprop="dateCreated" datetime="2013-08-29"&gt;15 minutes ago&lt;/time&gt;&lt;/p&gt;
+   &lt;/footer&gt;
+   &lt;p&gt;Ha!&lt;/p&gt;
+  &lt;/article&gt;
+  &lt;article itemprop="comment" itemscope itemtype="https://schema.org/Comment" id="c2"&gt;
+   &lt;link itemprop="url" href="#c2"&gt;
+   &lt;footer&gt;
+    &lt;p&gt;Posted by: &lt;span itemprop="creator" itemscope itemtype="https://schema.org/Person"&gt;
+     &lt;span itemprop="name"&gt;Charlotte&lt;/span&gt;
+    &lt;/span&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;time itemprop="dateCreated" datetime="2013-08-29"&gt;5 minutes ago&lt;/time&gt;&lt;/p&gt;
+   &lt;/footer&gt;
+   &lt;p&gt;When you say "we got it down"...&lt;/p&gt;
+  &lt;/article&gt;
+ &lt;/section&gt;
+&lt;/article&gt;</pre>
+
+   <p>It would be turned into the following JSON by the algorithm above (supposing that the page's
+   URL was <code>http://blog.example.com/progress-report</code>):</p>
+
+   <pre>{
+  "items": [
+    {
+      "type": [ "https://schema.org/BlogPosting" ],
+      "properties": {
+        "headline": [ "Progress report" ],
+        "datePublished": [ "2013-08-29" ],
+        "url": [ "http://blog.example.com/progress-report?comments=0" ],
+        "comment": [
+          {
+            "type": [ "https://schema.org/Comment" ],
+            "properties": {
+              "url": [ "http://blog.example.com/progress-report#c1" ],
+              "creator": [
+                {
+                  "type": [ "https://schema.org/Person" ],
+                  "properties": {
+                    "name": [ "Greg" ]
+                  }
+                }
+              ],
+              "dateCreated": [ "2013-08-29" ]
+            }
+          },
+          {
+            "type": [ "https://schema.org/Comment" ],
+            "properties": {
+              "url": [ "http://blog.example.com/progress-report#c2" ],
+              "creator": [
+                {
+                  "type": [ "https://schema.org/Person" ],
+                  "properties": {
+                    "name": [ "Charlotte" ]
+                  }
+                }
+              ],
+              "dateCreated": [ "2013-08-29" ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}</pre>
+
+  </div>
+</section>
+
+
 <section id="json">
 <h3>JSON</h3>
 
@@ -1466,7 +1660,121 @@
 }</pre>
 
   </div>
-</section>
+  </section>
+
+  <section>
+    <h3>RDFa</h3>
+
+    <p>A <a>typed item</a> can generally be readily converted to RDFa.
+      This is useful for example to provide greater support for internationalization, or to include markup in the resulting data.
+      The algorithm to <dfn data-lt="microdata to rdfa">convert a Microdata <a>item</a> to RDFa</dfn> is as follows:</p>
+
+    <ol>
+      <li>Replace the <a>itemscope</a> attribute with a <code>vocab</code> attribute,
+        whose value is the <a>vocabulary identifier</a> for the item.</li>
+      <li>Let <var>local type</var> be the difference between the <a>vocabulary identifier</a> and the first
+        value of <a>itemtype</a>. Replace the <a>itemtype</a> attribute with a <code>typeof</code> attribute
+        whose value is <var>local type</var>.</li>
+      <li>If <a data-lt="split a string on spaces">splitting the value on spaces</a> for the <a>itemtype</a> attribute
+        results in more than one value,
+        then for each value <var>extra type</var> of <a>itemtype</a> after the first,
+        add an empty <code>span</code> child element to the element that represents the item,
+        with the attribute <code>rel="rdf:type"</code>
+        and a <code>resource</code> attribute whose value is <var>extra type</var>.</li>
+      <li>Change each <a>itemprop</a> attribute to a <code>property</code> attribute with the same value</li>
+      <li>Change each <a>itemid</a> attribute to an <code>about</code> attribute with the same value</li>
+      <li>For the value of each <a>itemref</a> attribute, for each value <var>reference</var>
+        that is a result of <a data-lt="split a string on spaces">splitting the value on spaces</a> follow the following substeps:
+        <ol>
+          <li>Add an element as the immediate parent of the element with <code>id</code> <var>reference</var>,
+            with a <code>vocab</code> attribute whose value is the <a>vocabulary identifier</a> for the item.
+            <p class="note">The choice of element is left to the author, to provide sufficient flexibility
+            to avoid unwanted changes in the rendering of the content.</p>
+          </li>
+          <li>If the element with <code>id</code> <var>reference</var> has no <code>resource</code> attribute,
+            add a <code>resource</code> attribute whose value is a NUMBER SIGN U+0023 followed by <var>reference</var>
+            to the element.</li>
+          <li>If the element with <code>id</code> <var>reference</var> has no <code>typeof</code> attribute,
+            add a <code>typeof="rdfa:Pattern"</code> attribute to the element.</li>
+          <li>Add a <code>link</code> child element to the element that represents the <a>item</a>,
+            with a <code>rel="rdfa:copy"</code> attribute and an <code>href</code> attribute
+            whose value is a NUMBER SIGN U+0023 followed by <var>reference</var></li>
+        </ol>
+        <p>And then remove the </a>itemref</a> attribute.</li>
+    </ol>
+
+    <p class="note">There is significant scope for optimising this algorithm, which may result in redundant <code>vocab</code>
+      declarations in particular.</p> 
+
+    <div class="example">
+    
+      <p>The example of date for a model locomotive given above would be converted to the folling RDFa:</p>
+
+      <pre class="html">&lt;dl vocab="http://md.example.com/" typeof="loco"&gt;
+ &lt;span rel="rdf:type" resource="http://md.example.com/lighting"&gt;&lt;/span&gt;
+ &lt;dt&gt;Name:
+ &lt;dd property="name"&gt;Tank Locomotive (DB 80)
+ &lt;dt&gt;Product code:
+ &lt;dd property="product-code"&gt;33041
+ &lt;dt&gt;Scale:
+ &lt;dd property="http://my.test/scale"&gt;HO
+ &lt;dt&gt;Digital:
+ &lt;dd property="digital"&gt;Delta
+&lt;/dl&gt;</pre>
+
+     <p>An example using <a>itemref</a> shows scope for optimisation:</p>
+
+     <pre class="html">  &lt;figure <mark>vocab="https://schema.org/"</mark> typeof="CreativeWork"&gt;
+   &lt;link rel="rdfa:copy" href="#licenses"&gt;
+   &lt;img property="image" src="images/house.jpeg"
+    alt="A white house, boarded up, sits in a forest."&gt;
+   &lt;figcaption property="name"&gt;The house I found.&lt;/figcaption&gt;
+  &lt;/figure&gt;
+  &lt;figure <mark>vocab="https://schema.org/"</mark> typeof="CreativeWork"&gt;
+   &lt;link rel="rdfa:copy" href="#licenses"&gt;
+   &lt;img property="image" src="images/mailbox.jpeg"
+    alt="Outside the house is a mailbox. It has a leaflet inside."&gt;
+   &lt;figcaption property="name"&gt;The mailbox.&lt;/figcaption&gt;
+  &lt;/figure&gt;
+  &lt;footer&gt;
+   <mark>&lt;div vocab="https://schema.org/"&gt;
+    &lt;div vocab="https://schema.org/"&gt;</mark>
+     &lt;p typeof="rdfa:Pattern" resource="#licenses"
+      id="licenses"&gt;All images licensed under the &lt;a property="license"
+      href="http://www.opensource.org/licenses/mit-license.php"&gt;MIT license&lt;/a&gt;.&lt;/p&gt;
+    <mark>&lt;/div&gt;
+   &lt;/div&gt;</mark>
+  &lt;/footer&gt;</pre>
+
+     <p>It could be rewritten as:</p>
+
+     <pre class="html"><mark>&lt;div vocab="https://schema.org/"&gt;</mark>
+  &lt;figure typeof="CreativeWork"&gt;
+   &lt;link rel="rdfa:copy" href="#licenses"&gt;
+   &lt;img property="image" src="images/house.jpeg"
+    alt="A white house, boarded up, sits in a forest."&gt;
+   &lt;figcaption property="name"&gt;The house I found.&lt;/figcaption&gt;
+  &lt;/figure&gt;
+  &lt;figure typeof="CreativeWork"&gt;
+   &lt;link rel="rdfa:copy" href="#licenses"&gt;
+   &lt;img property="image" src="images/mailbox.jpeg"
+    alt="Outside the house is a mailbox. It has a leaflet inside."&gt;
+   &lt;figcaption property="name"&gt;The mailbox.&lt;/figcaption&gt;
+  &lt;/figure&gt;
+  &lt;footer&gt;
+   &lt;p typeof="rdfa:Pattern" resource="#licenses"
+    id="licenses"&gt;All images licensed under the &lt;a property="license"
+    href="http://www.opensource.org/licenses/mit-license.php"&gt;MIT license&lt;/a&gt;.&lt;/p&gt;
+  &lt;/footer&gt;
+<mark>&lt;/div&gt;</mark>
+</pre>
+
+
+
+    </div>
+
+  </section>
+
   </section>
 
   <section id="other-changes-to-html5">
@@ -1486,19 +1794,19 @@
    <dt><a>itemtype</a></dt>
     <dd>This is a list of <a data-lt="absolute URL">absolute URLs</a> that identify an <a>item</a> within a particular vocabulary.</dd>
     <dd>The <a>itemtype</a> attribute must not be specified on elements that do not have an <a>itemscope</a> attribute.</dd>
-    <dd class="note">This attribute performs a function similar to the combination of <code>vocab</code> and <code>typeof</code> attributes in [[rdfa-core]].</dd>
+    <dd><p class="note">This attribute performs a function similar to the combination of <code>vocab</code> and <code>typeof</code> attributes in [[rdfa-core]].<p></dd>
 
    <dt><a>itemprop</a></dt>
     <dd>When present on an element, it identifies that the element provides the <a>property value</a>
       of the <a>item</a> in which it appears, and the attribute's value defines the <a>property name</a>.</dd>
-    <dd class="note">This attribute is equivalent to the <code>property</code> attribute in [[rdfa-core]].</dd>
+    <dd><p class="note">This attribute is equivalent to the <code>property</code> attribute in [[rdfa-core]].<p></dd>
 
    <dt><a>itemid</a></dt>
     <dd>This is an <a>absolute URL</a> that provides a global identifier for an <a>item</a>.</dd>
     <dd>The <a>itemid</a> attribute must not be specified on elements that do not have
      an <a>itemscope</a> attribute specified.</dd>
-   <dd class="note">This is approximately equivalent to declaring that an <a>item</a> is
-    <code>owl:sameAs</code> the value of the attribute. [[owl-ref]]</dd>
+   <dd><p class="note">This is approximately equivalent to declaring that an <a>item</a> is
+    <code>owl:sameAs</code> the value of the attribute. [[owl-ref]]<p></dd>
 
    <dt><a><code>itemref</code></a></dt>
     <dd>This is a space seperated list of <a data-lt="ID">IDs</a> of elements
@@ -1710,6 +2018,8 @@
     and the <a href="https://www.w3.org/TR/2017/WD-microdata-20170626/">second Working Draft</a>:</p>
     
   <ul>
+    <li>Add a section describing how to convert <a href="#rdfa">microdata to RDFa</a>.</li>
+    <li>Add a section describing how to convert <a href="#jsonLD">microdata to JSON-LD</a>.</li>
     <li><a>itemid</a> may be specified on an element with an <a>itemscope</a> attribute, not just a <a>typed item</a></li>
   </ul>
 
@@ -1747,7 +2057,7 @@
   <h2>Acknowledgements</h2>
 
   <p>The original specification for Microdata was developed by Ian Hickson. Without him this specification would not exist.
-  Uptake has been substantially been driven by its use for the schema.org vocabulary.</p>
+  Uptake has substantially been driven by its use for the schema.org vocabulary.</p>
 
   <p>The current editors would like to thank the following people for direct contributions to this work:</p>
 
@@ -1756,14 +2066,18 @@
 Christine Runnegar,
 Gregg Kellogg,
 Ivan Herman,
+Jeni Tennison,
 Jens Oliver Meiert,
 Léonie Watson,
 Manu Sporny,
-Marcos Caceres,
+Marcos Cáceres,
+Markus Lanthaler,
 Nick Doty,
+Nick Levinson,    
 Philippe Le Hégaret,
 Ralph Swick,
 Robin Berjon,
+Shane McCarron,
 Tab Atkins,
 Tavis Tucker,
 Tobie Langel,
