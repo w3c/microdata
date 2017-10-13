@@ -746,7 +746,7 @@
   and each <a data-lt="item properties">property</a> has one or more <a data-lt="property value">values</a>.
   Each <a data-lt="property value">value</a> is either a string or itself a group of name-value pairs
   (an <a data-lt="concept item">item</a>).
-  The names are unordered relative to each other, but if a particular name has multiple values, they do have a relative order.</p>
+  Properties and their values are unordered, and authors must not rely on a particular ordering being preserved.</p>
 </section>
 
 <section id="items">
@@ -970,13 +970,12 @@
   </ul>
 
   <p>Within an <a data-lt="concept item">item</a>, the properties are unordered with respect to
-  each other, except for properties with the same name, which are ordered in the order they are
-  given by the algorithm that defines <a>the properties of an item</a>.</p>
+  each other and authors must not rely on order in markup being preserved.</p>
 
   <div class="example">
 
-   <p>In the following example, the "a" property has the values "1" and "2", <em>in that order</em>,
-   but whether the "a" property comes before the "b" property or not is not important:</p>
+   <p>In the following example, the orer of the "a" and "b" properties is not important,
+     as it is not guaranteed to be preserved in the resulting microdata:</p>
 
    <pre class="html">&lt;div itemscope&gt;
  &lt;p itemprop="a"&gt;1&lt;/p&gt;
@@ -984,20 +983,12 @@
  &lt;p itemprop="b"&gt;test&lt;/p&gt;
 &lt;/div&gt;</pre>
 
-   <p>Thus, the following is equivalent:</p>
+   <p>Is equivalent to:</p>
 
    <pre class="html">&lt;div itemscope&gt;
  &lt;p itemprop="b"&gt;test&lt;/p&gt;
- &lt;p itemprop="a"&gt;1&lt;/p&gt;
  &lt;p itemprop="a"&gt;2&lt;/p&gt;
-&lt;/div&gt;</pre>
-
-   <p>As is the following:</p>
-
-   <pre class="html">&lt;div itemscope&gt;
  &lt;p itemprop="a"&gt;1&lt;/p&gt;
- &lt;p itemprop="b"&gt;test&lt;/p&gt;
- &lt;p itemprop="a"&gt;2&lt;/p&gt;
 &lt;/div&gt;</pre>
 
   </div>
@@ -2014,7 +2005,15 @@
   <p>An exact history of changes to the text is available in the <a href="https://github.com/w3c/microdata/commits">Github commit log</a>.
   The following information is provided as an overview of the substantive changes made to the specification between each publication.</p>
 
+    
   <p>Changes made between the current draft
+    and the <a href="https://www.w3.org/TR/2017/WD-microdata-20171010/">third Working Draft</a>:</p>
+    
+  <ul>
+    <li>Specify that properties and their values are unordered.</li>
+    </ul>  
+    
+  <p>Changes made between the <a href="https://www.w3.org/TR/2017/WD-microdata-20171010/">third Working Draft</a>
     and the <a href="https://www.w3.org/TR/2017/WD-microdata-20170626/">second Working Draft</a>:</p>
     
   <ul>
