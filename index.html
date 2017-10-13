@@ -70,9 +70,12 @@
 
  <body>
  <section id="abstract">
-  <p>This specification defines new HTML attributes to embed machine-readable data in HTML documents in a style similar to RDFa.
-    It is compatible with JSON, and <em>can</em> be written in a style which is convertible to RDF,
-    although two-way conversion is not lossless.</p>
+  <p>This specification defines new HTML attributes to embed simple machine-readable data in HTML documents
+    that can be written in a style which is readily convertible to RDFa.
+    Microdata is generally less expressive than, and does not support the same level of internationalization as RDF formats
+    such as RDFa or JSON-LD.
+    It is simple to learn and process, but authors who need good internationalization support or other features of RDF
+    may prefer to transition their content to RDFa.</p>
 </section>
 
 <section id="sotd">
@@ -106,7 +109,6 @@
   if additional constraints are applied to the Microdata content.
   A process to convert Microdata directly to RDF is described in <a href="https://www.w3.org/TR/microdata-rdf">Microdata to RDF</a>.
   [[JSON-LD]], [[JSON]], [[rdfa-core]], [[microdata-rdf]]</p>
-  
 
 </section>
 
@@ -247,7 +249,7 @@
 &lt;/div&gt;</pre>
 
   <figure>
-  <figcaption>The example represented graphically: two items, each with a value for the property <code>name</code>
+  <figcaption>The example represented graphically: two items, each with a value for the property <code>name</code>.</figcaption>
   <p><svg viewbox="0 0 300 105">
     <g id="ex2-first-item">
       <g id="ex2-item1">
@@ -303,8 +305,9 @@
  &lt;/div&gt;
 &lt;/section&gt;</pre>
 
-  <p class="warning">Note that this means any information recorded in markup for purposes such as internationalisation
-  or accessibility will be lost in the conversion to data.</p>
+  <p class="warning">Note that this means any information recorded in markup for purposes such as internationalization
+  or accessibility will be lost in the conversion to data. Authors who wish to preserve markup in machine-readable formats
+  should consider using RDFa's ability to use the XMLLiteral datatype.</p>
 
   </div>
 
@@ -354,6 +357,28 @@
  &lt;data itemprop="product-id" value="9678AOU879"&gt;The Instigator 2000&lt;/data&gt;
 &lt;/h1&gt;</pre>
 
+    <figure>
+  <figcaption>The example represented graphically as microdata: an items, whose property <code>product-id</code> has the value
+    <samp>9678AOU879</samp>
+  <p><svg viewbox="0 0 305 50">
+    <g id="ex4-item">
+      <g id="ex4-item1">
+        <ellipse class="item" cx="50" cy="30" rx="40" ry="15"/>
+        <text x="35" y="35">Item</text>
+      </g>
+      <g id="ex4-property1">
+        <path d="M95,28h90v-8l10,10l-10,10v-8h-90z"/>
+        <text x="125" y="24" class="property">product-id</text>
+      </g>
+      <g id="ex4-value1">
+        <rect class="value-box" x="200" y="15" width="100" height="30"/>
+        <text x="210" y="35" class="value">9678AOU879</text>
+      </g>
+    </g>
+  </svg><p>
+  </figure>
+  
+
    <p class="warning">This will not work if there is a <a>content</a> attribute as well. In the following example,
     the value of the <var>product-id</var> property is taken from the <a>content</a> attribute, so it will be
     <samp>This one rocks!</samp>:</p>
@@ -362,6 +387,28 @@
  &lt;data itemprop="product-id" value="9678AOU879" 
    content="This one rocks!"&gt;The Instigator 2000&lt;/data&gt;
 &lt;/h1&gt;</pre>
+
+    <figure>
+  <figcaption>The example represented graphically as microdata: an items, whose property <code>product-id</code> has the value
+    <samp>This one Rocks!</samp>
+  <p><svg viewbox="0 0 325 50">
+    <g id="ex4-item">
+      <g id="ex4-item1">
+        <ellipse class="item" cx="50" cy="30" rx="40" ry="15"/>
+        <text x="35" y="35">Item</text>
+      </g>
+      <g id="ex4-property1">
+        <path d="M95,28h90v-8l10,10l-10,10v-8h-90z"/>
+        <text x="125" y="24" class="property">product-id</text>
+      </g>
+      <g id="ex4-value1">
+        <rect class="value-box" x="200" y="15" width="120" height="30"/>
+        <text x="210" y="35" class="value">This one Rocks!</text>
+      </g>
+    </g>
+  </svg><p>
+  </figure>
+  
 
   </div>
 
@@ -1807,6 +1854,18 @@
 
 </section>
 
+  <section id="microdata-and-rdf">
+    <h2>Microdata and RDF</h2>
+    <p><i>This section is not normative</i></p>
+    <p>Microdata has limited expressivity. There are only two types of data - text strings, and URLs, and microdata
+      does not have a mechanism to describe further datatypes such as numbers or fragments of markup in an interoperable way,
+      unlike RDF formats including RDFa.</p>
+    <p>Information expressed as Microdata can be converted to RDFa, JSON-LD as described in
+      <a href="#converting-html-to-other-formats">Section 6</a>, if additional constraints are applied to the Microdata content.
+      A process to convert Microdata directly to RDF, with simple enhancements of its semantic richness, is described in
+      <a href="https://www.w3.org/TR/microdata-rdf">Microdata to RDF</a>.
+      [[JSON-LD]] [[rdfa-core]] [[microdata-rdf]]</p>
+  </section>
 
   <section id="a11y-considerations">
   <h2>Accessibility and Microdata</h2>
@@ -1826,15 +1885,19 @@
   <section id="i18n-considerations">
   <h2>Internationalisation and localisation</h2>
   <p><i>This section is not normative</i></p>
-  <p>Microdata conversion means that almost all internationalisation-related information is lost, 
-    except if it is specifically encoded as Microdata, in which case it is important to pay attention when editing, as above for accessibility.</p>
-  <p>Machine-readable data may be presented to users, for example by search engines. Identifying content that should,
-  or should not, be translated, would be helpful but currently Microdata strips markup. It is possible to use XMLLiterals in
-  RDFa to ensure that markup is kept. [[rdfa-core]]</p>
+  <p>Microdata does not preserve internationalization-related information in the source document, 
+    except if it is specifically encoded as Microdata.
+    In that case it is important to pay attention when editing the source document, as with accessibility,
+    to avoid introducing errors that are only reflected in the microdata. 
+    This approach also has the disadvantage that the representation of such information is not based on an established standard,
+    so it may not be understood by downstream processors and users of the information.</p>
+  <p>Machine-readable data may be presented to users, for example by search engines. Internationalization information
+    is often important for this use case. Authors may prefer to <a data-lt="microdata-to-rdfa">convert their data to RDFa</a>
+    to take advantage of its better support for Internationalization.</p>
   <p>Vocabulary design is difficult. Different languages and cultures present view ambiguity differently:
-  two terms with different meanings in one situation may be most naturally translated by a single term that has both meanings,
-  or a single term may have two natural translations. When developing for localisation, it is important to provide
-  sufficient contextual information about terms in a vocabulary to enable accurate translation.</p>
+    two terms with different meanings in one situation may be most naturally translated by a single term that has both meanings,
+    or a single term may have two natural translations. When developing for localisation, it is important to provide
+    sufficient contextual information about terms in a vocabulary to enable accurate translation.</p>
   </section>
 
   <section id="privacy-considerations">
