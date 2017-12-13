@@ -1489,37 +1489,41 @@
       the triples produced by applying the following algorithm:</p>
 
     <ol>
-      <li>Replace the <a>itemscope</a> attribute with a <code>vocab</code> attribute,
-        whose value is the <a>vocabulary identifier</a> for the item.</li>
-      <li>Let <var>local type</var> be the difference between the <a>vocabulary identifier</a> and the first
-        value of <a>itemtype</a>. Replace the <a>itemtype</a> attribute with a <code>typeof</code> attribute
-        whose value is <var>local type</var>.</li>
-      <li>If <a data-lt="split a string on spaces">splitting the value on spaces</a> for the <a>itemtype</a> attribute
-        results in more than one value,
-        then for each value <var>extra type</var> of <a>itemtype</a> after the first,
-        add an empty <code>span</code> child element to the element that represents the item,
-        with the attribute <code>rel="rdf:type"</code>
-        and a <code>resource</code> attribute whose value is <var>extra type</var>.</li>
-      <li>Change each <a>itemprop</a> attribute to a <code>property</code> attribute with the same value</li>
-      <li>Change each <a>itemid</a> attribute to a <code>resource</code> attribute with the same value</li>
-      <li>For the value of each <a>itemref</a> attribute, for each value <var>reference</var>
-        that is a result of <a data-lt="split a string on spaces">splitting the value on spaces</a> follow the following substeps:
+      <li>For each element having an <a>itemscope</a> attribute:
         <ol>
-          <li>Add an element as the immediate parent of the element with <code>id</code> <var>reference</var>,
-            with a <code>vocab</code> attribute whose value is the <a>vocabulary identifier</a> for the item.
-            <p class="note">The choice of element is left to the author, to provide sufficient flexibility
-            to avoid unwanted changes in the rendering of the content.</p>
+          <li>Replace the <a>itemscope</a> attribute with a <code>vocab</code> attribute, whose value is the <a>vocabulary identifier</a> for the item.</li>
+          <li>Replace any <a>itemtype</a> attribute with a <code>typeof</code> attribute whose value is taken from the values of <a>itemtype</a> where each type is made relative to <a>vocabulary identifier, ensuring that the element has a <code>typeof</code> attribute with at least an empty value.</a>.
           </li>
-          <li>If the element with <code>id</code> <var>reference</var> has no <code>resource</code> attribute,
-            add a <code>resource</code> attribute whose value is a NUMBER SIGN U+0023 followed by <var>reference</var>
-            to the element.</li>
-          <li>If the element with <code>id</code> <var>reference</var> has no <code>typeof</code> attribute,
-            add a <code>typeof="rdfa:Pattern"</code> attribute to the element.</li>
-          <li>Add a <code>link</code> child element to the element that represents the <a>item</a>,
-            with a <code>rel="rdfa:copy"</code> attribute and an <code>href</code> attribute
-            whose value is a NUMBER SIGN U+0023 followed by <var>reference</var></li>
+          <li>Replace any <a>itemid</a> attribute with a
+            <code>resource</code> attribute having the same value.</li>
+          <li>Otherwise, ensure that element has a <code>typeof</code>
+            attribute with at least an empty value.</li>
         </ol>
-        <p>And then remove the </a>itemref</a> attribute.</li>
+      </li>
+      <li>For each <code>object</code> element having both an
+        <a>itemprop</a> and a <code>data</code> attribute, change
+        the <code>data</code> attribute to a
+        <code>resource</code> attribute with the same value</li>
+      <li>Change each <a>itemprop</a> attribute to a <code>property</code> attribute with the same value</li>
+      <li>For each element having an <a>itemref</a> attribute:
+        <ol>
+          <li>Set <var>item vocab</var> to the first value of the
+            <code>vocab</code> attribute taken from the element and its
+            ansestors.</li>
+          <li>For each value <var>reference</var>
+          that is a result of <a data-lt="split a string on spaces">splitting the value on spaces</a> follow the following substeps:
+          <ol>
+            <li>Add an element as the immediate parent of the element with <code>id</code> <var>reference</var>,
+              with a <code>vocab</code> attribute whose value is <var>item vocab</var>, and a <code>typeof</code> attribute with <code>rel="rdfa:Pattern"</code> attribute.
+              <p class="note">The choice of element is left to the author, to provide sufficient flexibility
+              to avoid unwanted changes in the rendering of the content.</p>
+            </li>
+            <li>Add a <code>link</code> child element to the element that represents the <a>item</a>,
+              with a <code>rel="rdfa:copy"</code> attribute and an <code>href</code> attribute
+              whose value is a NUMBER SIGN U+0023 followed by <var>reference</var></li>
+          </ol>
+          <p>And then remove the </a>itemref</a> attribute.</li>
+        </ol>
     </ol>
 
     <p class="note">There is significant scope for optimising this algorithm, which may result in redundant <code>vocab</code>
