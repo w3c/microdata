@@ -23,7 +23,7 @@
     edDraftURI: "https://w3c.github.io/microdata/",
     editors: [{
       name: "Chaals McCathie Nevile",
-      mailto: "chaals@yandex-team.ru",
+      mailto: "chaals@yandex.ru",
       company: "Yandex / Яндекс",
       companyURL: "http://yandex.com/",
       w3cid: "6222"
@@ -70,20 +70,21 @@
 
  <body>
  <section id="abstract">
-  <p>This specification defines new HTML attributes to embed simple machine-readable data in HTML documents
-    that can be written in a style which is readily convertible to RDFa.
-    Microdata is generally less expressive than, and does not support the same level of internationalization as RDF formats
-    such as RDFa or JSON-LD.
-    It is simple to learn and process, but authors who need good internationalization support or other features of RDF
-    may prefer to transition their content to RDFa.</p>
+  <p>This [[html-extensions]] specification defines new HTML attributes
+    to embed simple machine-readable data in HTML documents.
+    It is similar to, but generally less expressive than RDFa,
+    and does not support the same level of internationalization.
+    It is simple to learn and process, but authors who need good internationalization support,
+    or want to include structured content in their data should consider using RDFa.
+  (or another format such as JSON-LD) instead.</p>
 </section>
 
 <section id="sotd">
   <p>This document is an editor's draft for the <a href="https://www.w3.org/WebPlatform/WG/">Web Platform Working Group</a>,
   proposed as an update to the
-  <a href="https://www.w3.org/TR/2017/WD-microdata-20171010/">10 October 2017 W3C Working Draft</a>. 
-    The editors hope to request advancement to Candidate Recommendation before the end of November 2017.
-    Review is particularly sought on the algorithm for conversion to <a href="rdfa">RDFa</a>.</p>
+  <a href="https://www.w3.org/TR/2017/WD-microdata-20171010/">10 October 2017 W3C Working Draft</a>.
+    The editors believe the specification is complete and ready to become a Candidate Recommendation.
+    Review is particularly sought on the <a href="#microdata-to-rdfa">algorithm for conversion to RDFa</a>.</p>
 
   <!-- where to send feedback (required) -->
   <p>If you wish to make comments regarding this document please
@@ -97,20 +98,11 @@
 <!--YYY-->
 <section id="dependencies">
 <h2>Dependencies</h2>
- <p>This specification is an extension to HTML. 
+ <p>This specification is an extension to HTML.
   All normative content in the HTML specification not specifically overridden by this specification
-  is intended to be normative for this specification. 
+  is intended to be normative for this specification.
    This specification depends on the HTML specification and its extensions for
    definitions of individual HTML elements and attributes. [[!HTML52]][[html-extensions]]</p>
-
-  <p>Information expressed as Microdata can be converted to 
-    <a href="#json">JSON</a>, or <a href="#rdfa">RDFa</a> as described in <a href="#converting-html-to-other-formats">Section 6</a>. 
-  Microdata can be converted to RDF formats such as JSON-LD or RDFa,
-  if additional constraints are applied to the Microdata content.
-  A richer process to convert Microdata to RDF than the minimal one required by this specification is described in
-   <a href="https://www.w3.org/TR/microdata-rdf">Microdata to RDF</a>.
-  [[JSON-LD]], [[JSON]], [[rdfa-core]], [[microdata-rdf]]</p>
-
 </section>
 
   <section id="terminology">
@@ -123,7 +115,7 @@
 
   <p>RFC 3986 defines the term <dfn data-lt="resolving">resolve a URL</dfn> [[!RFC3986]].</p>
 
-  <p>DOM 4.1 defines <dfn><code>textContent</code></dfn> for attributes, and for elements or nodes, 
+  <p>DOM 4.1 defines <dfn><code>textContent</code></dfn> for attributes, and for elements or nodes,
   as well as the term <dfn id="tree-order">tree order</dfn>. [[!DOM41]]</p><!-- and this spec uses tree order once… badly -->
 
   <p>This specification relies on the HTML specification to define the following terms: [[!HTML52]]</p>
@@ -150,7 +142,7 @@
   characters" or "return false and abort these steps") are to be interpreted with the meaning of the
   key word ("must", "should", "may", etc) used in introducing the algorithm.</p>
 
-  <aside class="example" title="conformance language">
+  <aside class="example" title="conformance language" id="ex-conf">
 
    <p>For example, were the spec to say:</p>
 
@@ -235,7 +227,7 @@
     identifies a <a>property</a> of that item.
     Typically, the text content of that element is the <a data-lt="property value">value</a> of that property.</p>
 
-  <div class="example">
+  <div class="example" id="ex-2items">
 
    <p>Here there are two items, each of which has the property "name":</p>
 
@@ -245,7 +237,7 @@
 &lt;/div&gt;
 
 &lt;div itemscope&gt;
- &lt;p&gt;My name is 
+ &lt;p&gt;My name is
   &lt;span itemprop="name"&gt;Daniel&lt;/span&gt;.&lt;/p&gt;
 &lt;/div&gt;</pre>
 
@@ -282,12 +274,12 @@
     </g>
   </svg><p>
   </figure>
-  
+
   </div>
 
   <p>Markup other than Microdata attributes has no effect on Microdata.</p>
 
-  <div class="example">
+  <div class="example" id="ex-2items2more">
 
    <p>These two examples are exactly equivalent, at a Microdata level, as the previous two examples
    respectively:</p>
@@ -314,7 +306,7 @@
 
   <p>Properties generally have values that are strings.</p>
 
-  <div class="example">
+  <div class="example" id="ex-3props">
 
    <p>Here the item has three properties:</p>
 
@@ -330,10 +322,10 @@
   is unsuitable for recording the property value,
   it can be expressed using the <a>content</a> attribute of the element.</p>
 
-  <div class="example">
+  <div class="example" id="ex-content">
 
    <p>Here, the visible content may be added by a script.
-   A Microdata processor can extract the content from the <a>content</a> attribute without running scripts. 
+   A Microdata processor can extract the content from the <a>content</a> attribute without running scripts.
    The value of the <var>product-id</var> property for this item is <samp>9678AOU879</samp></p>
 
    <pre class="html">&lt;li itemscope&gt;
@@ -347,7 +339,7 @@
   it can be expressed using the <code title="attr-data-value">value</code> attribute of the <code>data</code> element,
   as long as there is no <a>content</a> attribute.</p>
 
-  <div class="example">
+  <div class="example" id="ex-dataelem">
 
    <p>Here, there is an item with a property whose value is a product identifier. The identifier is not
    human-friendly, so instead it is encoded for Microdata using the <code>value</code> attribute
@@ -378,14 +370,14 @@
     </g>
   </svg><p>
   </figure>
-  
+
 
    <p class="warning">This will not work if there is a <a>content</a> attribute as well. In the following example,
     the value of the <var>product-id</var> property is taken from the <a>content</a> attribute, so it will be
     <samp>This one rocks!</samp>:</p>
 
    <pre class="html">&lt;h1 itemscope&gt;
- &lt;data itemprop="product-id" value="9678AOU879" 
+ &lt;data itemprop="product-id" value="9678AOU879"
    content="This one rocks!"&gt;The Instigator 2000&lt;/data&gt;
 &lt;/h1&gt;</pre>
 
@@ -409,16 +401,16 @@
     </g>
   </svg><p>
   </figure>
-  
+
 
   </div>
 
   <p>When an <a>itemprop</a> is used on an element that can have a <code>src</code> or <code>href</code> attribute,
     such as links and media elements, that <em>does not</em> have a <a>content</a> attribute,
-    the value of the name-value pair is an <a>absolute URL</a> based on the 
+    the value of the name-value pair is an <a>absolute URL</a> based on the
     <code>src</code> or <code>href</code> attribute (or the empty string if they are missing or there is an error).</p>
 
-  <div class="example">
+  <div class="example" id="ex-url">
 
    <p>In this example, the item has one property, <var>logo</var>, whose value is a URL based on the location of the page, and ending with <samp>our-logo.png</samp>:</p>
 
@@ -440,7 +432,7 @@
   <p>For numeric data, the <code>meter</code> element and its <code title="attr-meter-value">value</code> attribute
   can be used instead, as long as there is no <a>content</a> attribute.</p>
 
-  <div class="example">
+  <div class="example" id="ex-meter">
 
    <p>Here a rating of <samp>3.5</samp> is given using a <code>meter</code> element.</p>
 
@@ -460,7 +452,7 @@
   <code>datetime</code> attribute can be used to specify a specifically formatted date or time,
   as long as there is no <a>content</a> attribute.</p>
 
-  <div class="example">
+  <div class="example" id="ex-date">
 
    <p>In this example, the item has one property, "birthday", whose value is a date:</p>
 
@@ -476,13 +468,14 @@
 
   <p>Items that are not part of others are called <a data-lt="top-level microdata item">top-level Microdata items</a>.</p>
 
-  <div class="example">
+  <div class="example" id="ex-nested">
 
    <p>In this example, the outer item represents a person, and the inner one represents a band:</p>
 
    <pre class="html">&lt;div itemscope&gt;
  &lt;p&gt;Name: &lt;span itemprop="name"&gt;Amanda&lt;/span&gt;&lt;/p&gt;
- &lt;p&gt;Band: &lt;span itemprop="band" itemscope&gt; &lt;span itemprop="name"&gt;Jazz Band&lt;/span&gt; (&lt;span itemprop="size"&gt;12&lt;/span&gt; players)&lt;/span&gt;&lt;/p&gt;
+ &lt;p&gt;Band: &lt;span itemprop="band" itemscope&gt; &lt;span itemprop="name"&gt;Jazz Band&lt;/span&gt;
+  (&lt;span itemprop="size"&gt;12&lt;/span&gt; players)&lt;/span&gt;&lt;/p&gt;
 &lt;/div&gt;</pre>
 
    <p>The outer item here has two properties, "name" and "band". The "name" is "Amanda", and the
@@ -500,7 +493,7 @@
   This attribute takes a list of <a>ID</a>s of elements to crawl in addition to crawling the children of
   the element with the <code><a>itemscope</a></code> attribute.</p>
 
-  <div class="example">
+  <div class="example" id="ex-itemref">
 
    <p>This example is the same as the previous one, but all the properties are separated from their
    <a data-lt="concept item">items</a>:</p>
@@ -522,7 +515,7 @@
   <p>An <a data-lt="concept item">item</a> can have multiple properties with the same name and
   different values.</p>
 
-  <div class="example">
+  <div class="example" id="ex-multiprops">
 
    <p>This example describes an ice cream, with two flavors:</p>
 
@@ -542,7 +535,7 @@
   <p>An element introducing a property can also introduce multiple properties at once, to avoid
   duplication when some of the properties have the same value.</p>
 
-  <div class="example">
+  <div class="example" id="ex-multival">
 
    <p>Here we see an item with two properties, "favorite-color" and "favorite-fruit", both set to
    the value "orange":</p>
@@ -556,7 +549,7 @@
   <p>It's important to note that there is no relationship between the Microdata and the content of
   the document where the Microdata is marked up.</p>
 
-  <div class="example">
+  <div class="example" id="ex-model-not-content">
 
    <p>The following two examples are exactly the same Microdata, because they produce exactly the same information when processed:</p>
 
@@ -597,7 +590,7 @@
   <code><a>itemtype</a></code> attribute on the same element as the
   <code><a>itemscope</a></code> attribute. The value is a URL, which determines the <a>vocabulary identifier</a> for properties</p>
 
-  <div class="example">
+  <div class="example" id="ex-types">
 
    <p>Assuming a page at http://example.net/some/dataexample contains the following code:</p>
 
@@ -647,7 +640,7 @@
   <p>The <code><a>itemid</a></code> attribute associates an <a data-lt="concept item">item</a> with a global identifier
   in the form of a <a data-lt="URL">URL</a>.</p>
 
-  <div class="example">
+  <div class="example" id="ex-itemid">
 
    <p>Here, an item is talking about a particular book:</p>
 
@@ -670,7 +663,7 @@
 <h3>Selecting names when defining vocabularies</h3>
 
   <p><i>This section is non-normative.</i></p>
-  <p>Using Microdata means using a vocabulary. For some purposes an ad-hoc vocabulary is adequate, 
+  <p>Using Microdata means using a vocabulary. For some purposes an ad-hoc vocabulary is adequate,
   but authors are encouraged to re-use existing vocabularies to make content re-use easier.</p>
 
   <p>When designing new vocabularies, identifiers can be created either using
@@ -678,7 +671,7 @@
   conflicts with other vocabularies can be avoided by only using identifiers that correspond to
   pages that the author has control over.</p>
 
-  <div class="example">
+  <div class="example" id="ex-deduping">
 
    <p>For instance, if Jon and Adam both write content at <code>example.com</code>, at
    <code>http://example.com/~jon/...</code> and <code>http://example.com/~adam/...</code> respectively, then
@@ -695,7 +688,7 @@
   limited use. Generally speaking, authors are encouraged to use either properties with globally
   unique names (URLs) or ensure that their items are typed.</p>
 
-  <div class="example">
+  <div class="example" id="ex-bigexample">
 
    <p>Here, an item in the page http://example.net/some/dataexample is an "http://myvocab.example.org/animals/cat",
    and most of the properties have names defined in the context of that type.
@@ -796,7 +789,7 @@
     <dt>Otherwise</dt>
      <dd>Append a SOLIDUS U+002F ("/") to the value, and append the resulting string to <var>potential values</var></dd>
     </dl></li>
-   <li>If there is only one unique value in <var>potential values</value> return that value. Otherwise return the 
+   <li>If there is only one unique value in <var>potential values</value> return that value. Otherwise return the
     first item in <var>potential values</var>.</li>
   </li>
 </ul>
@@ -844,7 +837,7 @@
 
   <hr>
 
-  <div class="example">
+  <div class="example" id="ex-vocabs">
 
    <p>This example shows Microdata used to describe model railway products.
      manufacturer. The <a>vocabulary identifier</a> is <samp>https://md.example.com/</samp>.
@@ -957,23 +950,23 @@
     <dt>If the value is a repeated occurrence of an earlier value</dt>
      <dd>discard it and process the next value</dd>
     <dt>If the value is an <a>absolute URL</a></dt>
-     <dd>append it to <var>properties</var>, then process the next value</dd> 
+     <dd>append it to <var>properties</var>, then process the next value</dd>
     <dt>Otherwise, if the the element is a <a>typed item</a>:</dt>
      <dd>Append the value to the <a>vocabulary identifier</a> for the item. If the the resulting value
-      does not match any value in <var>properties</var>, then append it to <var>properties</var>, 
+      does not match any value in <var>properties</var>, then append it to <var>properties</var>,
       and process the next value.</dd>
     <dt>Otherwise</dt>
      <dd>append the value to <var>properties</var> and process the next value.</dd>
    </dl>
    </li>
 
-   <li>If <var>properties</var> is not empty, return <var>properties</var>.</li> 
+   <li>If <var>properties</var> is not empty, return <var>properties</var>.</li>
   </ul>
 
   <p>Within an <a data-lt="concept item">item</a>, the properties are unordered with respect to
   each other and authors must not rely on order in markup being preserved.</p>
 
-  <div class="example">
+  <div class="example" id="ex-unordered">
 
    <p>In the following example, the orer of the "a" and "b" properties is not important,
      as it is not guaranteed to be preserved in the resulting microdata:</p>
@@ -1007,7 +1000,7 @@
   <p>The <code><a>itemref</a></code> attribute must not be specified on elements that
   do not have an <code><a>itemscope</a></code> attribute specified.</p>
 
-  <div class="example">
+  <div class="example" id="ex-itemref2">
 
    <p>The preceding example:</p>
 
@@ -1034,7 +1027,7 @@
   to multiple <a data-lt="concept item">items</a>, the requirement above regarding the tokens applies for each
   <a data-lt="concept item">item</a> individually.</p>
 
-  <div class="example">
+  <div class="example" id="ex-2refs">
 
      <p>For the following code:</p>
 
@@ -1052,10 +1045,10 @@
 </section>
 
 <section id="values">
-<h3>Values: the <dfn><code>content</code></dfn> attribute, element-specific attributes and element content</h3>
+<h3><dfn data-lt="property value">Values</dfn>: the <dfn><code>content</code></dfn> attribute, element-specific attributes and element content</h3>
 
 
-  <p>The algorithm to determine the <dfn data-lt="property value">value</dfn> for a name-value pair
+  <p>The <dfn>algorithm to determine the value</dfn> for a name-value pair
   is given by applying the first matching case in the following list:</p>
 
   <dl class="switch">
@@ -1073,7 +1066,7 @@
     <p>The value is the <a>textContent</a> of the element's <a>content</a> attribute.</p>
    </dd>
    <dd>
-    <p class="note">HTML only allows the <a>content</a> attribute on the <code>meta</code> element. 
+    <p class="note">HTML only allows the <a>content</a> attribute on the <code>meta</code> element.
     This specification changes the content model to allow it on any element, as a <a>global attribute</a>.</p>
    </dd>
 
@@ -1143,13 +1136,14 @@
   syntax for a URL. They only apply if the property is explicitly defined as taking such a
   value.</p>
 
-  <p class="example">For example, a book about the first moon landing <!-- 1969-07-20 --> could be
-  called "mission:moon". A "title" property from a vocabulary that defines a title as being a string
-  would not expect the title to be given in an <code>a</code> element, even though it looks like a
-  <a>URL</a>. On the other hand, if there was a (rather narrowly scoped!) vocabulary for
-  "books whose titles look like URLs" which had a "title" property whose content was defined as a URL, then the
-  property <em>would</em> expect the title to be given in an <code>a</code> element (or one of the
-  other <a>URL property elements</a>), because of the requirement above.</p>
+  <p class="example" id="ex-likeurl">For example, a book about the first moon landing,
+  on the 20th of July 1967 could be called "mission:moon".
+  A "title" property from a vocabulary that defines a title as a string
+  would not expect the title to be given in an <code>a</code> element, even though it is a valid
+  <a>URL</a>. On the other hand, if there was a vocabulary for
+  "books whose titles look like URLs", whose "title" property whose content was defined as a URL,
+  the property <em>would</em> expect the title to be given in an <code>a</code> element
+  (or one of the other <a>URL property elements</a>), because of the requirement above.</p>
 </section>
 
 <section id="associating-names-with-items">
@@ -1201,7 +1195,7 @@
 
   </ol>
 
-  <p>A document must not contain any <a data-lt="concept item">items</a> for which the algorithm
+  <p>A document must not contain any <a data-lt="concept item">items</a> for which the
   to find <a data-lt="item properties">the properties of an item</a> finds any
   <dfn>Microdata Error</dfn>.</p>
 
@@ -1218,7 +1212,7 @@
   that would not be a property of any <a data-lt="concept item">item</a>
   in that document were the <a data-lt="item properties">properties</a> all to be determined.</p>
 
-  <div class="example">
+  <div class="example" id="ex-licenses">
 
    <p>In this example, a single license statement is applied to two works, using
    <code><a>itemref</a></code> from the items representing the works:</p>
@@ -1287,11 +1281,11 @@
 
   <p>Microdata information can readily be expressed in a JSON form, including the JSON-LD format for RDF.
   This specification does not seek to limit such conversions, but other than defining a minimal conversion to RDFa
-  which can be used to generate JSON-LD since they are both formally syntaces to express RDF, defines a "reference format". 
+  which can be used to generate JSON-LD since they are both formally syntaces to express RDF, defines a "reference format".
   No current implemetation use of this format is known, but it is presented here for historical information.</p>
-  
+
   <p>Given a list of nodes <var>nodes</var> in a <code>Document</code>, a user agent must
-  run the following algorithm to extract the Microdata expressed as <a>application/microdata+json</a>:</p>
+  run the following <dfn data-lt="json-conversion-algorithm">algorithm to extract the Microdata</dfn> expressed as <a>application/microdata+json</a>:</p>
 
   <ol>
 
@@ -1386,7 +1380,7 @@
 
   </ol>
 
-  <div class="example">
+  <div class="example" id="ex-jsonconv">
 
    <p>For example, take this markup:</p>
 
@@ -1480,19 +1474,23 @@
     <h3>RDFa</h3>
 
     <p>Almost all <a>typed item</a>s can be easily converted to RDFa.
-      This is useful for example to support better internationalization, or to include markup in the resulting data, 
+      This is useful for example to support better internationalization, or to include markup in the resulting data,
       beyond the capabilities of microdata. This specification defines a minimal conversion to the RDFa-Lite dialect of RDFa.
       which uses a subset of the RDFa functionality. A richer conversion that leverages synergies from using microdata in HTML
       is described in <a href="https://www.w3.org/TR/microdata-rdf">Microdata to RDF</a>. [[microdata-rdf]]<p>
-      
-      <p>To <dfn data-lt="microdata to rdfa">convert a Microdata <a>item</a> to RDFa</dfn> the result must include
+
+      <p>To <dfn data-lt="microdata-to-rdfa">convert a Microdata <a>item</a> to RDFa</dfn> the result must include
       the triples produced by applying the following algorithm:</p>
 
     <ol>
       <li>For each element having an <a>itemscope</a> attribute:
         <ol>
-          <li>Replace the <a>itemscope</a> attribute with a <code>vocab</code> attribute, whose value is the <a>vocabulary identifier</a> for the item.</li>
-          <li>Replace any <a>itemtype</a> attribute with a <code>typeof</code> attribute whose value is taken from the values of <a>itemtype</a> where each type is made relative to <a>vocabulary identifier, ensuring that the element has a <code>typeof</code> attribute with at least an empty value.</a>.
+          <li>Replace the <a>itemscope</a> attribute with a <code>vocab</code> attribute,
+             whose value is the <a>vocabulary identifier</a> for the item.</li>
+          <li>Replace any <a>itemtype</a> attribute with a <code>typeof</code> attribute,
+            whose value is taken from the values of <a>itemtype</a>
+            where each type is made relative to the <a>vocabulary identifier</a>,
+            ensuring that the element has a <code>typeof</code> attribute with at least an empty value.
           </li>
           <li>Replace any <a>itemid</a> attribute with a
             <code>resource</code> attribute having the same value.</li>
@@ -1527,11 +1525,11 @@
     </ol>
 
     <p class="note">There is significant scope for optimising this algorithm, which may result in redundant <code>vocab</code>
-      declarations in particular.</p> 
+      declarations in particular.</p>
 
     <div class="example">
-    
-      <p>The example of date for a model locomotive given above would be converted to the folling RDFa:</p>
+
+      <p>The <a href="#ex-vocabs">example data for a model locomotive</a> given above would be converted to the folling RDFa:</p>
 
       <pre class="html">&lt;dl vocab="http://md.example.com/" typeof="loco"&gt;
  &lt;span rel="rdf:type" resource="http://md.example.com/lighting"&gt;&lt;/span&gt;
@@ -1681,13 +1679,18 @@
     <h2>Microdata and RDF</h2>
     <p><i>This section is not normative</i></p>
     <p>Microdata has limited expressivity. There are only two types of data - text strings, and URLs, and microdata
-      does not have a mechanism to describe further datatypes such as numbers or fragments of markup in an interoperable way,
-      unlike RDF formats including RDFa.</p>
-    <p>Information expressed as Microdata can be converted to RDFa as described in
-      <a href="#converting-html-to-other-formats">Section 6</a>, if additional constraints are applied to the Microdata content.
-      A richer process to convert Microdata to RDF, with simple enhancements of its semantic richness, is described in
-      <a href="https://www.w3.org/TR/microdata-rdf">Microdata to RDF</a>.
-      [[JSON-LD]] [[rdfa-core]] [[microdata-rdf]]</p>
+      does not have a mechanism to describe further datatypes such as numbers or fragments of markup in an interoperable way, or include information such as language,
+      unlike RDF formats including RDFa.
+      To support retaining markup structure, internationalization information, or for more expressivity,
+      authors should consider using [[JSON-LD]] or [[rdfa-core]] instead of, or as well as, microdata.
+    </p>
+
+      <p>Information expressed as Microdata can be converted to <a href="#rdfa">RDFa</a> as described in
+      <a href="#microdata-to-rdfa">Section 6</a>. [[rdfa-core]],
+      A richer process to convert Microdata to RDF, that extends the minimal one required by this specification,
+      is described in <a href="https://www.w3.org/TR/microdata-rdf">Microdata to RDF</a>.
+      [[microdata-rdf]]</p>
+
   </section>
 
   <section id="a11y-considerations">
@@ -1697,21 +1700,21 @@
     about content that is processed by tools to improve accessibility.</p>
   <p>When editing content that contains Microdata, authors should consider the possibility that this is the case.
     Authoring and content management tools should implement the Authoring Tool Accessibility Guidelines,
-    and in this context note Guideline 
-    <a href="https://www.w3.org/TR/ATAG20/#gl_b12">B1.1.2 - Ensure Accessibility Information is Preserved</a>, 
+    and in this context note Guideline
+    <a href="https://www.w3.org/TR/ATAG20/#gl_b12">B1.1.2 - Ensure Accessibility Information is Preserved</a>,
     if applicable drawing attention to the fact that changes in content may mean the encoded metadata is not accurate. [[ATAG20]]</p>
   <p>Authors should be aware that a great deal of accessibility information is ignored in extracting Microdata,
-    including attributes such as <code>alt</code> and ARIA information. Authors should consider whether to 
+    including attributes such as <code>alt</code> and ARIA information. Authors should consider whether to
     encode accessibility information explicitly, or to use a more expressive approach such as RDFa. [[rdfa-core]]
   </section>
 
   <section id="i18n-considerations">
   <h2>Internationalisation and localisation</h2>
   <p><i>This section is not normative</i></p>
-  <p>Microdata does not preserve internationalization-related information in the source document, 
+  <p>Microdata does not preserve internationalization-related information in the source document,
     except if it is specifically encoded as Microdata.
     In that case it is important to pay attention when editing the source document, as with accessibility,
-    to avoid introducing errors that are only reflected in the microdata. 
+    to avoid introducing errors that are only reflected in the microdata.
     This approach also has the disadvantage that the representation of such information is not based on an established standard,
     so it may not be understood by downstream processors and users of the information.</p>
   <p>Machine-readable data may be presented to users, for example by search engines. Internationalization information
@@ -1837,22 +1840,22 @@
   <p>An exact history of changes to the text is available in the <a href="https://github.com/w3c/microdata/commits">Github commit log</a>.
   The following information is provided as an overview of the substantive changes made to the specification between each publication.</p>
 
-    
+
   <p>Changes made between the current draft
     and the <a href="https://www.w3.org/TR/2017/WD-microdata-20171010/">third Working Draft</a>:</p>
-    
+
   <ul>
     <li>Specify that properties and their values are unordered.</li>
     <li>Remove the Microdata to JSON-LD conversion.</li>
     <li>Mark Microdata to JSON conversion as an obsolete but conforming feature.</li>
-    </ul>  
-    
+    </ul>
+
   <p>Changes made between the <a href="https://www.w3.org/TR/2017/WD-microdata-20171010/">third Working Draft</a>
     and the <a href="https://www.w3.org/TR/2017/WD-microdata-20170626/">second Working Draft</a>:</p>
-    
+
   <ul>
     <li>Add a section describing how to convert <a href="#rdfa">microdata to RDFa</a>.</li>
-    <li>Add a section describing how to convert <a id="#jsonLD">microdata to JSON-LD</a>.</li>
+    <li>Add a section describing how to convert microdata to JSON-LD (now removed).</li>
     <li><a>itemid</a> may be specified on an element with an <a>itemscope</a> attribute, not just a <a>typed item</a></li>
   </ul>
 
@@ -1866,10 +1869,12 @@
    <li>Remove section "Microdata and other namespaces" which implied that Microdata would not work in other namespaces. Because it does.</li>
    <li>Allow the <code>content</code> attribute on any element where an <a>itemprop</a> attribute is present,
      to provide a readable value for a property.</li>
-   <li>Adjust the algorithm for determining the <a>value</a> of a name-value pair, to match implementation:
+   <li>Adjust the algorithm for determining the
+     <a data-lt="property value">value</a> of a name-value pair, to match implementation:
      <ul><li><code>data</code>, <code>meter</code>, and <code>time</code> elements' <a>textContent</a> is used
-       if they do not have an attribute that supplies the <a>value</a>.</li>
-       <li>If there is a <code>content</code> attribute present, it provides the <a>value</a>.</li></ul></li>
+       if they do not have an attribute that supplies the <a data-lt="property value">value</a>.</li>
+       <li>If there is a <code>content</code> attribute present, it provides the
+         <a data-lt="property value">value</a>.</li></ul></li>
     <li>Added non-normative sections for <a href="#a11y-considerations">Accessibility and Microdata</a>,
       <a href="i18n-considerations">Internationalisation and localisation</a>, <a href="#privacy-considerations">Privacy</a>,
       and <a href="#security-considerations">Security Considerations</a>.
@@ -1892,13 +1897,14 @@
   <p>The original specification for Microdata was developed by Ian Hickson. Without him this specification would not exist.
   Uptake has substantially been driven by its use for the schema.org vocabulary.</p>
 
-  <p>The current editors would like to thank the following people for direct contributions to this work:</p>
+  <p>The current editors would particularly like to thank Gregg Kellogg and Ivan Herman for invaluable
+    help including providing implementation experience and testing during the development of this specification.</p>
+  <p>In addition thanks are due to the following people whose direct contributions have helped improve this work:</p>
 
   <p>
+Addison Phillips,
 Bruce Lawson,
 Christine Runnegar,
-Gregg Kellogg,
-Ivan Herman,
 Jeni Tennison,
 Jens Oliver Meiert,
 Léonie Watson,
@@ -1906,9 +1912,11 @@ Manu Sporny,
 Marcos Cáceres,
 Markus Lanthaler,
 Nick Doty,
-Nick Levinson,    
+Nick Levinson,
 Philippe Le Hégaret,
 Ralph Swick,
+Richard Ishida,
+Rob Sanderson,
 Robin Berjon,
 Shane McCarron,
 Tab Atkins,
@@ -1919,6 +1927,8 @@ Xiaoqian Wu,
 Yves Lafon.
   </p>
 
+  <p>The editors apologise to people whose names have undeservedly been missed in this list.</p>
+
   </section>
-  
+
 </body></html>
