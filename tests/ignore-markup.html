@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ignoring markup - Microdata test</title>
+  </head>
+  <body>
+<div itemscope itemtype="https://schema.org/Person">
+ <p>My <em>name</em> is
+  <span itemprop="name">E<strong>liz</strong>abeth</span>.</p>
+</div>
+
+<section>
+ <div itemscope itemtype="https://schema.org/Person">
+  <aside>
+   <p>My name is
+    <span itemprop="name"><a href="/?user=daniel">Daniel</a></span>.</p>
+  </aside>
+ </div>
+</section>  </body>
+</html>
